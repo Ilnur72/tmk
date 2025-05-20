@@ -1,0 +1,747 @@
+<html xmlns='http://www.w3.org/1999/xhtml' class='opacity-0' lang='en'>
+  <!-- BEGIN: Head -->
+
+  <head>
+    <meta charset='utf-8' />
+    <meta
+      name='csrf-token'
+      content='ceKdwoQjZ4VuoGqoSQaSREwB7MD9sjwFnfhlp7MH'
+    />
+    <meta name='viewport' content='width=device-width, initial-scale=1' />
+    <meta
+      name='description'
+      content='Midone admin is super flexible, powerful, clean & modern responsive tailwind admin template with unlimited possibilities.'
+    />
+    <meta
+      name='keywords'
+      content='admin template, midone Admin Template, dashboard template, flat admin template, responsive admin template, web app'
+    />
+    <meta name='author' content='LEFT4CODE' />
+    <title>
+      Онлайн ҳарита лойиҳалари
+    </title>
+    <!-- BEGIN: CSS Assets-->
+    <link rel='stylesheet' href='../../../public/css/vendors/tippy.css' />
+    <link rel='stylesheet' href='../../../public/css/vendors/litepicker.css' />
+    <link rel='stylesheet' href='../../../public/css/vendors/tiny-slider.css' />
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link
+      rel='stylesheet'
+      href='../../../public/css//themes/rubick/side-nav.css'
+    />
+    <link rel='stylesheet' href='../../../public/css/vendors/leaflet.css' />
+    <link rel='stylesheet' href='../../../public/css/vendors/simplebar.css' />
+
+    <link
+      rel='stylesheet'
+      href='../../../public/css/components/mobile-menu.css'
+    />
+    <link rel='stylesheet' href='../../../public/css/app.css' />
+    <!-- END: CSS Assets-->
+    <link
+      href='https://unpkg.com/maplibre-gl@5.3.1/dist/maplibre-gl.css'
+      rel='stylesheet'
+    />
+
+    <style>
+      #map { width: 100%; height: 100vh; } #marker { background-image:
+      url('https://maplibre.org/maplibre-gl-js/docs/assets/washington-monument.jpg');
+      background-size: cover; width: 50px; height: 50px; border-radius: 50%;
+      cursor: pointer; }.rounded-rect { background: white; border-radius: 10px;
+      box-shadow: 0 0 50px -25px black; }.flex-center { position: absolute;
+      display: flex; padding-left: 10px; margin-top: 10px; }.flex-center.left {
+      left: 0px; }.flex-center.right { right: 0px; }.sidebar-content { position:
+      absolute; width: 95%; height: 95%; color: gray; }.sidebar-toggle {
+      position: absolute; width: 1.3em; height: 1.3em; overflow: visible;
+      display: flex; justify-content: center; align-items: center;
+      }.sidebar-toggle.left { right: -1.5em; }.sidebar-toggle.right { left:
+      -1.5em; }.sidebar-toggle:hover { color: #0aa1cf; cursor: pointer;
+      }.sidebar { transition: transform 1s; z-index: 1; width: 300px; height:
+      100%; }.left.collapsed { transform: translateX(-295px); }.right.collapsed
+      { transform: translateX(295px); }
+    </style>
+  </head>
+  <!-- END: Head -->
+
+  <body>
+    <div>
+      <div
+        data-tw-backdrop=''
+        aria-hidden='true'
+        tabindex='-1'
+        id='theme-switcher'
+        class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&:not(.show)]:duration-[0s,0.2s] [&:not(.show)]:delay-[0.2s,0s] [&:not(.show)]:invisible [&:not(.show)]:opacity-0 [&.show]:visible [&.show]:opacity-100 [&.show]:duration-[0s,0.4s]'
+      >
+        <div
+          data-tw-merge=''
+          class='w-[90%] ml-auto h-screen flex flex-col bg-white relative shadow-md transition-[margin-right] duration-[0.6s] -mr-[100%] group-[.show]:mr-0 dark:bg-darkmode-600 sm:w-[460px]'
+        >
+          <a
+            class='absolute inset-y-0 left-0 right-auto my-auto -ml-[60px] flex h-8 w-8 items-center justify-center rounded-full border border-white/90 bg-white/5 text-white/90 transition-all hover:rotate-180 hover:scale-105 hover:bg-white/10 focus:outline-none sm:-ml-[105px] sm:h-14 sm:w-14'
+            data-tw-dismiss='modal'
+            href='javascript:;'
+          >
+            <i
+              data-tw-merge=''
+              data-lucide='x'
+              class='h-3 w-3 stroke-[1] sm:h-8 sm:w-8'
+            ></i>
+          </a>
+          <div data-tw-merge='' class='overflow-y-auto flex-1 p-0'>
+            <div class='flex flex-col'>
+              <div class='border-b border-dashed'></div>
+              <div class='px-8 pb-8 pt-6'>
+                <div class='text-base font-medium'>
+                  Accent Colors
+                </div>
+                <div class='mt-0.5 text-slate-500'>
+                  Choose your accent color
+                </div>
+                <div class='mt-5 grid grid-cols-2 gap-3.5'>
+                  <div>
+                    <a
+                      data-theme-color='default'
+                      class='h-14 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div class='h-full overflow-hidden rounded-md'>
+                        <div class='-mx-2 flex h-full items-center gap-1'>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-1 rotate-12 default'
+                          ></div>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-2 rotate-12 default'
+                          ></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      data-theme-color='theme-1'
+                      class='h-14 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div class='h-full overflow-hidden rounded-md'>
+                        <div class='-mx-2 flex h-full items-center gap-1'>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-1 rotate-12 theme-1'
+                          ></div>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-2 rotate-12 theme-1'
+                          ></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      data-theme-color='theme-2'
+                      class='h-14 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div class='h-full overflow-hidden rounded-md'>
+                        <div class='-mx-2 flex h-full items-center gap-1'>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-1 rotate-12 theme-2'
+                          ></div>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-2 rotate-12 theme-2'
+                          ></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      data-theme-color='theme-3'
+                      class='h-14 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div class='h-full overflow-hidden rounded-md'>
+                        <div class='-mx-2 flex h-full items-center gap-1'>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-1 rotate-12 theme-3'
+                          ></div>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-2 rotate-12 theme-3'
+                          ></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                  <div>
+                    <a
+                      data-theme-color='theme-4'
+                      class='h-14 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div class='h-full overflow-hidden rounded-md'>
+                        <div class='-mx-2 flex h-full items-center gap-1'>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-1 rotate-12 theme-4'
+                          ></div>
+                          <div
+                            class='w-1/2 h-[200%] bg-theme-2 rotate-12 theme-4'
+                          ></div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class='border-b border-dashed'></div>
+              <div class='px-8 pb-8 pt-6'>
+                <div class='text-base font-medium'>
+                  Appearance
+                </div>
+                <div class='mt-0.5 text-slate-500'>
+                  Choose your appearance
+                </div>
+                <div class='mt-5 grid grid-cols-2 gap-3.5'>
+                  <div>
+                    <a
+                      data-appearance-mode='light'
+                      class='h-12 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div
+                        class='h-full overflow-hidden rounded-md bg-slate-200'
+                      ></div>
+                    </a>
+                    <div class='mt-2.5 text-center text-xs capitalize'>
+                      Light
+                    </div>
+                  </div>
+                  <div>
+                    <a
+                      data-appearance-mode='dark'
+                      class='h-12 cursor-pointer bg-slate-50 box p-1 border-slate-300/80 block [&.active]:border-2 [&.active]:border-theme-1/60'
+                    >
+                      <div
+                        class='h-full overflow-hidden rounded-md bg-slate-900'
+                      ></div>
+                    </a>
+                    <div class='mt-2.5 text-center text-xs capitalize'>
+                      Dark
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class='fixed bottom-0 right-0 z-50 mb-5 mr-5 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-theme-1 text-white shadow-lg'
+        data-tw-toggle='modal'
+        data-tw-target='#theme-switcher'
+      >
+        <i
+          data-tw-merge=''
+          data-lucide='settings'
+          class='stroke-1.5 w-5 h-5 animate-spin'
+        ></i>
+      </div>
+    </div>
+    <div
+      class="rubick px-5 sm:px-8 py-5 before:content-[''] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 dark:before:from-darkmode-800 dark:before:to-darkmode-800 before:fixed before:inset-0 before:z-[-1]"
+    >
+      <!-- BEGIN: Mobile Menu -->
+      <div
+        class="mobile-menu group top-0 inset-x-0 fixed bg-theme-1/90 z-[60] border-b border-white/[0.08] dark:bg-darkmode-800/90 md:hidden before:content-[''] before:w-full before:h-screen before:z-10 before:fixed before:inset-x-0 before:bg-black/90 before:transition-opacity before:duration-200 before:ease-in-out before:invisible before:opacity-0 [&.mobile-menu--active]:before:visible [&.mobile-menu--active]:before:opacity-100"
+      >
+        <div class='flex h-[70px] items-center px-3 sm:px-8'>
+          <a class='mr-auto flex' href=''>
+            <img
+              class='w-16'
+              src='../../../public/image/logo-full-w.png'
+              alt='TMK'
+            />
+          </a>
+          <a class='mobile-menu-toggler' href='#'>
+            <i
+              data-tw-merge=''
+              data-lucide='bar-chart2'
+              class='stroke-1.5 h-8 w-8 -rotate-90 transform text-white'
+            ></i>
+          </a>
+        </div>
+        <div
+          class='scrollable h-screen z-20 top-0 left-0 w-[270px] -ml-[100%] bg-primary transition-all duration-300 ease-in-out dark:bg-darkmode-800 [&[data-simplebar]]:fixed [&_.simplebar-scrollbar]:before:bg-black/50 group-[.mobile-menu--active]:ml-0'
+        >
+          <a
+            href='#'
+            class='fixed top-0 right-0 mt-4 mr-4 transition-opacity duration-200 ease-in-out invisible opacity-0 group-[.mobile-menu--active]:visible group-[.mobile-menu--active]:opacity-100'
+          >
+            <i
+              data-tw-merge=''
+              data-lucide='x-circle'
+              class='stroke-1.5 mobile-menu-toggler h-8 w-8 -rotate-90 transform text-white'
+            ></i>
+          </a>
+          <ul class='py-2'>
+            <!-- BEGIN: First Child -->
+            <li>
+              <a class='menu menu--active' href='javascript:;'>
+                <div class='menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='home'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='menu__title'>
+                  Dashboard
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a class='menu' href='rubick-side-menu-inbox-page.html'>
+                <div class='menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='inbox'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='menu__title'>
+                  Inbox
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class='menu' href='rubick-side-menu-file-manager-page.html'>
+                <div class='menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='hard-drive'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='menu__title'>
+                  File Manager
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class='menu' href='rubick-side-menu-point-of-sale-page.html'>
+                <div class='menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='credit-card'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='menu__title'>
+                  Point of Sale
+                </div>
+              </a>
+            </li>
+            <li>
+              <a class='menu' href='rubick-side-menu-chat-page.html'>
+                <div class='menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='message-square'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='menu__title'>
+                  Chat
+                </div>
+              </a>
+            </li>
+
+            <!-- END: First Child -->
+          </ul>
+        </div>
+      </div>
+      <!-- END: Mobile Menu -->
+      <div class='mt-[4.7rem] flex md:mt-0'>
+        <!-- BEGIN: Side Menu -->
+        <nav
+          class='side-nav hidden w-[80px] overflow-x-hidden pb-16 pr-5 md:block xl:w-[230px]'
+        >
+          <a class='flex items-center pt-4 pl-5 intro-x' href=''>
+            <img
+              class='w-42'
+              src='../../../public/image/logo-full-w.png'
+              alt='TMK'
+            />
+          </a>
+          <div class='my-6 side-nav__divider'></div>
+          <ul>
+            <li>
+              <a href='/' class='side-menu side-menu--active'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='home'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Лойиҳалар ҳаритаси
+                </div>
+              </a>
+            </li>
+
+            <li>
+              <a href='/factory/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Briefcase'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Инвестиция лойиҳалари
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/production/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Git-Pull-Request'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Ишлаб чиқариш
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/sales/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Bar-Chart'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Сотув кўрсаткичлари
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/finance/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Bar-Chart2'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Молиявий кўрсаткичлар
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/employers/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Users'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Ходимлар
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/techniques/' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='Codepen'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Техникалар
+                </div>
+              </a>
+            </li>
+            <li>
+              <a href='/login' class='side-menu'>
+                <div class='side-menu__icon'>
+                  <i
+                    data-tw-merge=''
+                    data-lucide='toggle-right'
+                    class='stroke-1.5 w-5 h-5'
+                  ></i>
+                </div>
+                <div class='side-menu__title'>
+                  Тизимдан чиқиш
+                </div>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- END: Side Menu -->
+        <!-- BEGIN: Content -->
+        {{{body}}}
+        <!-- END: Content -->
+      </div>
+    </div>
+    <!-- BEGIN: Vendor JS Assets-->
+    <script src='../../../public/js/vendors/dom.js'></script>
+    <script src='../../../public/js/vendors/tailwind-merge.js'></script>
+    <script src='../../../public/js/vendors/lucide.js'></script>
+    <script src='../../../public/js/vendors/tippy.js'></script>
+    <script src='../../../public/js/vendors/dayjs.js'></script>
+    <script src='../../../public/js/vendors/litepicker.js'></script>
+    <script src='../../../public/js/vendors/popper.js'></script>
+    <script src='../../../public/js/vendors/dropdown.js'></script>
+    <script src='../../../public/js/vendors/tiny-slider.js'></script>
+    <script src='../../../public/js/vendors/transition.js'></script>
+    <script src='../../../public/js/vendors/chartjs.js'></script>
+    <script src='../../../public/js/vendors/leaflet-map.js'></script>
+    <script src='../../../public/js/vendors/axios.js'></script>
+    <script src='../../../public/js/utils/colors.js'></script>
+    <script src='../../../public/js/utils/helper.js'></script>
+    <script src='../../../public/js/vendors/simplebar.js'></script>
+    <script src='../../../public/js/vendors/modal.js'></script>
+    <script src='../../../public/js/components/base/theme-color.js'></script>
+    <script src='../../../public/js/components/base/lucide.js'></script>
+    <script src='../../../public/js/components/base/tippy.js'></script>
+    <script src='../../../public/js/components/base/litepicker.js'></script>
+    <script src='../../../public/js/components/report-line-chart.js'></script>
+    <script src='../../../public/js/components/report-pie-chart.js'></script>
+    <script src='../../../public/js/components/report-donut-chart.js'></script>
+    <script
+      src='../../../public/js/components/report-donut-chart-1.js'
+    ></script>
+    <script src='../../../public/js/components/simple-line-chart-1.js'></script>
+    <script src='../../../public/js/components/line-chart.js'></script>
+    <script src='../../../public/js/components/base/tiny-slider.js'></script>
+    <script src='../../../public/js/themes/rubick.js'></script>
+    {{!
+  <script src="../../../public/js/components/base/leaflet-map-loader.js"></script> }}
+    <script src='../../../public/js/components/mobile-menu.js'></script>
+    <script
+      src='../../../public/js/components/themes/rubick/top-bar.js'
+    ></script>
+    <!-- END: Vendor JS Assets-->
+    <!-- BEGIN: Pages, layouts, components JS Assets-->
+    <!-- END: Pages, layouts, components JS Assets-->
+    <script
+      src='https://unpkg.com/maplibre-gl@5.3.1/dist/maplibre-gl.js'
+    ></script>
+   <script>
+    const vectorStyle = 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6';
+
+    const satelliteStyle = {
+        version: 8,
+        sources: {
+            esri: {
+                type: 'raster',
+                tiles: [
+                    'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+                ],
+                tileSize: 256,
+                attribution: 'Tiles © Esri, Maxar, Earthstar Geographics, and the GIS User Community'
+            }
+        },
+        layers: [
+            {
+                id: 'esri-satellite',
+                type: 'raster',
+                source: 'esri',
+                minzoom: 0,
+                maxzoom: 22
+            }
+        ]
+    };
+
+    const map = new maplibregl.Map({
+        container: 'map',
+        style: vectorStyle,
+        center: [69.2401, 41.2995], // Tashkent
+        zoom: 6
+    });
+
+    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+
+    class LayerToggleControl {
+        onAdd(map) {
+            this._map = map;
+            this._isSatellite = false;
+
+            this._btn = document.createElement('button');
+            this._btn.className = 'maplibregl-ctrl-icon';
+            this._btn.type = 'button';
+            this._btn.title = 'Toggle Satellite';
+            this._btn.innerHTML = '🛰️';
+
+            this._btn.onclick = () => {
+                map.setStyle(this._isSatellite ? vectorStyle : satelliteStyle);
+                this._isSatellite = !this._isSatellite;
+            };
+
+            const container = document.createElement('div');
+            container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+            container.appendChild(this._btn);
+            return container;
+        }
+
+        onRemove() {
+            this._btn.remove();
+            this._map = undefined;
+        }
+    }
+
+    map.addControl(new LayerToggleControl(), 'top-right');
+
+
+
+    let markers = [];
+    function toggleSidebar(id) {
+        const elem = document.getElementById(id);
+        const classes = elem.className.split(' ');
+        const collapsed = classes.indexOf('collapsed') !== -1;
+
+        const padding = {};
+
+        if (collapsed) {
+            // Remove the 'collapsed' class from the class list of the element, this sets it back to the expanded state.
+            classes.splice(classes.indexOf('collapsed'), 1);
+
+            padding[id] = 300; // In px, matches the width of the sidebars set in .sidebar CSS class
+            map.easeTo({
+                padding,
+                duration: 1000 // In ms, CSS transition duration property for the sidebar matches this value
+            });
+        } else {
+            padding[id] = 0;
+            // Add the 'collapsed' class to the class list of the element
+            classes.push('collapsed');
+
+            map.easeTo({
+                padding,
+                duration: 1000
+            });
+        }
+
+        // Update the class list on the element
+        elem.className = classes.join(' ');
+    }
+
+    // Add markers to map and populate sidebar
+    map.on('load', () => {
+        toggleSidebar('left');
+        const markerList = document.getElementById('markerList');
+        let locations = [];
+        let pathname = '/factory/marker';
+        if(window.location.pathname === '/') pathname = '/factory/marker';
+        if(window.location.pathname === '/techniques/') pathname = '/techniques/marker';
+        fetch(pathname)
+            .then(response => response.json())
+            .then(data => {
+              data.forEach(item => {
+                if (item.coords && typeof item.coords === 'string') {
+                  item.coords = JSON.parse(item.coords.replace(/'/g, '"')); // stringni massivga aylantirish
+                }
+              });              
+              locations = data
+                initializeMarkers(); // Call a function to initialize markers after data is loaded
+            })
+            .catch(error => console.error('Error fetching locations:', error));
+        function initializeMarkers() {
+            const markerList = document.getElementById('markerList');
+            let list_data = '';
+            locations.forEach((loc, index) => {
+                const popupContent = `
+    <div style="width: 600px;background: white; padding: 10px; border-radius: 5px;">
+      <h2 style="margin: 0; color: #2c3e50;">${loc.name}</h2>
+      <p style="margin: 5px 0; font-size: 1.4em;">Лойиҳа ва объект бўйича маълумот</p>
+      <p style="margin: 5px 0; font-size: 1.4em;">Қурилиш жараёни маълумотлари</p>
+      <p style="margin: 5px 0; font-size: 1.4em;">Ишлаб чиқариш жараёни маълумотлари</p>
+      <p style="margin: 5px 0; font-size: 1.4em;">Онлайн видео кузатув</p>
+      <p style="margin: 5px 0; font-size: 1.4em;">Ходимлар ҳақида махлумот</p>
+      <p style="margin: 5px 0; font-size: 1.4em;">Техникалар ҳақида махлумот</p>
+      <img src="../../../public/image/karier.jpg" style="width: 100%; border-radius: 5px;" />
+    </div>
+  `;
+
+                const popup = new maplibregl.Popup({ offset: 25 }).setHTML(popupContent);
+                const el = document.createElement('img');
+                let imageName = 'marker.png';
+                if(window.location.pathname === '/techniques/') imageName = 'carmarker.png';
+                else imageName = 'marker.png';
+                el.src = `../../../public/image/${imageName}`; // custom icon URL
+                el.style.width = '64px';
+                el.style.height = '64px';
+                el.style.cursor = 'pointer';
+                // Create the marker and add to map
+                const marker = new maplibregl.Marker({ element: el })
+                    .setLngLat(loc.coords)
+                    .setPopup(popup)
+                    .addTo(map);
+                const href = window.location.pathname
+
+
+                markers.push({ name:`${ (href === '/') ? loc.name : loc.carnum+' '+loc.model+' '+loc.type }`, coords: loc.coords, marker });
+
+                // Add the marker name to sidebar list
+                const listItem = document.createElement('span');
+                listItem.textContent = loc.name;
+                listItem.onclick = () => {
+                    // Fly to the marker on sidebar click
+                    flyToMarker(loc.coords);
+                };
+
+                //list_data += '<span onclick="flyToMarker(['+loc.coords+'])">'+ loc.sort_num + '. ' +  loc.name + '</span><br>';
+                // Добавляем к переменной
+                list_data += '<div class="intro-x">\n' +
+                    '                                            <div class="box zoom-in mb-1 flex items-center px-1 py-1" onclick="flyToMarker(['+loc.coords+'])">\n' +
+                    '                                                <div class="image-fit h-10 w-10 flex-none overflow-hidden rounded-full">\n' +
+                    '                                                    <img src="../../../public/image/marker2.png">\n' +
+                    '                                                </div>\n' +
+                    '                                                <div class="ml-4 mr-auto">\n' +
+                    '                                                    <div class="font-small">'+ loc.id + '. ' +   ((href === '/') ? loc.name : loc.carnum+' '+loc.model+' '+loc.type) + '</div>\n' +
+                    '                                                </div>\n' +
+                    '                                            </div>\n' +
+                    '                                        </div>';
+                markerList.innerHTML = list_data;
+
+                //markerList.appendChild(listItem);
+
+                // When marker is clicked, fly to the marker
+                marker.getElement().addEventListener('click', () => {
+                    flyToMarker(loc.coords);
+                });
+            });
+        }
+    });
+
+    // Function to fly to a marker with zoom 19
+    function flyToMarker(coords) {
+        map.flyTo({
+            center: coords,
+            zoom: 15,
+            speed: 0.8,
+            curve: 1.2,
+            essential: true
+        });
+    }
+</script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => { const currentPath =
+      window.location.pathname; const menuItems =
+      document.querySelectorAll('.side-menu'); menuItems.forEach(menuItem =>
+      menuItem.classList.remove('side-menu--active')); let activeItem = null;
+      let maxLength = 0; menuItems.forEach((menuItem) => { const href =
+      menuItem.getAttribute('href'); if ( currentPath.startsWith(href) &&
+      href.length > maxLength ) { maxLength = href.length; activeItem =
+      menuItem; } }); if (activeItem) {
+      activeItem.classList.add('side-menu--active'); } });
+    </script>
+  </body>
+</html>
