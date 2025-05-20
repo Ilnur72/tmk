@@ -78,6 +78,19 @@ export class FactoryService {
         .createQueryBuilder('factory')
         .leftJoinAndSelect('factory.factoryParams', 'factoryParams')
         .leftJoinAndSelect('factoryParams.param', 'param')
+        // .leftJoinAndMapOne(
+        //   'factoryParams.lastLog',
+        //   FactoryLog,
+        //   'lastLog',
+        //   `lastLog.factory_id = factory.id
+        //  AND lastLog.params_id = factoryParams.params_id
+        //  AND lastLog.date_update = (
+        //    SELECT MAX(fl.date_update)
+        //    FROM factory_log fl
+        //    WHERE fl.factory_id = factory.id
+        //      AND fl.params_id = factoryParams.params_id
+        //  )`,
+        // )
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
         });
@@ -88,10 +101,19 @@ export class FactoryService {
         });
       }
 
+      // for (const factory of data) {
+      //   const lastLog = await this.factoryLogRepository.findOne({
+      //     where: { factory_id: factory.id, is_deleted: false },
+      //     order: { date_update: 'DESC' },
+      //   });
+      //   factory.izoh = lastLog || null;
+      // }
       const total = await existing.getCount();
       const data = await existing.getMany();
       return { total, data };
     } catch (error) {
+      console.log(error);
+
       throw new HttpException(
         'Failed to fetch factory list',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -146,6 +168,29 @@ export class FactoryService {
       }
       throw new HttpException(
         'Failed to fetch factory details',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  async findOneFactoryParam(id: number): Promise<any> {
+    try {
+      const existing = await this.factoryParamRepository.findOne({
+        where: { id, is_deleted: false },
+      });
+
+      if (!existing) {
+        throw new HttpException(
+          'Factory param Not Found',
+          HttpStatus.NOT_FOUND,
+        );
+      }
+      return existing;
+    } catch (error) {
+      if (error.status === 404) {
+        throw error;
+      }
+      throw new HttpException(
+        'Failed to fetch factory param details',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }

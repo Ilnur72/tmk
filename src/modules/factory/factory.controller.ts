@@ -29,8 +29,8 @@ export class FactoryController {
   }
 
   @Get('marker')
-  async findMarker() {
-    const factory = await this.factoryService.findAll();
+  async findMarker(@Query('filters') query: { factory_param_id?: number }) {
+    const factory = await this.factoryService.findAll(query);
     return factory.data;
   }
   @Get('log')
@@ -40,32 +40,31 @@ export class FactoryController {
     const factory = await this.factoryService.findAllLog(query);
     return factory.data;
   }
+  @Get('param/:id')
+  async findOneFactoryParam(@Param('id') id: number) {
+    const factoryParam = await this.factoryService.findOneFactoryParam(id);
+    return factoryParam;
+  }
 
   @Get()
   @Render('factory/index')
   async finAll() {
     const factories = await this.factoryService.findAll();
-    console.log(factories.data[1]);
 
     return { factories: factories.data };
   }
 
   @Get('update/:id')
-  // @Render('partials/modal')
   async updateModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);
-
     return res.render('partials/modal', { layout: false, factory });
   }
 
   @Get('/update-param/:id')
-  // @Render('partials/modal')
   async updateParamModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findAll({
       filters: { factory_param_id: id },
     });
-
-    // return { data: factory.data[0].factoryParams };
     return res.render('partials/param-modal', { layout: false, factory });
   }
 

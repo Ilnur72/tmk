@@ -86,7 +86,7 @@
               >
                 Тизимга кириш
               </h2>
-              <form action='/login/check' method='post'>
+              <form>
                 <div class='intro-x mt-8'>
 
                   <input
@@ -139,3 +139,28 @@
     <!-- END: Pages, layouts, components JS Assets-->
   </body>
 </html>
+<script>
+document.querySelector('form').addEventListener('submit', async function(e) {
+  e.preventDefault();
+
+  const email = this.login.value;
+  const password = this.password.value;
+  try {
+    const response = await fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ email, password })
+    });
+
+    if (response.ok) {
+      window.location.href = '/'; // yoki kerakli sahifa
+    } else {
+      const data = await response.json();
+    }
+  } catch (err) {
+    console.error('Xatolik:', err);
+  }
+});
+</script>

@@ -308,7 +308,7 @@
 
                   </div>
 
-                  {{#each this.factoryParams}}<div onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}})" class='mt-2 flex items-center cursor-pointer'>
+                  {{#each this.factoryParams}}<div onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})" class='mt-2 flex items-center cursor-pointer'>
                     <svg
                       xmlns='http://www.w3.org/2000/svg'
                       width='24'
@@ -329,7 +329,7 @@
                     {{this.param.name}}: &nbsp;
                   </span>
                     <img
-                      id='{{this.param.id}}');
+                      id='{{this.id}}'
                       class='rounded-full'
                       {{#if (eq this.status 0)}}
                         src='../../../public/image/error.png'
@@ -343,6 +343,7 @@
                       height='20px'
                     />
                   </div>
+                  <span class="pl-2">{{../this.lastLog.izoh}}</span>
                   <div
                     class='mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400'
                   ></div>{{/each}}
@@ -556,18 +557,18 @@
 </script>
 <script>
   // Function to show modal when parameter is clicked
-  async showParameterModal(factoryId, paramId, paramName, type, factoryParamId) {
+  function showParameterModal(factoryId, paramId, paramName, type, factoryParamId, status) {
     const modal = document.getElementById('parameter-modal');
     const modalTitle = document.getElementById('modal-title');
     const paramIdInput = document.getElementById('param-id');
     const factoryIdInput = document.getElementById('factory-id');
     const factoryParamIdInput = document.getElementById('factory-param-id');
-  console.log(type)
-    const paramLogs = await fetch(`/factory/log?query[paramId]=${paramId}&query[factoryId]=${factoryId}`)
-      .then(response => awat response.json())
+
+    {{!-- const paramLogs = fetch(`/factory/log?query[paramId]=${paramId}&query[factoryId]=${factoryId}`) --}}
+    const paramLogs = fetch(`/factory/param/${factoryParamId}`)
+      .then(response => response.json())
       .then(data => {
-      console.log(data)
-        const item = data[0];
+        const item = data;
         // Populate the modal with the fetched data
     const statusContainer = document.getElementById('param-status').parentElement;
         
@@ -579,7 +580,6 @@
         
         let newField;
         
-        // Create field based on type
         if (type === 'date') {
           newField = document.createElement('input');
           newField.type = 'date';
@@ -587,10 +587,8 @@
           newField.id = 'param-status';
           newField.className = 'block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500';
           
-          // Set default value for date (current date if no data, or stored date)
-          if (item && item.value) {
-            // If item.value is a timestamp or date string, convert it
-            const dateValue = new Date(item.value);
+          if (item) {
+            const dateValue = new Date(item.status);
             if (!isNaN(dateValue.getTime())) {
               newField.value = dateValue.toISOString().split('T')[0];
             }
@@ -615,18 +613,11 @@
           option2.value = '0';
           option2.textContent = 'Мавжуд эмас';
           newField.appendChild(option2);
+                    
+          newField.value = item.status;
           
-          // Set default value for select
-            console.log(item.value)
-          if (item && item.value !== undefined) {
-            newField.value = item.value;
-          }
         }
-        
-        // Append the new field to the container
-        statusContainer.appendChild(newField);
-        
-        // Populate comment field
+        statusContainer.appendChild(newField);        
         const commentTextarea = document.getElementById('param-comment');
         if (item && item.izoh) {
           commentTextarea.value = item.izoh;
@@ -670,7 +661,6 @@
     const paramId = formData.get('param_id');
     const status = formData.get('status');
     const comment = formData.get('comment');
-    
     fetch('/factory/param/update/' + factoryParamId, {
       method: 'PUT',  
       headers: {
@@ -683,7 +673,7 @@
       }
       return response.json();
     }).then(data=> {
-       const img = document.getElementById('{{this.param.id}}');
+       const img = document.getElementById(`${factoryParamId}`);
         if (img) {
           if (+data.status === 0) {
             img.src = '../../../public/image/error.png';

@@ -14,6 +14,7 @@ import {
 import { EmployeeModule } from './modules/employee/employee.module';
 import { TechniquesModule } from './modules/techniques/techniques.module';
 import { AuthModule } from './modules/auth/auth.module';
+import { SeedModule } from './db/seeds/seed.module';
 @Module({
   imports: [
     CoreModule,
@@ -26,6 +27,7 @@ import { AuthModule } from './modules/auth/auth.module';
     EmployeeModule,
     TechniquesModule,
     AuthModule,
+    SeedModule,
   ],
   providers: [FactoryService],
   controllers: [AppController],

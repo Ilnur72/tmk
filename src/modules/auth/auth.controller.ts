@@ -1,4 +1,4 @@
-import { Controller, Get, Render, Res } from '@nestjs/common';
+import { Body, Controller, Get, Post, Res } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Response } from 'express';
 
@@ -12,5 +12,18 @@ export class AuthController {
     return res.render('auth/index', {
       layout: false,
     });
+  }
+
+  @Post()
+  async staffLogin(@Body() body: any) {
+    try {
+      const data = await this.authService.staffLogin(body);
+      return {
+        success: true,
+        data,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 }
