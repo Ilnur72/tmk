@@ -6,15 +6,14 @@ import { join } from 'path';
 import { AppController } from './app.controller';
 import { FactoryService } from './modules/factory/factory.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import {
-  Factory,
-  FactoryLog,
-  FactoryParams,
-} from './modules/factory/entities/factory.entity';
+import { Factory } from './modules/factory/entities/factory.entity';
 import { EmployeeModule } from './modules/employee/employee.module';
 import { TechniquesModule } from './modules/techniques/techniques.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { SeedModule } from './db/seeds/seed.module';
+import { FactoryLog } from './modules/factory/entities/factory-log.entity';
+import { FactoryParams } from './modules/factory/entities/facory-param.entity';
+import { Param } from './modules/factory/entities/param.entity';
 @Module({
   imports: [
     CoreModule,
@@ -23,7 +22,7 @@ import { SeedModule } from './db/seeds/seed.module';
       serveRoot: '/public',
     }),
     FactoryModule,
-    TypeOrmModule.forFeature([Factory, FactoryLog, FactoryParams]),
+    TypeOrmModule.forFeature([Factory, FactoryLog, FactoryParams, Param]),
     EmployeeModule,
     TechniquesModule,
     AuthModule,

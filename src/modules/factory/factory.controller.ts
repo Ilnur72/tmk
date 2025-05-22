@@ -50,7 +50,6 @@ export class FactoryController {
   @Render('factory/index')
   async finAll() {
     const factories = await this.factoryService.findAll();
-
     return { factories: factories.data };
   }
 

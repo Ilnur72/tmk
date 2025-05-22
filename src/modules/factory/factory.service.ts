@@ -1,7 +1,9 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Factory, FactoryLog, FactoryParams } from './entities/factory.entity';
+import { Factory } from './entities/factory.entity';
+import { FactoryLog } from './entities/factory-log.entity';
+import { FactoryParams } from './entities/facory-param.entity';
 
 @Injectable()
 export class FactoryService {
@@ -74,23 +76,23 @@ export class FactoryService {
 
   async findAll(query?: any): Promise<any> {
     try {
+      const latestLogSubQuery = this.factoryLogRepository
+        .createQueryBuilder('factory_log')
+        .select('factory_log.id')
+        .where('factory_log.factory_params_id = factoryParams.id')
+        .orderBy('factory_log.date_update', 'DESC')
+        .limit(1);
       const existing = this.factoryRepository
         .createQueryBuilder('factory')
         .leftJoinAndSelect('factory.factoryParams', 'factoryParams')
         .leftJoinAndSelect('factoryParams.param', 'param')
-        // .leftJoinAndMapOne(
-        //   'factoryParams.lastLog',
-        //   FactoryLog,
-        //   'lastLog',
-        //   `lastLog.factory_id = factory.id
-        //  AND lastLog.params_id = factoryParams.params_id
-        //  AND lastLog.date_update = (
-        //    SELECT MAX(fl.date_update)
-        //    FROM factory_log fl
-        //    WHERE fl.factory_id = factory.id
-        //      AND fl.params_id = factoryParams.params_id
-        //  )`,
-        // )
+        .leftJoinAndMapOne(
+          'factoryParams.latestLog',
+          FactoryLog,
+          'latestLog',
+          `latestLog.id = (${latestLogSubQuery.getQuery()})`,
+        )
+        .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
         });
@@ -101,19 +103,10 @@ export class FactoryService {
         });
       }
 
-      // for (const factory of data) {
-      //   const lastLog = await this.factoryLogRepository.findOne({
-      //     where: { factory_id: factory.id, is_deleted: false },
-      //     order: { date_update: 'DESC' },
-      //   });
-      //   factory.izoh = lastLog || null;
-      // }
       const total = await existing.getCount();
       const data = await existing.getMany();
       return { total, data };
     } catch (error) {
-      console.log(error);
-
       throw new HttpException(
         'Failed to fetch factory list',
         HttpStatus.INTERNAL_SERVER_ERROR,

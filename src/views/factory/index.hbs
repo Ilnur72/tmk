@@ -343,7 +343,11 @@
                       height='20px'
                     />
                   </div>
-                  <span class="pl-2">{{../this.lastLog.izoh}}</span>
+                 {{#if latestLog.izoh}}
+                  {{#unless (eq latestLog.izoh "")}}
+                    <span class="pl-2 text-xs">Izoh: {{latestLog.izoh}}</span>
+                  {{/unless}}
+                {{/if}}
                   <div
                     class='mt-5 w-full border-t border-slate-200/60 dark:border-darkmode-400'
                   ></div>{{/each}}
@@ -696,6 +700,7 @@
       body: JSON.stringify({
         factory_id: factoryId,
         params_id: paramId,
+        factory_params_id: factoryParamId,
         value: status,
         izoh: comment,
         date_update: new Date().toISOString()
