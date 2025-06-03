@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -50,21 +51,36 @@ export class FactoryController {
   @Render('factory/index')
   async finAll() {
     const factories = await this.factoryService.findAll();
-    return { factories: factories.data };
+    return { factories: factories.data, total: factories.total };
   }
 
   @Get('update/:id')
   async updateModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);
-    return res.render('partials/modal', { layout: false, factory });
+    console.log(factory, 'factory');
+
+    return res.render('partials/modal', { layout: false, factory: factory[0] });
   }
 
-  @Get('/update-param/:id')
-  async updateParamModal(@Param('id') id: number, @Res() res: Response) {
-    const factory = await this.factoryService.findAll({
-      filters: { factory_param_id: id },
+  // @Get('/update-param/:id')
+  // async updateParamModal(@Param('id') id: number, @Res() res: Response) {
+  //   const factory = await this.factoryService.findAll({
+  //     filters: { factory_param_id: id },
+  //   });
+  //   return res.render('partials/factory/param-modal', {
+  //     layout: false,
+  //     factory,
+  //   });
+  // }
+
+  @Get('/param-control/:id')
+  async controlParamModal(@Param('id') id: number, @Res() res: Response) {
+    const factory = await this.factoryService.findOne(id);
+
+    return res.render('partials/param-modal', {
+      layout: false,
+      data: factory[0].factoryParams,
     });
-    return res.render('partials/param-modal', { layout: false, factory });
   }
 
   @Put('param/update/:id')
@@ -72,6 +88,15 @@ export class FactoryController {
     const result = await this.factoryService.updateParam(id, req.body);
 
     return { ok: true, status: result.status };
+  }
+
+  @Put('param-control/:id')
+  @UseInterceptors(FileFieldsInterceptor([]))
+  async updateFactoryParams(
+    @Param('id') factoryId: number,
+    @Req() req: Request,
+  ) {
+    return this.factoryService.updateFactoryParam(req.body.params);
   }
 
   @Put('update/:id')
@@ -83,7 +108,7 @@ export class FactoryController {
 
   @Post('log')
   async updateFactoryLog(@Req() req: Request) {
-    await this.factoryService.addFactoryLog(req.body);
-    return { ok: true };
+    const data = await this.factoryService.addFactoryLog(req.body);
+    return { ok: true, data };
   }
 }

@@ -44,6 +44,8 @@ export class FactoryService {
       const existing = await this.factoryParamRepository.findOne({
         where: { id, is_deleted: false },
       });
+      console.log(existing);
+
       if (!existing)
         throw new HttpException('Factory Not Found', HttpStatus.NOT_FOUND);
       const updatedFactory = this.factoryParamRepository.merge(
@@ -52,6 +54,44 @@ export class FactoryService {
       );
       return await this.factoryParamRepository.save(updatedFactory);
     } catch (error) {
+      console.log(error);
+
+      if (error.status === 404) {
+        throw error;
+      }
+      throw new HttpException(
+        'Failed to update factory',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+  async updateFactoryParam(
+    params: { id: number; [key: string]: any }[],
+  ): Promise<FactoryParams[]> {
+    try {
+      const updatedParams: FactoryParams[] = [];
+
+      for (const param of params) {
+        const existing = await this.factoryParamRepository.findOne({
+          where: { id: param.id, is_deleted: false },
+        });
+
+        if (!existing) {
+          // Muammo bo‘lmasligi uchun davom etamiz, yoki log qilib ketamiz
+          console.warn(`Param ID ${param.id} not found or deleted`);
+          continue;
+        }
+
+        const updated = this.factoryParamRepository.merge(existing, param);
+        const saved = await this.factoryParamRepository.save(updated);
+        updatedParams.push(saved);
+      }
+      console.log(updatedParams, 'updatedParams');
+
+      return updatedParams;
+    } catch (error) {
+      console.log(error);
+
       if (error.status === 404) {
         throw error;
       }
@@ -67,12 +107,16 @@ export class FactoryService {
       const factoryLog = this.factoryLogRepository.create(data);
       return await this.factoryLogRepository.save(factoryLog);
     } catch (error) {
+      console.log(error);
+
       throw new HttpException(
         'Failed to add factory log',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
   }
+
+  // async findAllFactoryParams(query?: any): Promise<any> {}
 
   async findAll(query?: any): Promise<any> {
     try {
@@ -92,6 +136,7 @@ export class FactoryService {
           'latestLog',
           `latestLog.id = (${latestLogSubQuery.getQuery()})`,
         )
+        .orderBy('factory.id', 'DESC')
         .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
@@ -147,15 +192,23 @@ export class FactoryService {
 
   async findOne(id: number): Promise<any> {
     try {
-      const existing = await this.factoryRepository.findOne({
-        where: { id, is_deleted: false },
-      });
-
-      if (!existing) {
+      const existing = this.factoryRepository
+        .createQueryBuilder('factory')
+        .leftJoinAndSelect('factory.factoryParams', 'factoryParams')
+        .leftJoinAndSelect('factoryParams.param', 'param')
+        .orderBy('factoryParams.visible', 'DESC')
+        .where('factory.is_deleted = :is_deleted', {
+          is_deleted: false,
+        })
+        .where('factory.id = :id', { id });
+      const data = await existing.getMany();
+      if (!data) {
         throw new HttpException('Factory Not Found', HttpStatus.NOT_FOUND);
       }
-      return existing;
+      return data;
     } catch (error) {
+      console.log(error);
+
       if (error.status === 404) {
         throw error;
       }
