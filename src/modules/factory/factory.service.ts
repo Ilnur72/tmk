@@ -44,8 +44,6 @@ export class FactoryService {
       const existing = await this.factoryParamRepository.findOne({
         where: { id, is_deleted: false },
       });
-      console.log(existing);
-
       if (!existing)
         throw new HttpException('Factory Not Found', HttpStatus.NOT_FOUND);
       const updatedFactory = this.factoryParamRepository.merge(
@@ -54,8 +52,6 @@ export class FactoryService {
       );
       return await this.factoryParamRepository.save(updatedFactory);
     } catch (error) {
-      console.log(error);
-
       if (error.status === 404) {
         throw error;
       }
@@ -86,12 +82,9 @@ export class FactoryService {
         const saved = await this.factoryParamRepository.save(updated);
         updatedParams.push(saved);
       }
-      console.log(updatedParams, 'updatedParams');
 
       return updatedParams;
     } catch (error) {
-      console.log(error);
-
       if (error.status === 404) {
         throw error;
       }
@@ -107,8 +100,6 @@ export class FactoryService {
       const factoryLog = this.factoryLogRepository.create(data);
       return await this.factoryLogRepository.save(factoryLog);
     } catch (error) {
-      console.log(error);
-
       throw new HttpException(
         'Failed to add factory log',
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -207,8 +198,6 @@ export class FactoryService {
       }
       return data;
     } catch (error) {
-      console.log(error);
-
       if (error.status === 404) {
         throw error;
       }

@@ -57,8 +57,6 @@ export class FactoryController {
   @Get('update/:id')
   async updateModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);
-    console.log(factory, 'factory');
-
     return res.render('partials/modal', { layout: false, factory: factory[0] });
   }
 
