@@ -216,7 +216,7 @@
                 </div>
                 {{#if latestLog.izoh}}
                 {{#unless (eq latestLog.izoh "")}}
-                <span id="param_date_id" class="pl-2 text-xs {{#if this.visible}}flex{{/if}}hidden">Izoh: {{latestLog.izoh}}</span>
+                <span data-param-id="{{this.id}}" id="{{this.id}}" class="pl-2 text-xs {{#if this.visible}}flex{{/if}}hidden">Izoh: {{latestLog.izoh}}</span>
                 {{/unless}}
                 {{/if}}
                 <div class='mt-5 w-full {{#if this.visible}}flex{{/if}}hidden border-t border-slate-200/60 dark:border-darkmode-400'></div>{{/each}}
@@ -621,7 +621,7 @@
         params_id: paramId,
         factory_params_id: factoryParamId,
         value: status,
-        izoh: comment,
+        izoh: comment || null,
         date_update: new Date().toISOString()
       })
     })
@@ -632,8 +632,15 @@
         throw new Error('Network response was not ok');
       })
       .then(data => {
-        const paramDate = document.getElementById('param_date_id');
-        paramDate.textContent = `Izoh: ${data.data?.izoh}`;
+        const paramComment = document.querySelector(`[data-param-id="${factoryParamId}"]`);
+        if(paramComment && data.data?.izoh){
+          paramComment.classList.add('flex');
+          paramComment.classList.remove('hidden');
+          paramComment.textContent = `Izoh: ${data.data?.izoh}`;
+        }if(paramComment && !data.data?.izoh){
+          paramComment.classList.add('hidden');
+          paramComment.classList.remove('flex');
+        }
 
         updateParameterStatus(paramId, status);
         closeParameterModal();
