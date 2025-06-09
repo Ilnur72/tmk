@@ -34,13 +34,37 @@ export class FactoryController {
     const factory = await this.factoryService.findAll(query);
     return factory.data;
   }
+
   @Get('log')
   async findFactoryLog(
-    @Query('query') query: { paramId?: number; factoryId?: number },
+    @Query('query')
+    query: {
+      paramId?: number;
+      factoryId?: number;
+      factoryParamId?: number;
+    },
   ) {
     const factory = await this.factoryService.findAllLog(query);
     return factory.data;
   }
+
+  @Get('log-history')
+  async findFactoryLogHistory(
+    @Query('query')
+    query: {
+      factoryParamId?: number;
+    },
+    @Res() res: Response,
+  ) {
+    const factory = await this.factoryService.findAllLog(query);
+    console.log(factory.data);
+    
+    return res.render('partials/factory/history-comment', {
+      layout: false,
+      data: factory.data,
+    });
+  }
+
   @Get('param/:id')
   async findOneFactoryParam(@Param('id') id: number) {
     const factoryParam = await this.factoryService.findOneFactoryParam(id);
@@ -57,7 +81,10 @@ export class FactoryController {
   @Get('update/:id')
   async updateModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);
-    return res.render('partials/modal', { layout: false, factory: factory[0] });
+    return res.render('partials/factory/modal', {
+      layout: false,
+      factory: factory[0],
+    });
   }
 
   // @Get('/update-param/:id')
@@ -65,7 +92,7 @@ export class FactoryController {
   //   const factory = await this.factoryService.findAll({
   //     filters: { factory_param_id: id },
   //   });
-  //   return res.render('partials/factory/param-modal', {
+  //   return res.render('partials/factory/factory/param-modal', {
   //     layout: false,
   //     factory,
   //   });
@@ -75,7 +102,7 @@ export class FactoryController {
   async controlParamModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);
 
-    return res.render('partials/param-modal', {
+    return res.render('partials/factory/param-modal', {
       layout: false,
       data: factory[0].factoryParams,
     });

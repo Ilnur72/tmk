@@ -153,11 +153,10 @@ document.querySelector('form').addEventListener('submit', async function(e) {
       },
       body: JSON.stringify({ email, password })
     });
-
-    if (response.ok) {
-      window.location.href = '/'; // yoki kerakli sahifa
-    } else {
       const data = await response.json();
+    if (response.ok) {
+  localStorage.setItem('token', data.data.token);
+      window.location.href = '/'; // yoki kerakli sahifa
     }
   } catch (err) {
     console.error('Xatolik:', err);

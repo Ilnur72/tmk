@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   Render,
+  Query,
 } from '@nestjs/common';
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
@@ -23,33 +24,33 @@ export class EmployeeController {
 
   @Get()
   @Render('employee/index')
-  findAll() {
-    const result = this.employeeService.findAll();
+  findAll(@Query() query: any) {
+    const result = this.employeeService.findAll(query);
     return { message: result };
   }
 
-  @Get('/online')
-  @Render('employee/employers')
-  findAllEmployers() {
-    const result = this.employeeService.findAll();
-    return { message: result };
-  }
+  // @Get('/online')
+  // @Render('employee/employers')
+  // findAllEmployers() {
+  //   const result = this.employeeService.findAll();
+  //   return { message: result };
+  // }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: number) {
     return this.employeeService.findOne(+id);
   }
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: number,
     @Body() updateEmployeeDto: UpdateEmployeeDto,
   ) {
     return this.employeeService.update(+id, updateEmployeeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  remove(@Param('id') id: number) {
     return this.employeeService.remove(+id);
   }
 }

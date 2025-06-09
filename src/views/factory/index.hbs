@@ -184,13 +184,16 @@
                   </div>
 
                 </div>
-                <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
+                {{!-- <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
                   onclick="showParametrControlModal({{this.id}})"
-                  class="p-1 rounded bg-primary text-white my-1">maydonlarni boshqarish</button>
+                  class="p-1 rounded bg-primary text-white my-1">maydonlarni boshqarish</button> --}}
 
                 {{#each this.factoryParams}}
-                <div
-                  onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})"
+                <div class="flex justify-between items-center">
+                  <div
+                  data-tw-toggle="modal" data-tw-target="#factory-history-modal"
+                  onclick="showCommentHistory({{this.id}})"
+                  {{!-- onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})" --}}
                   class='mt-2 flex items-center cursor-pointer {{#if this.visible}}flex{{/if}}hidden'>
                   <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
                     stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
@@ -213,6 +216,12 @@
                     {{!-- <span>{{this.latestLog.value}}</span> --}}
                     {{/if}}
                   </div>
+                </div>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
+    <path d="M17 0h-5.768a1 1 0 1 0 0 2h3.354L8.4 8.182A1.003 1.003 0 1 0 9.818 9.6L16 3.414v3.354a1 1 0 0 0 2 0V1a1 1 0 0 0-1-1Z"/>
+    <path d="m14.258 7.985-3.025 3.025A3 3 0 1 1 6.99 6.768l3.026-3.026A3.01 3.01 0 0 1 8.411 2H2.167A2.169 2.169 0 0 0 0 4.167v11.666A2.169 2.169 0 0 0 2.167 18h11.666A2.169 2.169 0 0 0 16 15.833V9.589a3.011 3.011 0 0 1-1.742-1.604Z"/>
+</svg>
+                <span id="parameter-edit-btn" onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})" class="text-primary cursor-pointer">edit</span>
                 </div>
                 {{#if latestLog.izoh}}
                 {{#unless (eq latestLog.izoh "")}}
@@ -361,9 +370,9 @@
       </div>
       <!-- BEGIN: Control Parameter Modal -->
       <div data-tw-backdrop='' aria-hidden="true" tabindex='-1' id='parameter-control-modal'
-        class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -my-16 group-[.show]:my-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
           <div class='p-5 text-center'>
 
             <div class='text-3xl'>Лойиҳа Параметрларини Бошкариш</div>
@@ -392,12 +401,49 @@
         </div>
       </div>
       <!-- END: Edit Factory Modal -->
+
+      <!-- BEGIN: Paramter history comment Modal -->
+      <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-history-modal'
+        class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+        <div
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+          <div class='p-5 text-center'>
+
+            <div id="factory-history-modal-title" class='mt-5 text-3xl'></div>
+            <div class='mt-2 text-slate-500' id='factory-history-modal-result'>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- END: Paramter history comment Modal -->
       {{!-- {{> modal}} --}}
     </div>
 
   </div>
 </div>
+<script>function parseJwt(token) {
+  if (!token) return null;
 
+  try {
+    const base64Url = token.split('.')[1]; // payload
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split('')
+        .map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
+        .join('')
+    );
+
+    return JSON.parse(jsonPayload);
+  } catch (e) {
+    console.error('Token decode xatoligi:', e);
+    return null;
+  }
+}
+</script>
 <script>
   function showFactoryEditModal(id) {
     const modal = document.getElementById('factory-edit-modal-result');
@@ -437,6 +483,58 @@
 </script>
 
 <script>
+  const token = localStorage.getItem('token'); // yoki sessionStorage, yoki cookie
+  const decodedToken = parseJwt(token);
+if (decodedToken.user.role === 'admin') {
+    const editButtons = document.querySelectorAll('#parameter-edit-btn');
+    editButtons.forEach(button => {
+        button.style.display = 'none'; // yoki button.remove();
+    });
+}
+
+  function formatDate(dateString) {
+    const date = new Date(dateString);
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0'); // 0-based
+    const year = date.getFullYear();
+
+    const hours = String(date.getHours()).padStart(2, '0');
+    const minutes = String(date.getMinutes()).padStart(2, '0');
+
+    return `${day}.${month}.${year} ${hours}:${minutes}`;
+  }
+
+  function showCommentHistory(factoryParamId) {
+    const token = localStorage.getItem('token'); // yoki sessionStorage, yoki cookie
+  const decodedToken = parseJwt(token);
+    if(decodedToken.user.role !== 'admin') {
+      const modal = document.getElementById('factory-history-modal');
+    const modalTitle = document.getElementById('factory-history-modal-title');
+    const modalResult = document.getElementById('factory-history-modal-result');
+    modalResult.innerHTML = null;
+
+    fetch(`/factory/log-history?query[factoryParamId]=${factoryParamId}`)
+      .then(response => response.text())
+      .then(data => {
+        modalResult.innerHTML = data;
+        modalTitle.textContent = `Параметр тарихи:`;
+        modal.classList.add('show');
+        const elements = document.querySelectorAll('.param-date');
+        elements.forEach(el => {
+          const originalDate = el.getAttribute('data-raw');
+          if (originalDate) {
+            el.innerText = formatDate(originalDate);
+          }
+        });
+      })
+      .catch(error => {
+        console.error('Error fetching parameter history:', error);
+      });
+    }
+  }
+</script>
+
+<script>
   function showParametrControlModal(factoryId) {
     const modal = document.getElementById('parameter-control-modal');
     const modalFactory = document.getElementById('control-parameter-modal-result');
@@ -451,8 +549,8 @@
   }
   
     function save_update_parametr(factoryId) {
-      const form = document.querySelector('#parameter-control-modal form');
-      const switches = document.querySelectorAll('#parameter-control-modal input[type="checkbox"]');
+      const form = document.querySelector('#parameter-control-modal-form');
+      const switches = document.querySelectorAll('#parameter-control-modal-form input[type="checkbox"]');
 
       const activeParams = [];
       switches.forEach((checkbox) => {
@@ -483,8 +581,10 @@
         console.error('There was a problem with the fetch operation:', error);
       });
     }
+    
 </script>
 <script>
+  
   function showParameterModal(factoryId, paramId, paramName, type, factoryParamId, status) {
     const modal = document.getElementById('parameter-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -513,7 +613,7 @@
           newField.className = 'block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500';
 
           if (item) {
-            const findParamLogs = fetch(`/factory/log?query[paramId]=${paramId}&query[factoryId]=${factoryId}`)
+            const findParamLogs = fetch(`/factory/log?query[factoryParamId]=${factoryParamId}`)
               .then(response => response.json()).then(data => {
                 const dateValue = new Date(data[0].value);
                 if (!isNaN(dateValue.getTime())) {
@@ -633,13 +733,16 @@
       })
       .then(data => {
         const paramComment = document.querySelector(`[data-param-id="${factoryParamId}"]`);
+        {{!-- console.log(paramCommentElement) --}}
         if(paramComment && data.data?.izoh){
-          paramComment.classList.add('flex');
-          paramComment.classList.remove('hidden');
-          paramComment.textContent = `Izoh: ${data.data?.izoh}`;
+          const paramCommentElement = paramComment.querySelector('span');
+          paramCommentElement.classList.add('flex');
+          paramCommentElement.classList.remove('hidden');
+          paramCommentElement.textContent = `Izoh: ${data.data?.izoh}`;
         }if(paramComment && !data.data?.izoh){
-          paramComment.classList.add('hidden');
-          paramComment.classList.remove('flex');
+          const paramCommentElement = paramComment.querySelector('span');
+          paramCommentElement.classList.add('hidden');
+          paramCommentElement.classList.remove('flex');
         }
 
         updateParameterStatus(paramId, status);

@@ -131,6 +131,9 @@ export class FactoryService {
         .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
+        })
+        .andWhere('factoryParams.visible = :visible', {
+          visible: true,
         });
 
       if (query?.filters?.factory_param_id) {
@@ -149,26 +152,26 @@ export class FactoryService {
       );
     }
   }
+
   async findAllLog(query?: any): Promise<any> {
     try {
+      console.log(query);
+
       const existing = this.factoryLogRepository
         .createQueryBuilder('factory_log')
         .where('factory_log.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
         })
-        .andWhere('factory_log.factory_id = :factory_id', {
-          factory_id: +query.factoryId,
-        })
-        .andWhere('factory_log.params_id = :params_id', {
-          params_id: +query.paramId,
-        })
         .orderBy('factory_log.date_update', 'DESC');
 
-      // if (query?.filters?.factory_param_id) {
-      //   existing.andWhere('factoryParams.id = :factory_param_id', {
-      //     factory_param_id: query.filters.factory_param_id,
-      //   });
-      // }
+      if (query.factoryParamId) {
+        existing.andWhere(
+          'factory_log.factory_params_id = :factory_params_id',
+          {
+            factory_params_id: query.factoryParamId,
+          },
+        );
+      }
 
       const total = await existing.getCount();
       const data = await existing.getMany();
@@ -207,6 +210,7 @@ export class FactoryService {
       );
     }
   }
+
   async findOneFactoryParam(id: number): Promise<any> {
     try {
       const existing = await this.factoryParamRepository.findOne({
