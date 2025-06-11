@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Factory } from './entities/factory.entity';
+import { Factory, FactoryParamStatus } from './entities/factory.entity';
 import { FactoryLog } from './entities/factory-log.entity';
 import { FactoryParams } from './entities/facory-param.entity';
 
@@ -107,6 +107,18 @@ export class FactoryService {
     }
   }
 
+  async addFactory(data: any): Promise<any> {
+    try {
+      const factory = this.factoryRepository.create(data);
+      return await this.factoryRepository.save(factory);
+    } catch (error) {
+      throw new HttpException(
+        'Failed to add factory',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   // async findAllFactoryParams(query?: any): Promise<any> {}
 
   async findAll(query?: any): Promise<any> {
@@ -119,7 +131,12 @@ export class FactoryService {
         .limit(1);
       const existing = this.factoryRepository
         .createQueryBuilder('factory')
-        .leftJoinAndSelect('factory.factoryParams', 'factoryParams')
+        .leftJoinAndSelect(
+          'factory.factoryParams',
+          'factoryParams',
+          'factoryParams.visible = :visible OR factoryParams.id IS NULL',
+          { visible: true },
+        )
         .leftJoinAndSelect('factoryParams.param', 'param')
         .leftJoinAndMapOne(
           'factoryParams.latestLog',
@@ -131,9 +148,6 @@ export class FactoryService {
         .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,
-        })
-        .andWhere('factoryParams.visible = :visible', {
-          visible: true,
         });
 
       if (query?.filters?.factory_param_id) {
@@ -141,10 +155,17 @@ export class FactoryService {
           factory_param_id: query.filters.factory_param_id,
         });
       }
-
+      const counts = await this.factoryRepository
+        .createQueryBuilder('factory')
+        .select([
+          `COUNT(*) FILTER (WHERE factory.status = 'REGISTRATION') AS "registrationCount"`,
+          `COUNT(*) FILTER (WHERE factory.status = 'CONSTRUCTION') AS "constructionCount"`,
+          `COUNT(*) FILTER (WHERE factory.status = 'STARTED') AS "startedCount"`,
+        ])
+        .getRawOne();
       const total = await existing.getCount();
       const data = await existing.getMany();
-      return { total, data };
+      return { total, data, counts };
     } catch (error) {
       throw new HttpException(
         'Failed to fetch factory list',
@@ -155,8 +176,6 @@ export class FactoryService {
 
   async findAllLog(query?: any): Promise<any> {
     try {
-      console.log(query);
-
       const existing = this.factoryLogRepository
         .createQueryBuilder('factory_log')
         .where('factory_log.is_deleted = :is_deleted', {

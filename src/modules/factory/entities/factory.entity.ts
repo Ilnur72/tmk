@@ -6,6 +6,11 @@ interface location {
   lat: number;
   lng: number;
 }
+export enum FactoryParamStatus {
+  REGISTRATION = 'REGISTRATION',
+  CONSTRUCTION = 'CONSTRUCTION',
+  STARTED = 'STARTED',
+}
 
 @Entity()
 export class Factory extends BaseEntity {
@@ -17,6 +22,9 @@ export class Factory extends BaseEntity {
 
   @Column()
   elements: string;
+
+  @Column({ nullable: true, default: null, enum: FactoryParamStatus })
+  status: FactoryParamStatus;
 
   @Column()
   region: string;

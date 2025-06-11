@@ -1,5 +1,5 @@
 import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseEntity } from 'src/shared/entities/base.entity';
+import { BaseEntity } from '../../../shared/entities/base.entity';
 import { FactoryParams } from './facory-param.entity';
 
 @Entity({ name: 'factory_log' })

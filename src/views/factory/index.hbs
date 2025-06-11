@@ -5,10 +5,13 @@
   <!-- END: Top Bar -->
   <div class='grid grid-cols-12 gap-6'>
     <div class='col-span-12 mt-8'>
-      <div class='intro-y flex h-10 items-center'>
+      <div class='intro-y flex h-10 items-center justify-between'>
         <h2 class='mr-5 truncate text-lg font-medium'>Инвестиция лойиҳалари
           ҳолати мониторинги</h2>
-        <a class='ml-auto flex items-center text-primary' href=''>
+        <button id="create-factory-btn" data-tw-toggle='modal' data-tw-target='#factory-create-modal' onclick="createFactory()" class="bg-primary hover:opacity-70 text-white font-bold py-2 px-4 rounded">
+          Create Factory
+        </button>
+        {{!-- <a class='ml-auto flex items-center text-primary' href=''>
           <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
             stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
             data-lucide='refresh-ccw' class='lucide lucide-refresh-ccw stroke-1.5 mr-3 h-4 w-4'>
@@ -18,7 +21,7 @@
             <path d='M16 16h5v5'></path>
           </svg>
           Reload Data
-        </a>
+        </a> --}}
       </div>
       <div class='mt-5 grid grid-cols-12 gap-6'>
         <div class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
@@ -56,11 +59,12 @@
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
               <div class='flex'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
+                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
                   stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                  data-lucide='user' class='lucide lucide-user stroke-1.5 h-[28px] w-[28px] text-success'>
-                  <path d='M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2'></path>
-                  <circle cx='12' cy='7' r='4'></circle>
+                  data-lucide='monitor' class='lucide lucide-monitor stroke-1.5 h-[28px] w-[28px] text-warning'>
+                  <rect width='20' height='14' x='2' y='3' rx='2'></rect>
+                  <line x1='8' x2='16' y1='21' y2='21'></line>
+                  <line x1='12' x2='12' y1='17' y2='21'></line>
                 </svg>
                 <div class='ml-auto'>
                   <div data-placement='top'
@@ -74,7 +78,7 @@
                   </div>
                 </div>
               </div>
-              <div class='mt-6 text-3xl font-medium leading-8'>4</div>
+              <div class='mt-6 text-3xl font-medium leading-8'>{{this.counts.registrationCount}}</div>
               <div class='mt-1 text-base text-slate-500'>
                 Расмийлаштириш жараёнида
               </div>
@@ -86,12 +90,15 @@
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
               <div class='flex'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                  stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                  data-lucide='monitor' class='lucide lucide-monitor stroke-1.5 h-[28px] w-[28px] text-warning'>
-                  <rect width='20' height='14' x='2' y='3' rx='2'></rect>
-                  <line x1='8' x2='16' y1='21' y2='21'></line>
-                  <line x1='12' x2='12' y1='17' y2='21'></line>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round" stroke-linejoin="round" 
+                class="lucide lucide-construction-icon lucide-construction text-success">
+                  <rect x="2" y="6" width="20" height="8" rx="1"/>
+                  <path d="M17 14v7"/><path d="M7 14v7"/>
+                  <path d="M17 3v3"/><path d="M7 3v3"/>
+                  <path d="M10 14 2.3 6.3"/>
+                  <path d="m14 6 7.7 7.7"/><path d="m8 6 8 8"/>
                 </svg>
                 <div class='ml-auto'>
                   <div data-placement='top'
@@ -105,7 +112,7 @@
                   </div>
                 </div>
               </div>
-              <div class='mt-6 text-3xl font-medium leading-8'>23</div>
+              <div class='mt-6 text-3xl font-medium leading-8'>{{this.counts.constructionCount}}</div>
               <div class='mt-1 text-base text-slate-500'>
                 Қурилиш жараёнида
               </div>
@@ -135,7 +142,7 @@
                   </div>
                 </div>
               </div>
-              <div class='mt-6 text-3xl font-medium leading-8'>2</div>
+              <div class='mt-6 text-3xl font-medium leading-8'>{{this.counts.startedCount}}</div>
               <div class='mt-1 text-base text-slate-500'>Ишга тушганлари</div>
             </div>
           </div>
@@ -385,6 +392,23 @@
       </div>
       <!-- END: Control Parameter Modal -->
 
+      <!-- BEGIN: Create Factory Modal -->
+      <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-create-modal'
+        class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+        <div
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+          <div class='p-5 text-center'>
+
+            <div id="factory-create-modal-title" class='mt-5 text-3xl'></div>
+            <div class='mt-2 text-slate-500' id='factory-create-modal-result'>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <!-- END: Create Factory Modal -->
+
       <!-- BEGIN: Edit Factory Modal -->
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-edit-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
@@ -445,6 +469,40 @@
 }
 </script>
 <script>
+  function createFactory() {
+    const modal = document.getElementById('factory-create-modal-result');
+    modal.innerHTML = null;
+    fetch('/factory/create', {
+      method: 'GET'
+    }).then(response => response.text()).then(data => {
+      modal.innerHTML = data;
+      const modalTitle = document.getElementById('factory-create-modal-title');
+      modalTitle.textContent = `Янги лойиҳа қўшиш`;
+      {{!-- $('#factory-create-modal').modal('show'); --}}
+    }).catch(error => { 
+      console.log(error);
+    });
+  }
+  function save_create_factory(factory_id) {
+    var form = document.querySelector('#factory-create-modal form');
+
+    var formData = new
+      FormData(form);
+    fetch('/factory/create', { method: 'POST', body: formData })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was
+  not ok`);
+        } return response.text();
+      }).then(data => {
+        document.getElementById('factory-create-modal').classList.remove('show');
+        location.reload();
+      }).catch(error => {
+        console.error(`There was a problem
+  with the fetch operation:`, error);
+      });
+  }
+
   function showFactoryEditModal(id) {
     const modal = document.getElementById('factory-edit-modal-result');
     modal.innerHTML = null;
@@ -456,7 +514,7 @@
       const modalTitle = document.getElementById('factory-edit-modal-title');
       modalTitle.textContent = `Лойиҳа маълумотларини ўзгартириш`;
       {{!-- $('#factory-edit-modal').modal('show'); --}}
-    }).catch(error => {
+    }).catch(error => { 
       console.log(error);
     });
   }
@@ -483,13 +541,15 @@
 </script>
 
 <script>
-  const token = localStorage.getItem('token'); // yoki sessionStorage, yoki cookie
+  const token = localStorage.getItem('token'); 
   const decodedToken = parseJwt(token);
 if (decodedToken.user.role === 'admin') {
     const editButtons = document.querySelectorAll('#parameter-edit-btn');
+    const createButtons = document.querySelector('#create-factory-btn');
     editButtons.forEach(button => {
-        button.style.display = 'none'; // yoki button.remove();
+        button.style.display = 'none'; 
     });
+    createButtons.style.display = 'none'; 
 }
 
   function formatDate(dateString) {
@@ -733,7 +793,6 @@ if (decodedToken.user.role === 'admin') {
       })
       .then(data => {
         const paramComment = document.querySelector(`[data-param-id="${factoryParamId}"]`);
-        {{!-- console.log(paramCommentElement) --}}
         if(paramComment && data.data?.izoh){
           const paramCommentElement = paramComment.querySelector('span');
           paramCommentElement.classList.add('flex');

@@ -1,5 +1,5 @@
 import { Column, Entity, OneToMany } from 'typeorm';
-import { BaseEntity } from 'src/shared/entities/base.entity';
+import { BaseEntity } from '../../../shared/entities/base.entity';
 import { FactoryParams } from './facory-param.entity';
 
 @Entity()

@@ -1,5 +1,4 @@
 import {
-  Body,
   Controller,
   Get,
   Param,
@@ -57,8 +56,6 @@ export class FactoryController {
     @Res() res: Response,
   ) {
     const factory = await this.factoryService.findAllLog(query);
-    console.log(factory.data);
-    
     return res.render('partials/factory/history-comment', {
       layout: false,
       data: factory.data,
@@ -75,7 +72,11 @@ export class FactoryController {
   @Render('factory/index')
   async finAll() {
     const factories = await this.factoryService.findAll();
-    return { factories: factories.data, total: factories.total };
+    return {
+      factories: factories.data,
+      total: factories.total,
+      counts: factories.counts,
+    };
   }
 
   @Get('update/:id')
@@ -85,6 +86,22 @@ export class FactoryController {
       layout: false,
       factory: factory[0],
     });
+  }
+
+  @Get('create')
+  async createFactoryModal(@Param('id') id: number, @Res() res: Response) {
+    return res.render('partials/factory/create-factory', {
+      layout: false,
+    });
+  }
+
+  @Post('create')
+  @UseInterceptors(FileFieldsInterceptor([]))
+  async createFactory(@Param('id') id: number, @Req() req: Request) {
+    // const factory = await this.factoryService.addFactory(req.body);
+    // return
+    console.log(req.body);
+    return { ok: true, status: 'success' };
   }
 
   // @Get('/update-param/:id')

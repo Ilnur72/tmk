@@ -7,7 +7,7 @@ import {
   Unique,
 } from 'typeorm';
 import { Factory } from './factory.entity';
-import { BaseEntity } from 'src/shared/entities/base.entity';
+import { BaseEntity } from '../../../shared/entities/base.entity';
 import { FactoryLog } from './factory-log.entity';
 import { Param } from './param.entity';
 

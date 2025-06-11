@@ -11,7 +11,7 @@ import { UpdateEmployeeDto } from './dto/update-employee.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Employee } from './entities/employee.entity';
-import { UserRole } from 'src/shared/types/enums';
+import { UserRole } from '../../shared/types/enums';
 
 @Injectable()
 export class EmployeeService {
