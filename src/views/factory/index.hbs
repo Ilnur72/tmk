@@ -201,7 +201,7 @@
                   data-tw-toggle="modal" data-tw-target="#factory-history-modal"
                   onclick="showCommentHistory({{this.id}})"
                   {{!-- onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})" --}}
-                  class='mt-2 flex items-center cursor-pointer {{#if this.visible}}flex{{/if}}hidden'>
+                  class='mt-2 flex items-center cursor-pointer {{#unless this.visible}}hidden{{/unless}}'>
                   <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
                     stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
                     data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
@@ -396,10 +396,10 @@
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-create-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
-          <div class='p-5 text-center'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-12 group-[.show]:mt-12 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
+          <div class='p-2 text-center'>
 
-            <div id="factory-create-modal-title" class='mt-5 text-3xl'></div>
+            <div id="factory-create-modal-title" class=' text-3xl'></div>
             <div class='mt-2 text-slate-500' id='factory-create-modal-result'>
 
             </div>
@@ -478,16 +478,30 @@
       modal.innerHTML = data;
       const modalTitle = document.getElementById('factory-create-modal-title');
       modalTitle.textContent = `Янги лойиҳа қўшиш`;
-      {{!-- $('#factory-create-modal').modal('show'); --}}
-    }).catch(error => { 
-      console.log(error);
-    });
-  }
-  function save_create_factory(factory_id) {
-    var form = document.querySelector('#factory-create-modal form');
+       setTimeout(() => {
+                initializeMap();
+            }, 300);
 
-    var formData = new
-      FormData(form);
+            document.querySelector('#factory-create-modal-form').addEventListener('submit', function save_create_factory(e) {
+    e.preventDefault()
+      const input = document.getElementById('regular-form-element');
+    const form = e.target;
+    const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
+            {{!-- const name = document.getElementById('project-name');
+            const manager = document.getElementById('project-manager').value.trim();
+            const status = document.getElementById('project-status').value; --}}
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            console.log(latitude, 'name')
+
+            const formData = new FormData(form);
+                formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
+
+elements.forEach(el => formData.append('elements[]', el));
+            const saveButton = document.querySelector('.btn-success');
+            const originalText = saveButton.textContent;
+            saveButton.textContent = '⏳ Сақланмоқда...';
+            saveButton.disabled = true;
     fetch('/factory/create', { method: 'POST', body: formData })
       .then(response => {
         if (!response.ok) {
@@ -500,8 +514,85 @@
       }).catch(error => {
         console.error(`There was a problem
   with the fetch operation:`, error);
-      });
+      }) .finally(() => {
+                // Loading holatini qaytarish
+                saveButton.textContent = originalText;
+                saveButton.disabled = false;
+            });;
+  })
+    }).catch(error => { 
+      console.log(error);
+    });
   }
+
+        function updateCoordinates(lat, lng) {
+            document.getElementById('latitude').value = lat.toFixed(6);
+            document.getElementById('longitude').value = lng.toFixed(6);
+            
+            document.getElementById('display-lat').textContent = lat.toFixed(6);
+            document.getElementById('display-lng').textContent = lng.toFixed(6);
+            document.getElementById('coordinates-display').style.display = 'block';
+        }
+
+ // Modal tashqarisiga bosilganda yopish
+        window.onclick = function(event) {
+            const modal = document.getElementById('factory-create-modal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // ESC tugmasi bilan yopish
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const modal = document.getElementById('factory-create-modal');
+                if (modal.classList.contains('show')) {
+                    closeModal();
+                }
+            }
+        });
+
+        // Sahifa yuklanganda
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
+        });
+
+function initializeMap() {
+    const map = new maplibregl.Map({
+        container: 'map',
+        style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
+        center: [69.2401, 41.2995],
+        zoom: 10
+    });
+
+ let marker = new maplibregl.Marker({ draggable: true })
+        .setLngLat([69.2401, 41.2995])
+        .addTo(map);
+          document.getElementById('latitude').value = 41.2995;
+    document.getElementById('longitude').value = 69.2401;
+
+    map.on('click', function (e) {
+        const lng = e.lngLat.lng;
+        const lat = e.lngLat.lat;
+
+        if (marker) {
+            marker.remove();
+        }
+
+        marker = new maplibregl.Marker({ draggable: true })
+            .setLngLat([lng, lat])
+            .addTo(map);
+
+        document.getElementById('latitude').value = lat;
+        document.getElementById('longitude').value = lng;
+
+        marker.on('dragend', function() {
+            const lngLat = marker.getLngLat();
+            document.getElementById('latitude').value = lngLat.lat;
+            document.getElementById('longitude').value = lngLat.lng;
+        });
+    });
+}
 
   function showFactoryEditModal(id) {
     const modal = document.getElementById('factory-edit-modal-result');
@@ -794,14 +885,12 @@ if (decodedToken.user.role === 'admin') {
       .then(data => {
         const paramComment = document.querySelector(`[data-param-id="${factoryParamId}"]`);
         if(paramComment && data.data?.izoh){
-          const paramCommentElement = paramComment.querySelector('span');
-          paramCommentElement.classList.add('flex');
-          paramCommentElement.classList.remove('hidden');
-          paramCommentElement.textContent = `Izoh: ${data.data?.izoh}`;
+          paramComment.classList.add('flex');
+          paramComment.classList.remove('hidden');
+          paramComment.textContent = `Izoh: ${data.data?.izoh}`;
         }if(paramComment && !data.data?.izoh){
-          const paramCommentElement = paramComment.querySelector('span');
-          paramCommentElement.classList.add('hidden');
-          paramCommentElement.classList.remove('flex');
+          paramComment.classList.add('hidden');
+          paramComment.classList.remove('flex');
         }
 
         updateParameterStatus(paramId, status);

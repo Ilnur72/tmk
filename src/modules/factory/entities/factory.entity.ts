@@ -17,8 +17,8 @@ export class Factory extends BaseEntity {
   @Column()
   name: string;
 
-  @Column({ nullable: true, type: 'json' })
-  location: location;
+  @Column({ nullable: true })
+  location: string;
 
   @Column()
   elements: string;
