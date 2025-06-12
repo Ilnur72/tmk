@@ -426,7 +426,7 @@
       </div>
       <!-- END: Edit Factory Modal -->
 
-      <!-- BEGIN: Paramter history comment Modal -->
+      <!-- BEGIN: Parameter history comment Modal -->
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-history-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
@@ -567,7 +567,7 @@ if (decodedToken.user.role === 'admin') {
   function showCommentHistory(factoryParamId) {
     const token = localStorage.getItem('token'); // yoki sessionStorage, yoki cookie
   const decodedToken = parseJwt(token);
-    if(decodedToken.user.role !== 'admin') {
+    {{!-- if(decodedToken.user.role !== 'admin') { --}}
       const modal = document.getElementById('factory-history-modal');
     const modalTitle = document.getElementById('factory-history-modal-title');
     const modalResult = document.getElementById('factory-history-modal-result');
@@ -590,7 +590,7 @@ if (decodedToken.user.role === 'admin') {
       .catch(error => {
         console.error('Error fetching parameter history:', error);
       });
-    }
+    {{!-- } --}}
   }
 </script>
 
