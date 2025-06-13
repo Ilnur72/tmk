@@ -31,7 +31,7 @@ export class FactoryService {
         updateFactoryDto,
       );
       return await this.factoryRepository.save(updatedFactory);
-    } catch (error) {
+    } catch (error) {   
       if (error.status === 404) {
         throw error;
       }
@@ -114,7 +114,6 @@ export class FactoryService {
     const queryRunner = this.dataSource.createQueryRunner();
     await queryRunner.connect();
     await queryRunner.startTransaction();
-
     try {
       const params = await queryRunner.manager.find(Param);
 

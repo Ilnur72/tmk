@@ -34,6 +34,10 @@ async function bootstrap() {
     // Oddiy helper bo'lsa ({{and a b}})
     return allTruthy;
   });
+  hbs.registerHelper('arrayToString', function (array) {
+    if (!Array.isArray(array)) return array;
+    return array.join(', ');
+  });
   registerHelpers();
   await app.listen(port);
   console.log(`Server is running on port ${port}`);

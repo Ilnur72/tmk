@@ -413,10 +413,10 @@
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-edit-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
-          <div class='p-5 text-center'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-12 group-[.show]:mt-12 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
+          <div class='p-2 text-center'>
 
-            <div id="factory-edit-modal-title" class='mt-5 text-3xl'></div>
+            <div id="factory-edit-modal-title" class=' text-3xl'></div>
             <div class='mt-2 text-slate-500' id='factory-edit-modal-result'>
 
             </div>
@@ -488,12 +488,8 @@
       const input = document.getElementById('regular-form-element');
     const form = e.target;
     const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
-            {{!-- const name = document.getElementById('project-name');
-            const manager = document.getElementById('project-manager').value.trim();
-            const status = document.getElementById('project-status').value; --}}
             const latitude = document.getElementById('latitude').value;
             const longitude = document.getElementById('longitude').value;
-            console.log(latitude, 'name')
 
             const formData = new FormData(form);
                 formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
@@ -605,7 +601,45 @@ function initializeMap() {
       modal.innerHTML = data;
       const modalTitle = document.getElementById('factory-edit-modal-title');
       modalTitle.textContent = `Лойиҳа маълумотларини ўзгартириш`;
-      {{!-- $('#factory-edit-modal').modal('show'); --}}
+       setTimeout(() => {
+                initializeMap();
+            }, 300);
+     document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
+    e.preventDefault()
+      const input = document.getElementById('regular-form-edit-element');
+    const form = e.target;
+    const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
+            const latitude = document.getElementById('latitude').value;
+            const longitude = document.getElementById('longitude').value;
+            console.log(id, 'name')
+
+            const formData = new FormData(form);
+            formData.append('factory_id', id);
+                formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
+
+elements.forEach(el => formData.append('elements[]', el));
+            const saveButton = document.querySelector('.btn-success');
+            const originalText = saveButton.textContent;
+            saveButton.textContent = '⏳ Сақланмоқда...';
+            saveButton.disabled = true;
+    fetch('/factory/update/'+id, { method: 'PUT', body: formData })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Network response was
+  not ok`);
+        } return response.text();
+      }).then(data => {
+        document.getElementById('factory-create-modal').classList.remove('show');
+        location.reload();
+      }).catch(error => {
+        console.error(`There was a problem
+  with the fetch operation:`, error);
+      }) .finally(() => {
+                // Loading holatini qaytarish
+                saveButton.textContent = originalText;
+                saveButton.disabled = false;
+            });;
+  })
     }).catch(error => { 
       console.log(error);
     });

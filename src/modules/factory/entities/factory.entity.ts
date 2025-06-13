@@ -16,8 +16,8 @@ export class Factory extends BaseEntity {
   @Column({ nullable: true })
   location: string;
 
-  @Column()
-  elements: string;
+  @Column('text', { array: true })
+  elements: any;
 
   @Column({
     nullable: true,
