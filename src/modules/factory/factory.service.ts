@@ -31,7 +31,7 @@ export class FactoryService {
         updateFactoryDto,
       );
       return await this.factoryRepository.save(updatedFactory);
-    } catch (error) {   
+    } catch (error) {
       if (error.status === 404) {
         throw error;
       }

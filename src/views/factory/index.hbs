@@ -195,8 +195,7 @@
                 {{#each this.factoryParams}}
                 <div class="flex justify-between items-center mt-2">
                   <div
-                  data-tw-toggle="modal" data-tw-target="#factory-history-modal"
-                  onclick="showCommentHistory({{this.id}})"
+                  data-tw-toggle="modal" data-tw-target="#factory-history-modal" onclick="showCommentHistory({{this.id}})"
                   class='flex items-center cursor-pointer {{#unless this.visible}}hidden{{/unless}}'>
                   <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
                     stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
@@ -204,22 +203,25 @@
                     <polyline points='9 11 12 14 22 4'></polyline>
                     <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
                   </svg>
-                  <div class="{{#if (eq this.param.type 'select')}}flex{{/if}}">
-                    <span class="cursor-pointer" data-param-id="{{this.param.id}}">
-
-                    {{{this.param.name}}}: &nbsp;
-                    </span>
-                    {{#if (eq this.param.type "select")}}
-                    <img id='{{this.id}}' class='rounded-full' {{#if (eq this.status 0)}}
-                      src='../../../public/image/error.png' {{else if (eq this.status 1)}}
-                      src='../../../public/image/ok.png' {{else}} src='../../../public/image/{{this.status}}.png'
-                      {{/if}} alt='' width='20px' height='20px' />
-                    {{else if (eq this.param.type "date")}}
-                    <br>
-                    {{!-- {{this.latestLog.value}} --}}
-                    {{!-- <span>{{this.latestLog.value}}</span> --}}
-                    {{/if}}
-                  </div>
+                  <div class="{{#if (eq this.param.type 'select')}}flex items-center{{/if}}">
+  <span class="cursor-pointer" data-param-id="{{this.param.id}}">
+    {{{this.param.name}}}:&nbsp;
+  </span>
+  
+  {{#if (eq this.param.type "select")}}
+    <!-- Select type - show status image -->
+    <img id="{{this.id}}" 
+         class="rounded-full"
+         src="../../../public/image/{{#if (eq this.status 0)}}error{{else if (eq this.status 1)}}ok{{else}}{{this.status}}{{/if}}.png"
+         alt="Status indicator"
+         width="20" 
+         height="20" />
+  {{else if (eq this.param.type "date")}}
+    <!-- Date type - show value in span -->
+{{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
+      <span class="ml-1">{{this.latestLog.value}}</span>
+    {{/if}}  {{/if}}
+</div>
                 </div>
          <button id="parameter-edit-btn" onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})"> <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
   <path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/>
@@ -617,7 +619,7 @@ function initializeMap() {
             formData.append('factory_id', id);
                 formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
 
-elements.forEach(el => formData.append('elements[]', el));
+    elements.forEach(el => formData.append('elements[]', el));
             const saveButton = document.querySelector('.btn-success');
             const originalText = saveButton.textContent;
             saveButton.textContent = '⏳ Сақланмоқда...';
@@ -690,11 +692,12 @@ if (decodedToken.user.role === 'admin') {
     return `${day}.${month}.${year} ${hours}:${minutes}`;
   }
 
+</script>
+
+<script>
+
   function showCommentHistory(factoryParamId) {
-    const token = localStorage.getItem('token'); // yoki sessionStorage, yoki cookie
-  const decodedToken = parseJwt(token);
-    {{!-- if(decodedToken.user.role !== 'admin') { --}}
-      const modal = document.getElementById('factory-history-modal');
+    const modal = document.getElementById('factory-history-modal');
     const modalTitle = document.getElementById('factory-history-modal-title');
     const modalResult = document.getElementById('factory-history-modal-result');
     modalResult.innerHTML = null;
@@ -716,7 +719,6 @@ if (decodedToken.user.role === 'admin') {
       .catch(error => {
         console.error('Error fetching parameter history:', error);
       });
-    {{!-- } --}}
   }
 </script>
 

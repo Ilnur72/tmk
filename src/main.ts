@@ -38,6 +38,13 @@ async function bootstrap() {
     if (!Array.isArray(array)) return array;
     return array.join(', ');
   });
+  hbs.registerHelper('length', function (str) {
+    return str ? str.length : 0;
+  });
+
+  hbs.registerHelper('gt', function (a, b) {
+    return a > b;
+  });
   registerHelpers();
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
