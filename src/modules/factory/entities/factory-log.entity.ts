@@ -16,7 +16,7 @@ export class FactoryLog extends BaseEntity {
   @Column()
   params_id: number;
 
-  @Column()
+  @Column({ type: 'varchar' })
   value: string;
 
   @Column({ nullable: true })

@@ -219,7 +219,7 @@
   {{else if (eq this.param.type "date")}}
     <!-- Date type - show value in span -->
 {{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
-      <span class="ml-1">{{this.latestLog.value}}</span>
+      <span id="factory-param-date" class="ml-1">{{this.latestLog.value}}</span>
     {{/if}}  {{/if}}
 </div>
                 </div>
@@ -872,7 +872,8 @@ if (decodedToken.user.role === 'admin') {
     const paramId = formData.get('param_id');
     const status = formData.get('status');
     const comment = formData.get('comment');
-    fetch('/factory/param/update/' + factoryParamId, {
+    if(status.length < 2) {
+      fetch('/factory/param/update/' + factoryParamId, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -897,7 +898,7 @@ if (decodedToken.user.role === 'admin') {
     }).catch(error => {
       console.error('Error updating parameter:', error);
     });
-
+    }
     fetch('/factory/log', {
       method: 'POST',
       headers: {
@@ -931,7 +932,7 @@ if (decodedToken.user.role === 'admin') {
         form.reset();
         updateParameterStatus(paramId, status);
         closeParameterModal();
-
+          location.reload();
         showNotification('Параметр статуси муваффақиятли янгиланди', 'success');
       })
       .catch(error => {
