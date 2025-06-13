@@ -227,11 +227,14 @@
 </svg></button>
 
                 </div>
-                {{#if latestLog.izoh}}
-                {{#unless (eq latestLog.izoh "")}}
-                <span data-param-id="{{this.id}}" id="{{this.id}}" class="pl-2 text-xs {{#if this.visible}}flex{{/if}}hidden">Izoh: {{latestLog.izoh}}</span>
-                {{/unless}}
-                {{/if}}
+  
+      <span 
+  data-param-id="{{this.id}}"
+  id="{{this.id}}"
+  class="pl-2 text-xs {{#if (and latestLog.izoh (ne latestLog.izoh ""))}}{{#if this.visible}}flex{{else}}hidden{{/if}}{{else}}hidden{{/if}}"
+  {{#unless (and latestLog.izoh (ne latestLog.izoh ""))}}aria-hidden="true"{{/unless}}>
+  {{#if latestLog.izoh}}Izoh: {{latestLog.izoh}}{{/if}}
+</span>
                 <div class='mt-4 w-full {{#if this.visible}}flex{{/if}}hidden border-t border-slate-200/60 dark:border-darkmode-400'></div>{{/each}}
               </div>
             </div>
@@ -444,7 +447,8 @@
 
   </div>
 </div>
-<script>function parseJwt(token) {
+<script>
+  function parseJwt(token) {
   if (!token) return null;
 
   try {
@@ -825,7 +829,7 @@ if (decodedToken.user.role === 'admin') {
 
   document.getElementById('parameter-form').addEventListener('submit', function (e) {
     e.preventDefault();
-
+    const form = this;
     const formData = new FormData(this);
     const factoryId = formData.get('factory_id');
     const factoryParamId = formData.get('factory_param_id');
@@ -858,7 +862,6 @@ if (decodedToken.user.role === 'admin') {
       console.error('Error updating parameter:', error);
     });
 
-    // Send data to /factory-log endpoint
     fetch('/factory/log', {
       method: 'POST',
       headers: {
@@ -889,7 +892,7 @@ if (decodedToken.user.role === 'admin') {
           paramComment.classList.add('hidden');
           paramComment.classList.remove('flex');
         }
-
+        form.reset();
         updateParameterStatus(paramId, status);
         closeParameterModal();
 

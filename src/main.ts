@@ -18,8 +18,23 @@ async function bootstrap() {
   hbs.registerHelper('eq', function (a, b) {
     return a == b;
   });
-  registerHelpers();
+  hbs.registerHelper('ne', function (a, b) {
+    return a !== b;
+  });
+  hbs.registerHelper('and', function (...args) {
+    // Oxirgi argument options obyekti
+    const options = args.pop();
+    // Barcha argumentlarni tekshirish
+    const allTruthy = args.every((arg) => !!arg);
 
+    // Agar block helper bo'lsa ({{#and}})
+    if (options && typeof options.fn === 'function') {
+      return allTruthy ? options.fn(this) : options.inverse(this);
+    }
+    // Oddiy helper bo'lsa ({{and a b}})
+    return allTruthy;
+  });
+  registerHelpers();
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
 }

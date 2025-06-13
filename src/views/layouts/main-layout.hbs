@@ -33,7 +33,11 @@
     />
     <link rel='stylesheet' href='../../../public/css/vendors/leaflet.css' />
     <link rel='stylesheet' href='../../../public/css/vendors/simplebar.css' />
-
+    <script> const token = localStorage.getItem('token'); 
+      console.log(token);
+      if(!token) {
+          window.location.href = '/login';
+      }</script>
     <link
       rel='stylesheet'
       href='../../../public/css/components/mobile-menu.css'
