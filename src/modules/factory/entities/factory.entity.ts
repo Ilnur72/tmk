@@ -2,10 +2,6 @@ import { BaseEntity } from '../../../shared/entities/base.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { FactoryParams } from './facory-param.entity';
 
-interface location {
-  lat: number;
-  lng: number;
-}
 export enum FactoryParamStatus {
   REGISTRATION = 'REGISTRATION',
   CONSTRUCTION = 'CONSTRUCTION',
@@ -23,7 +19,11 @@ export class Factory extends BaseEntity {
   @Column()
   elements: string;
 
-  @Column({ nullable: true, default: null, enum: FactoryParamStatus })
+  @Column({
+    nullable: true,
+    default: FactoryParamStatus.REGISTRATION,
+    enum: FactoryParamStatus,
+  })
   status: FactoryParamStatus;
 
   @Column()

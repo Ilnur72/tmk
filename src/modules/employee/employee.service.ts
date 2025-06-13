@@ -20,7 +20,7 @@ export class EmployeeService {
     private userRepository: Repository<Employee>,
   ) {}
 
-  async create(createEmployeeDto: CreateEmployeeDto, language?: string) {
+  async create(createEmployeeDto: CreateEmployeeDto) {
     try {
       const existing = await this.userRepository.findOne({
         where: { email: createEmployeeDto.email, is_deleted: false },

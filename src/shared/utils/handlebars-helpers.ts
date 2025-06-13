@@ -1,4 +1,4 @@
-import * as hbs from 'hbs';
+import hbs from 'hbs';
 
 export function registerHelpers(): void {
   hbs.registerHelper('json', function (context) {

@@ -1,9 +1,11 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Factory, FactoryParamStatus } from './entities/factory.entity';
+import { Factory } from './entities/factory.entity';
 import { FactoryLog } from './entities/factory-log.entity';
 import { FactoryParams } from './entities/facory-param.entity';
+import { DataSource } from 'typeorm';
+import { Param } from './entities/param.entity';
 
 @Injectable()
 export class FactoryService {
@@ -14,6 +16,7 @@ export class FactoryService {
     private factoryLogRepository: Repository<FactoryLog>,
     @InjectRepository(FactoryParams)
     private factoryParamRepository: Repository<FactoryParams>,
+    private readonly dataSource: DataSource,
   ) {}
 
   async update(id: number, updateFactoryDto: any): Promise<Factory> {
@@ -108,14 +111,55 @@ export class FactoryService {
   }
 
   async addFactory(data: any): Promise<any> {
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+
     try {
-      const factory = this.factoryRepository.create(data);
-      return await this.factoryRepository.save(factory);
+      const params = await queryRunner.manager.find(Param);
+
+      const lastData = await queryRunner.manager.find(Factory, {
+        order: { sort_num: 'DESC' },
+        take: 1,
+      });
+
+      const coords = [data.latitude, data.longitude];
+      const location = [...coords].reverse();
+
+      delete data.latitude;
+      delete data.longitude;
+
+      const factory = queryRunner.manager.create(Factory, {
+        ...data,
+        location,
+        coords,
+        sort_num: lastData.length > 0 ? lastData[0].sort_num + 1 : 1,
+      });
+
+      const savedFactory = await queryRunner.manager.save(factory);
+
+      const factoryParamsToSave = params.map((param) =>
+        queryRunner.manager.create(FactoryParams, {
+          factory_id: savedFactory.id,
+          params_id: param.id,
+          status: 0,
+          visible: false,
+        }),
+      );
+
+      await queryRunner.manager.save(factoryParamsToSave);
+
+      await queryRunner.commitTransaction();
+      return savedFactory;
     } catch (error) {
+      await queryRunner.rollbackTransaction();
+      console.error(error);
       throw new HttpException(
         'Failed to add factory',
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
+    } finally {
+      await queryRunner.release();
     }
   }
 

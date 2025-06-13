@@ -11,7 +11,7 @@ export class FactoryLog extends BaseEntity {
   factory_params_id: number;
 
   @Column({ type: 'timestamp' })
-  date_update: number;
+  date_update: string;
 
   @Column()
   params_id: number;

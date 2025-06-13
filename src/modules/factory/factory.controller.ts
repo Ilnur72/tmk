@@ -97,10 +97,10 @@ export class FactoryController {
 
   @Post('create')
   @UseInterceptors(FileFieldsInterceptor([]))
-  async createFactory(@Param('id') id: number, @Req() req: Request) {
-    // const factory = await this.factoryService.addFactory(req.body);
-    // return
-    console.log(req.body);
+  async createFactory(@Req() req: Request) {
+    console.log(req.body, 'req.body');
+    await this.factoryService.addFactory(req.body);
+
     return { ok: true, status: 'success' };
   }
 

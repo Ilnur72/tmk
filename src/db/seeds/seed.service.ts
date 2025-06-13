@@ -3,16 +3,62 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import { Employee } from '../../modules/employee/entities/employee.entity';
-
+import { Factory } from '../../modules/factory/entities/factory.entity';
+import { FactoryParams } from '../../modules/factory/entities/facory-param.entity';
+import { Param } from '../../modules/factory/entities/param.entity';
+import { Cars } from '../../modules/techniques/entities/technique.entity';
+import factoryData from '../data/factory.json';
+import factoryParamsData from '../data/factory_params.json';
+import factoryLogsData from '../data/factory_log.json';
+import carsData from '../data/cars.json';
+import paramsData from '../data/params.json';
+import { FactoryLog } from '../../modules/factory/entities/factory-log.entity';
 @Injectable()
 export class SeedService {
   constructor(
     @InjectRepository(Employee)
     private readonly employeeRepository: Repository<Employee>,
+    @InjectRepository(Factory)
+    private readonly factoryRepository: Repository<Factory>,
+    @InjectRepository(FactoryParams)
+    private readonly factoryParamsRepository: Repository<FactoryParams>,
+    @InjectRepository(FactoryLog)
+    private readonly factoryLogRepository: Repository<FactoryLog>,
+    @InjectRepository(Param)
+    private readonly paramsRepository: Repository<Param>,
+    @InjectRepository(Cars)
+    private readonly carsRepository: Repository<Cars>,
   ) {}
 
   async seed() {
     await this.seedAdmin();
+    await this.seedFactory();
+    await this.seedParams();
+    await this.seedFactoryParams();
+    await this.seedFactoryLog();
+    await this.seedCars();
+  }
+
+  private async seedFactory() {
+    const result = this.factoryRepository.create(factoryData);
+    await this.factoryRepository.save(result);
+  }
+
+  private async seedParams() {
+    const result = this.paramsRepository.create(paramsData);
+    await this.paramsRepository.save(result);
+  }
+  private async seedFactoryParams() {
+    const result = this.factoryParamsRepository.create(factoryParamsData);
+    await this.factoryParamsRepository.save(result);
+  }
+  private async seedFactoryLog() {
+    const result = this.factoryLogRepository.create(factoryLogsData);
+    await this.factoryLogRepository.save(result);
+  }
+  private async seedCars() {
+    const result = this.carsRepository.create(carsData);
+    await this.carsRepository.save(result);
   }
 
   private async seedAdmin() {
