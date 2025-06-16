@@ -803,11 +803,10 @@ if (decodedToken.user.role === 'admin') {
           newField.name = 'status';
           newField.id = 'param-status';
           newField.className = 'block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500';
-
           if (item) {
             const findParamLogs = fetch(`/factory/log?query[factoryParamId]=${factoryParamId}`)
               .then(response => response.json()).then(data => {
-                const dateValue = new Date();
+                const dateValue = new Date(data[0].value);
                 if (!isNaN(dateValue.getTime())) {
                   newField.value = dateValue.toISOString().split('T')[0];
                 }
