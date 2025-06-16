@@ -122,7 +122,7 @@ export class FactoryService {
         take: 1,
       });
 
-      const coords = [data.latitude, data.longitude];
+      const coords = [data.longitude, data.latitude];
       const location = [...coords].reverse();
 
       delete data.latitude;
@@ -130,8 +130,8 @@ export class FactoryService {
 
       const factory = queryRunner.manager.create(Factory, {
         ...data,
-        location,
-        coords,
+        location: JSON.stringify(location),
+        coords: JSON.stringify(coords),
         sort_num: lastData.length > 0 ? lastData[0].sort_num + 1 : 1,
       });
 
