@@ -217,10 +217,12 @@
          width="20" 
          height="20" />
   {{else if (eq this.param.type "date")}}
-    <!-- Date type - show value in span -->
-{{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
-      <span id="factory-param-date" class="ml-1">{{this.latestLog.value}}</span>
-    {{/if}}  {{/if}}
+    <span id="factory-param-date-{{this.id}}" class="ml-1" {{#unless (and this.latestLog.value (gt (length this.latestLog.value) 2))}}style="display: none;"{{/unless}}>
+  {{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
+    {{this.latestLog.value}}
+  {{/if}}
+</span>
+    {{/if}}
 </div>
                 </div>
          <button id="parameter-edit-btn" onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})"> <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -803,7 +805,7 @@ if (decodedToken.user.role === 'admin') {
           if (item) {
             const findParamLogs = fetch(`/factory/log?query[factoryParamId]=${factoryParamId}`)
               .then(response => response.json()).then(data => {
-                const dateValue = new Date(data[0].value);
+                const dateValue = new Date();
                 if (!isNaN(dateValue.getTime())) {
                   newField.value = dateValue.toISOString().split('T')[0];
                 }
@@ -887,12 +889,12 @@ if (decodedToken.user.role === 'admin') {
     }).then(data => {
       const img = document.getElementById(`${factoryParamId}`);
       if (img) {
-        if (+data.status === 0) {
+        if (+data.data.status === 0) {
           img.src = '../../../public/image/error.png';
-        } else if (+data.status === 1) {
+        } else if (+data.data.status === 1) {
           img.src = '../../../public/image/ok.png';
         } else {
-          img.src = `../../../public/image/${data.status}.png`;
+          img.src = `../../../public/image/${data.data.status}.png`;
         }
       }
     }).catch(error => {
@@ -921,7 +923,21 @@ if (decodedToken.user.role === 'admin') {
       })
       .then(data => {
         const paramComment = document.querySelector(`[data-param-id="${factoryParamId}"]`);
-        if(paramComment && data.data?.izoh){
+        const paramDate = document.querySelector(`#factory-param-date-${factoryParamId}`);
+        if (status.length > 2) {
+          if (paramDate) {
+            paramDate.textContent = status;
+            paramDate.classList.remove('d-none'); 
+            paramDate.style.display = 'inline'; 
+          }
+        } else {
+          if (paramDate) {
+            paramDate.textContent = '';
+            paramDate.classList.add('d-none'); 
+            paramDate.style.display = 'none';
+          }
+        }
+        if(paramComment && data.data?.izoh){  
           paramComment.classList.add('flex');
           paramComment.classList.remove('hidden');
           paramComment.textContent = `Izoh: ${data.data?.izoh}`;
@@ -932,7 +948,6 @@ if (decodedToken.user.role === 'admin') {
         form.reset();
         updateParameterStatus(paramId, status);
         closeParameterModal();
-          location.reload();
         showNotification('Параметр статуси муваффақиятли янгиланди', 'success');
       })
       .catch(error => {

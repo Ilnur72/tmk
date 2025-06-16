@@ -188,6 +188,7 @@ export class FactoryService {
           `latestLog.id = (${latestLogSubQuery.getQuery()})`,
         )
         .orderBy('factory.id', 'DESC')
+        .addOrderBy('factoryParams.id', 'DESC')
         .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,

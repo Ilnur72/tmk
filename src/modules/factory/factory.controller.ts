@@ -129,7 +129,7 @@ export class FactoryController {
   async updateParam(@Param('id') id: number, @Req() req: Request) {
     const result = await this.factoryService.updateParam(id, req.body);
 
-    return { ok: true };
+    return { ok: true, data: result };
   }
 
   @Put('param-control/:id')
