@@ -558,39 +558,55 @@ elements.forEach(el => formData.append('elements[]', el));
             console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
         });
 
-function initializeMap() {
+function initializeMap(longitude = 69.2401, latitude = 41.2995) {
     const map = new maplibregl.Map({
         container: 'map',
         style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
-        center: [69.2401, 41.2995],
+        center: [longitude, latitude],
         zoom: 10
     });
 
- let marker = new maplibregl.Marker({ draggable: true })
-        .setLngLat([69.2401, 41.2995])
+    let marker = new maplibregl.Marker({ draggable: true })
+        .setLngLat([longitude, latitude])
         .addTo(map);
-          document.getElementById('latitude').value = 41.2995;
-    document.getElementById('longitude').value = 69.2401;
+    
+    document.getElementById('latitude').value = latitude;
+    document.getElementById('longitude').value = longitude;
 
-    map.on('click', function (e) {
+    marker.on('drag', function() {
+        const lngLat = marker.getLngLat();
+        document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+        document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+    });
+
+    marker.on('dragend', function() {
+        const lngLat = marker.getLngLat();
+        document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+        document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+    });
+
+    map.on('click', function(e) {
         const lng = e.lngLat.lng;
         const lat = e.lngLat.lat;
 
-        if (marker) {
-            marker.remove();
-        }
-
+        marker.remove();
         marker = new maplibregl.Marker({ draggable: true })
             .setLngLat([lng, lat])
             .addTo(map);
+        
+        document.getElementById('latitude').value = lat.toFixed(6);
+        document.getElementById('longitude').value = lng.toFixed(6);
 
-        document.getElementById('latitude').value = lat;
-        document.getElementById('longitude').value = lng;
+        marker.on('drag', function() {
+            const lngLat = marker.getLngLat();
+            document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+            document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+        });
 
         marker.on('dragend', function() {
             const lngLat = marker.getLngLat();
-            document.getElementById('latitude').value = lngLat.lat;
-            document.getElementById('longitude').value = lngLat.lng;
+            document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+            document.getElementById('longitude').value = lngLat.lng.toFixed(6);
         });
     });
 }
@@ -605,12 +621,14 @@ function initializeMap() {
       modal.innerHTML = data;
       const modalTitle = document.getElementById('factory-edit-modal-title');
       modalTitle.textContent = `Лойиҳа маълумотларини ўзгартириш`;
-       setTimeout(() => {
-                initializeMap();
-            }, 300);
-     document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
+      const factoryDataElement = document.getElementById('factory-data');
+      const factory = JSON.parse(factoryDataElement.dataset.factory);
+      setTimeout(() => {
+        initializeMap(JSON.parse(factory.coords)[0],JSON.parse(factory.coords)[1]);
+      }, 300);
+    document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
     e.preventDefault()
-      const input = document.getElementById('regular-form-edit-element');
+    const input = document.getElementById('regular-form-edit-element');
     const form = e.target;
     const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
             const latitude = document.getElementById('latitude').value;
