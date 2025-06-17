@@ -484,7 +484,7 @@
       const modalTitle = document.getElementById('factory-create-modal-title');
       modalTitle.textContent = `Янги лойиҳа қўшиш`;
        setTimeout(() => {
-                initializeMap();
+                initializeMap('map-create');
             }, 300);
 
             document.querySelector('#factory-create-modal-form').addEventListener('submit', function save_create_factory(e) {
@@ -558,9 +558,9 @@ elements.forEach(el => formData.append('elements[]', el));
             console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
         });
 
-function initializeMap(longitude = 69.2401, latitude = 41.2995) {
+function initializeMap(container='map', longitude = 69.2401, latitude = 41.2995) { 
     const map = new maplibregl.Map({
-        container: 'map',
+        container: container,
         style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
         center: [longitude, latitude],
         zoom: 10
@@ -624,7 +624,7 @@ function initializeMap(longitude = 69.2401, latitude = 41.2995) {
       const factoryDataElement = document.getElementById('factory-data');
       const factory = JSON.parse(factoryDataElement.dataset.factory);
       setTimeout(() => {
-        initializeMap(JSON.parse(factory.coords)[0],JSON.parse(factory.coords)[1]);
+        initializeMap('map-edit', JSON.parse(factory.coords)[0],JSON.parse(factory.coords)[1]);
       }, 300);
     document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
     e.preventDefault()
