@@ -439,7 +439,7 @@
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-edit-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-12 group-[.show]:mt-12 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-4 group-[.show]:mt-4 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
           <div class='p-2 text-center'>
 
             <div id="factory-edit-modal-title" class=' text-3xl'></div>
@@ -506,7 +506,7 @@
       const modalTitle = document.getElementById('factory-create-modal-title');
       modalTitle.textContent = `Янги лойиҳа қўшиш`;
       setTimeout(() => {
-        initializeMap('map-create');
+        initializeMap('map-create', 'create');
       }, 300);
 
       const imageInput = document.getElementById('imageInput');
@@ -551,10 +551,10 @@
       }
 
       locationBtn.addEventListener('click', function () {
-        const latitude = document.getElementById('latitude').value;
-        const longitude = document.getElementById('longitude').value;
+        const latitude = document.getElementById('create-latitude').value;
+        const longitude = document.getElementById('create-longitude').value;
         setTimeout(() => {
-          initializeMap('map-create', longitude, latitude);
+          initializeMap('map-create', 'create', longitude, latitude);
         }, 300);
       })
       document.querySelector('#factory-create-modal-form').addEventListener('submit', function save_create_factory(e) {
@@ -562,8 +562,8 @@
         const input = document.getElementById('regular-form-element');
         const form = e.target;
         const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
-        const latitude = document.getElementById('latitude').value;
-        const longitude = document.getElementById('longitude').value;
+        const latitude = document.getElementById('create-latitude').value;
+        const longitude = document.getElementById('create-longitude').value;
 
         const formData = new FormData(form);
         formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
@@ -630,7 +630,7 @@
     console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
   });
 
-  function initializeMap(container = 'map', longitude = 69.2401, latitude = 41.2995) {
+  function initializeMap(container = 'map', type, longitude = 69.2401, latitude = 41.2995) {
     const map = new maplibregl.Map({
       container: container,
       style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
@@ -642,19 +642,19 @@
       .setLngLat([longitude, latitude])
       .addTo(map);
 
-    document.getElementById('latitude').value = latitude;
-    document.getElementById('longitude').value = longitude;
+    document.getElementById(`${type}-latitude`).value = latitude;
+    document.getElementById(`${type}-longitude`).value = longitude;
 
     marker.on('drag', function () {
       const lngLat = marker.getLngLat();
-      document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-      document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+      document.getElementById(`${type}-latitude`).value = lngLat.lat.toFixed(6);
+      document.getElementById(`${type}-longitude`).value = lngLat.lng.toFixed(6);
     });
 
     marker.on('dragend', function () {
       const lngLat = marker.getLngLat();
-      document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-      document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+      document.getElementById(`${type}-latitude`).value = lngLat.lat.toFixed(6);
+      document.getElementById(`${type}-longitude`).value = lngLat.lng.toFixed(6);
     });
 
     map.on('click', function (e) {
@@ -666,19 +666,19 @@
         .setLngLat([lng, lat])
         .addTo(map);
 
-      document.getElementById('latitude').value = lat.toFixed(6);
-      document.getElementById('longitude').value = lng.toFixed(6);
+      document.getElementById(`${type}-latitude`).value = lat.toFixed(6);
+      document.getElementById(`${type}-longitude`).value = lng.toFixed(6);
 
       marker.on('drag', function () {
         const lngLat = marker.getLngLat();
-        document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-        document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+        document.getElementById(`${type}-latitude`).value = lngLat.lat.toFixed(6);
+        document.getElementById(`${type}-longitude`).value = lngLat.lng.toFixed(6);
       });
 
       marker.on('dragend', function () {
         const lngLat = marker.getLngLat();
-        document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-        document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+        document.getElementById(`${type}-latitude`).value = lngLat.lat.toFixed(6);
+        document.getElementById(`${type}-longitude`).value = lngLat.lng.toFixed(6);
       });
     });
   }
@@ -696,7 +696,7 @@
       const factoryDataElement = document.getElementById('factory-data');
       const factory = JSON.parse(factoryDataElement.dataset.factory);
       setTimeout(() => {
-        initializeMap('map-edit', JSON.parse(factory.coords)[0], JSON.parse(factory.coords)[1]);
+        initializeMap('map-edit', 'edit', JSON.parse(factory.coords)[0], JSON.parse(factory.coords)[1]);
       }, 300);
       //image upload
       const imageInput = document.getElementById('imageInputEdit');
@@ -738,13 +738,22 @@
         selectedFiles.forEach(file => dt.items.add(file));
         imageInput.files = dt.files;
       }
+
+      const locationBtn = document.getElementById('edit-location-btn')
+      locationBtn.addEventListener('click', function () {
+        const latitude = document.getElementById('edit-latitude').value;
+        const longitude = document.getElementById('edit-longitude').value;
+        setTimeout(() => {
+          initializeMap('map-edit', 'edit', longitude, latitude);
+        }, 300);
+      })
       document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
         e.preventDefault()
         const input = document.getElementById('regular-form-edit-element');
         const form = e.target;
         const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
-        const latitude = document.getElementById('latitude').value;
-        const longitude = document.getElementById('longitude').value;
+        const latitude = document.getElementById('edit-latitude').value;
+        const longitude = document.getElementById('edit-longitude').value;
         console.log(id, 'name')
 
         const formData = new FormData(form);
