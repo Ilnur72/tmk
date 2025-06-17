@@ -10,6 +10,9 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const configService = app.get(ConfigService);
   const port = configService.get<number>('port');
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    prefix: '/uploads/',
+  });
   app.useStaticAssets(join(__dirname, '..', 'src/public'));
   app.setBaseViewsDir(join(__dirname, '..', 'src/views'));
   hbs.registerPartials(join(__dirname, '..', 'src', 'views', 'partials'));
@@ -37,6 +40,14 @@ async function bootstrap() {
   hbs.registerHelper('arrayToString', function (array) {
     if (!Array.isArray(array)) return array;
     return array.join(', ');
+  });
+  hbs.registerHelper('getFirstImage', function (jsonString) {
+    try {
+      const images = JSON.parse(jsonString);
+      return images[0] || 'default.jpg';
+    } catch {
+      return 'default.jpg';
+    }
   });
   hbs.registerHelper('length', function (str) {
     return str ? str.length : 0;

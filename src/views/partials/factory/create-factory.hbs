@@ -1,100 +1,262 @@
 <style>
-  #map-create {
-    width: 100%;
-    height: 400px;
-    /* yoki height: 100vh; istasang */
-    margin-top: 20px;
-  }
+  #map-create { width: 100%; height: 400px; /* yoki height: 100vh; istasang */
+  margin-top: 20px; } .image-upload-container { border: 2px dashed #cbd5e1;
+  border-radius: 8px; padding: 20px; text-align: center; transition:
+  border-color 0.3s ease; cursor: pointer; } .image-upload-container:hover {
+  border-color: #3b82f6; } .image-upload-container.dragover { border-color:
+  #3b82f6; background-color: #f8fafc; } .image-preview { margin-top: 10px;
+  display: flex; flex-wrap: wrap; gap: 10px; } .image-preview-item { position:
+  relative; display: inline-block; } .image-preview img { width: 100px; height:
+  100px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0; }
+  .remove-image { position: absolute; top: -5px; right: -5px; background:
+  #ef4444; color: white; border: none; border-radius: 50%; width: 20px; height:
+  20px; cursor: pointer; font-size: 12px; display: flex; align-items: center;
+  justify-content: center; } .remove-image:hover { background: #dc2626; }
 </style>
-<form id="factory-create-modal-form">
-  <div class="p-2 flex gap-4">
-    <div class="preview relative [&amp;.hide]:overflow-hidden [&amp;.hide]:h-0 flex flex-col gap-1 justify-center">
+<form id='factory-create-modal-form'>
+  <div class='p-2 flex gap-4'>
+    <div
+      class='preview relative [&amp;.hide]:overflow-hidden [&amp;.hide]:h-0 flex flex-col gap-3 justify-center'
+    >
       <div>
-        <label data-tw-merge for="regular-form-name"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-          номи
-        </label>
-        <input required="true" data-tw-merge id="regular-form-name" type="text" placeholder="Лойиҳа номи" value="" name="name"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        {{! <label
+          data-tw-merge
+          for='regular-form-name'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Лойиҳа номи
+        </label> }}
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-name'
+          type='text'
+          placeholder='Лойиҳа номи'
+          value=''
+          name='name'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-element"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Елемент
-          номи
-        </label>
-        <input required="true" data-tw-merge id="regular-form-element" type="text" placeholder="Елемент номи" value="" name="elements"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        {{! <label
+          data-tw-merge
+          for='regular-form-element'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Елемент номи
+        </label> }}
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-element'
+          type='text'
+          placeholder='Елемент номи'
+          value=''
+          name='elements'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-region"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Регион
-        </label>
-        <input required="true" data-tw-merge id="regular-form-region" type="text" placeholder="Регион" value="" name="region"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        {{! <label
+          data-tw-merge
+          for='regular-form-region'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Регион
+        </label> }}
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-region'
+          type='text'
+          placeholder='Регион'
+          value=''
+          name='region'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-cats"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Йўналиш
-        </label>
-        <input required="true" data-tw-merge id="regular-form-cats" type="text" placeholder="Йўналиш" value="" name="cats"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed  dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        {{! <label
+          data-tw-merge
+          for='regular-form-cats'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Йўналиш
+        </label> }}
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-cats'
+          type='text'
+          placeholder='Йўналиш'
+          value=''
+          name='cats'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-manager"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-          менеджери
-        </label>
-        <input required="true" data-tw-merge id="regular-form-manager" type="text" placeholder="Лойиҳа менеджери" value="" name="manager"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        {{! <label
+          data-tw-merge
+          for='regular-form-manager'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Лойиҳа менеджери
+        </label> }}
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-manager'
+          type='text'
+          placeholder='Лойиҳа менеджери'
+          value=''
+          name='manager'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-work-percent"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-          жараёни, %
+        <label
+          data-tw-merge
+          for='regular-form-work-percent'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Лойиҳа жараёни, %
         </label>
-        <input required="true" data-tw-merge id="regular-form-work-percent" type="number" min="0" max="100" placeholder="Лойиҳа жараёни фоизда"
-          value="0" name="work_persent"
-          class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
+        <input
+          required='true'
+          data-tw-merge
+          id='regular-form-work-percent'
+          type='number'
+          min='0'
+          max='100'
+          placeholder='Лойиҳа жараёни фоизда'
+          value='0'
+          name='work_persent'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
       </div>
       <div>
-        <label data-tw-merge for="regular-form-status"
-          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-          статуси
+        <label
+          data-tw-merge
+          for='regular-form-status'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >Лойиҳа статуси
         </label>
-        <select id="regular-form-status" name="status"
-          class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base  focus:border-primary focus:ring-primary ">
-          <option value="REGISTRATION">Расмийлаштириш жараёнида</option>
-          <option value="CONSTRUCTION">Қурилиш жараёнида</option>
-          <option value="STARTED">Ишга тушган</option>
+        <select
+          id='regular-form-status'
+          name='status'
+          class='block w-full rounded-md border border-gray-300 bg-white p-2.5 text-sm focus:border-primary focus:ring-primary'
+        >
+          <option value='REGISTRATION'>Расмийлаштириш жараёнида</option>
+          <option value='CONSTRUCTION'>Қурилиш жараёнида</option>
+          <option value='STARTED'>Ишга тушган</option>
         </select>
       </div>
 
-    </div>
-    <div class="form-group">
-      <label>🗺️ Лойиҳа жойлашуви <span style="color: red;">*</span></label>
-      <div class="map-info">
-        <strong>Кўрсатма:</strong> Харитада керакли жойни босинг ёки маркерни судраб кўчиринг
+      <div>
+        <label
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'
+        >
+          Лойиҳа расмлари
+        </label>
+        <div class='image-upload-container' id='imageUploadContainer'>
+          <div class='upload-text'>
+            📷 Расмларни танланг
+            <br />
+            <small style='color: #6b7280;'>JPG, PNG форматлари, макс 5MB</small>
+          </div>
+          <input
+            type='file'
+            id='imageInput'
+            name='images'
+            multiple
+            accept='image/*'
+            style='display: none;'
+          />
+        </div>
+        <div id='imagePreview' class='image-preview'></div>
       </div>
-      <div id="map-create"></div>
-      <div id="coordinates-display" class="coordinates-display" style="display: none;">
-        <strong>Танланган координаталар:</strong><br>
-        Кенглик: <span id="display-lat">-</span><br>
-        Узунлик: <span id="display-lng">-</span>
+
+    </div>
+    <div class='form-group'>
+      <label>🗺️ Лойиҳа жойлашуви <span style='color: red;'>*</span></label>
+      <div class='map-info'>
+        <strong>Кўрсатма:</strong>
+        Харитада керакли жойни босинг ёки маркерни судраб кўчиринг
+      </div>
+      <div id='map-create'></div>
+      <div
+        id='coordinates-display'
+        class='coordinates-display'
+        style='display: none;'
+      >
+        <strong>Танланган координаталар:</strong><br />
+        Кенглик:
+        <span id='display-lat'>-</span><br />
+        Узунлик:
+        <span id='display-lng'>-</span>
+      </div>
+      <div class='pt-5 flex gap-2 '>
+        <input
+          name='latitude'
+          id='latitude'
+          class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
+        <input
+          name='longitude'
+          id='longitude'
+          class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10'
+        />
+        <button id="create-location-btn" type="button">button</button>
       </div>
     </div>
 
-    <input type="hidden" name="latitude" id="latitude" />
-    <input type="hidden" name="longitude" id="longitude" />
   </div>
-<div class="px-5 text-center">
-  <button data-tw-merge="" data-tw-dismiss="modal" type="button"
-    class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
-  <button data-tw-merge="" type="submit"
-    class="transition btn-success duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-success border-success text-white dark:border-danger">Сақлаш</button>
-</div>
+  <div class='px-5 text-center'>
+    <button
+      data-tw-merge=''
+      data-tw-dismiss='modal'
+      type='button'
+      class='transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24'
+    >Ёпиш</button>
+    <button
+      data-tw-merge=''
+      type='submit'
+      class='transition btn-success duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-success border-success text-white dark:border-danger'
+    >Сақлаш</button>
+  </div>
 </form>
 
 <!-- MapLibre Map -->
 
+<script src='https://unpkg.com/maplibre-gl@4.0.0/dist/maplibre-gl.js'></script>
 
-<script src="https://unpkg.com/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
+<script>
+  // Image upload functionality document.addEventListener('DOMContentLoaded',
+  function() { const imageUploadContainer =
+  document.getElementById('imageUploadContainer'); const imageInput =
+  document.getElementById('imageInput'); const imagePreview =
+  document.getElementById('imagePreview'); console.log('Input elementi:',
+  document.getElementById('imageInput')); let selectedFiles = []; // Click to
+  select files imageUploadContainer.addEventListener('click', function() {
+  console.log('click') imageInput.click(); }); // Drag and drop functionality
+  imageUploadContainer.addEventListener('dragover', function(e) {
+  e.preventDefault(); imageUploadContainer.classList.add('dragover'); });
+  imageUploadContainer.addEventListener('dragleave', function(e) {
+  e.preventDefault(); imageUploadContainer.classList.remove('dragover'); });
+  imageUploadContainer.addEventListener('drop', function(e) {
+  e.preventDefault(); imageUploadContainer.classList.remove('dragover'); const
+  files = Array.from(e.dataTransfer.files); handleFiles(files); }); // File
+  input change imageInput.addEventListener('change', function(e) { const files =
+  Array.from(e.target.files); handleFiles(files); }); function
+  handleFiles(files) { files.forEach(file => { if
+  (file.type.startsWith('image/')) { if (file.size <= 5 * 1024 * 1024) { // 5MB
+  limit selectedFiles.push(file); displayImagePreview(file); } else {
+  alert('Расм ҳажми 5MB дан ошмаслиги керак: ' + file.name); } } else {
+  alert('Фақат расм файллари рухсат этилган: ' + file.name); } });
+  updateFileInput(); } function displayImagePreview(file) { const reader = new
+  FileReader(); reader.onload = function(e) { const previewItem =
+  document.createElement('div'); previewItem.className = 'image-preview-item';
+  previewItem.innerHTML = ` <img src="${e.target.result}" alt="Preview"> <button
+  type="button" class="remove-image" data-filename="${file.name}">×</button> `;
+  imagePreview.appendChild(previewItem); // Remove image functionality
+  previewItem.querySelector('.remove-image').addEventListener('click',
+  function() { const filename = this.dataset.filename; selectedFiles =
+  selectedFiles.filter(f => f.name !== filename); previewItem.remove();
+  updateFileInput(); }); }; reader.readAsDataURL(file); } function
+  updateFileInput() { const dt = new DataTransfer(); selectedFiles.forEach(file
+  => dt.items.add(file)); imageInput.files = dt.files; } });
+</script>

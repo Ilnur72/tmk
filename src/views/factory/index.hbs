@@ -8,7 +8,8 @@
       <div class='intro-y flex h-10 items-center justify-between'>
         <h2 class='mr-5 truncate text-lg font-medium'>Инвестиция лойиҳалари
           ҳолати мониторинги</h2>
-        <button id="create-factory-btn" data-tw-toggle='modal' data-tw-target='#factory-create-modal' onclick="createFactory()" class="bg-primary hover:opacity-70 text-white font-bold py-2 px-4 rounded">
+        <button id="create-factory-btn" data-tw-toggle='modal' data-tw-target='#factory-create-modal'
+          onclick="createFactory()" class="bg-primary hover:opacity-70 text-white font-bold py-2 px-4 rounded">
           Create Factory
         </button>
         {{!-- <a class='ml-auto flex items-center text-primary' href=''>
@@ -59,7 +60,7 @@
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
               <div class='flex'>
-                 <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
+                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
                   stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
                   data-lucide='monitor' class='lucide lucide-monitor stroke-1.5 h-[28px] w-[28px] text-warning'>
                   <rect width='20' height='14' x='2' y='3' rx='2'></rect>
@@ -90,15 +91,17 @@
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
               <div class='flex'>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" 
-                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                stroke-linecap="round" stroke-linejoin="round" 
-                class="lucide lucide-construction-icon lucide-construction text-success">
-                  <rect x="2" y="6" width="20" height="8" rx="1"/>
-                  <path d="M17 14v7"/><path d="M7 14v7"/>
-                  <path d="M17 3v3"/><path d="M7 3v3"/>
-                  <path d="M10 14 2.3 6.3"/>
-                  <path d="m14 6 7.7 7.7"/><path d="m8 6 8 8"/>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="lucide lucide-construction-icon lucide-construction text-success">
+                  <rect x="2" y="6" width="20" height="8" rx="1" />
+                  <path d="M17 14v7" />
+                  <path d="M7 14v7" />
+                  <path d="M17 3v3" />
+                  <path d="M7 3v3" />
+                  <path d="M10 14 2.3 6.3" />
+                  <path d="m14 6 7.7 7.7" />
+                  <path d="m8 6 8 8" />
                 </svg>
                 <div class='ml-auto'>
                   <div data-placement='top'
@@ -158,14 +161,32 @@
             <div class='p-5'>
               <div
                 class='image-fit h-40 overflow-hidden rounded-md before:absolute before:left-0 before:top-0 before:z-10 before:block before:h-full before:w-full before:bg-gradient-to-t before:from-black before:to-black/10 2xl:h-56'>
-                <img class='rounded-md' src='../../../public/image/3.jpg' alt='' />
 
-                  <div class="absolute right-2 top-1 z-10 left-auto"><a class='flex items-center text-danger' data-tw-toggle='modal' data-tw-target='#factory-edit-modal'
-                    href='#' onclick='showFactoryEditModal({{this.id}})'>
-                    <svg class="w-6 h-6 text-red dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/>
-</svg>
+                {{#if this.images}}
+                <img style="
+      width: 100%;
+      height: auto;
+      object-fit: contain;" class='rounded-md' src='../../../uploads/factory-images/{{getFirstImage this.images}}'
+                  alt=''>
+                {{else}}
+                <img style="
+      width: 100%;
+      height: auto;
+      object-fit: contain;" class='rounded-md' src='../../../public/image/3.jpg' alt=''>
+                {{/if}}
+
+                <div class="absolute right-2 top-1 z-10 left-auto"><a class='flex items-center text-danger'
+                    data-tw-toggle='modal' data-tw-target='#factory-edit-modal' href='#'
+                    onclick='showFactoryEditModal({{this.id}})'>
+                    <svg class="w-6 h-6 text-red dark:text-primary" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd"
+                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                        clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                        clip-rule="evenodd" />
+                    </svg>
                     Edit
                   </a></div>
                 <div class='absolute bottom-0 z-10 px-5 pb-6 text-white'>
@@ -194,52 +215,57 @@
 
                 {{#each this.factoryParams}}
                 <div class="flex justify-between items-center mt-2">
-                  <div
-                  data-tw-toggle="modal" data-tw-target="#factory-history-modal" onclick="showCommentHistory({{this.id}})"
-                  class='flex items-center cursor-pointer {{#unless this.visible}}hidden{{/unless}}'>
-                  <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                    stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                    data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
-                    <polyline points='9 11 12 14 22 4'></polyline>
-                    <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
-                  </svg>
-                  <div class="{{#if (eq this.param.type 'select')}}flex items-center{{/if}}">
-  <span class="cursor-pointer" data-param-id="{{this.param.id}}">
-    {{{this.param.name}}}:&nbsp;
-  </span>
-  
-  {{#if (eq this.param.type "select")}}
-    <!-- Select type - show status image -->
-    <img id="{{this.id}}" 
-         class="rounded-full"
-         src="../../../public/image/{{#if (eq this.status 0)}}error{{else if (eq this.status 1)}}ok{{else}}{{this.status}}{{/if}}.png"
-         alt="Status indicator"
-         width="20" 
-         height="20" />
-  {{else if (eq this.param.type "date")}}
-    <span id="factory-param-date-{{this.id}}" class="ml-1" {{#unless (and this.latestLog.value (gt (length this.latestLog.value) 2))}}style="display: none;"{{/unless}}>
-  {{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
-    {{this.latestLog.value}}
-  {{/if}}
-</span>
-    {{/if}}
-</div>
-                </div>
-         <button id="parameter-edit-btn" onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})"> <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-  <path fill-rule="evenodd" d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z" clip-rule="evenodd"/>
-  <path fill-rule="evenodd" d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z" clip-rule="evenodd"/>
-</svg></button>
+                  <div data-tw-toggle="modal" data-tw-target="#factory-history-modal"
+                    onclick="showCommentHistory({{this.id}})"
+                    class='flex items-center cursor-pointer {{#unless this.visible}}hidden{{/unless}}'>
+                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
+                      stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
+                      data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
+                      <polyline points='9 11 12 14 22 4'></polyline>
+                      <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
+                    </svg>
+                    <div class="{{#if (eq this.param.type 'select')}}flex items-center{{/if}}">
+                      <span class="cursor-pointer" data-param-id="{{this.param.id}}">
+                        {{{this.param.name}}}:&nbsp;
+                      </span>
+
+                      {{#if (eq this.param.type "select")}}
+                      <!-- Select type - show status image -->
+                      <img id="{{this.id}}" class="rounded-full"
+                        src="../../../public/image/{{#if (eq this.status 0)}}error{{else if (eq this.status 1)}}ok{{else}}{{this.status}}{{/if}}.png"
+                        alt="Status indicator" width="20" height="20" />
+                      {{else if (eq this.param.type "date")}}
+                      <span id="factory-param-date-{{this.id}}" class="ml-1" {{#unless (and this.latestLog.value (gt
+                        (length this.latestLog.value) 2))}}style="display: none;" {{/unless}}>
+                        {{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
+                        {{this.latestLog.value}}
+                        {{/if}}
+                      </span>
+                      {{/if}}
+                    </div>
+                  </div>
+                  <button id="parameter-edit-btn"
+                    onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})">
+                    <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd"
+                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                        clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                        clip-rule="evenodd" />
+                    </svg></button>
 
                 </div>
-  
-      <span 
-  data-param-id="{{this.id}}"
-  id="{{this.id}}"
-  class="pl-2 text-xs {{#if (and latestLog.izoh (ne latestLog.izoh ""))}}{{#if this.visible}}flex{{else}}hidden{{/if}}{{else}}hidden{{/if}}"
-  {{#unless (and latestLog.izoh (ne latestLog.izoh ""))}}aria-hidden="true"{{/unless}}>
-  {{#if latestLog.izoh}}Izoh: {{latestLog.izoh}}{{/if}}
-</span>
-                <div class='mt-4 w-full {{#if this.visible}}flex{{/if}}hidden border-t border-slate-200/60 dark:border-darkmode-400'></div>{{/each}}
+
+                <span data-param-id="{{this.id}}" id="{{this.id}}"
+                  class="pl-2 text-xs {{#if (and latestLog.izoh (ne latestLog.izoh ""))}}{{#if this.visible}}flex{{else}}hidden{{/if}}{{else}}hidden{{/if}}"
+                  {{#unless (and latestLog.izoh (ne latestLog.izoh "" ))}}aria-hidden="true" {{/unless}}>
+                  {{#if latestLog.izoh}}Izoh: {{latestLog.izoh}}{{/if}}
+                </span>
+                <div
+                  class='mt-4 w-full {{#if this.visible}}flex{{/if}}hidden border-t border-slate-200/60 dark:border-darkmode-400'>
+                </div>{{/each}}
               </div>
             </div>
             <div
@@ -262,21 +288,17 @@
                 </svg>
                 Маълумотларни янгилаш
               </a> --}}
-              <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal' onclick="showParametrControlModal({{this.id}})" class="text-primary"> <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="20"
-    height="20"
-    fill="none"
-    viewBox="0 0 24 24"
-    class="mr-2"
-  >
-    <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
-    <circle cx="18" cy="6" r="3" fill="currentColor" />
-    <rect x="3" y="11" width="8" height="2" rx="1" fill="currentColor" />
-    <circle cx="12" cy="12" r="3" fill="currentColor" />
-    <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
-    <circle cx="15" cy="18" r="3" fill="currentColor" />
-  </svg></button>
+              <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
+                onclick="showParametrControlModal({{this.id}})" class="text-primary"> <svg
+                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                  class="mr-2">
+                  <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
+                  <circle cx="18" cy="6" r="3" fill="currentColor" />
+                  <rect x="3" y="11" width="8" height="2" rx="1" fill="currentColor" />
+                  <circle cx="12" cy="12" r="3" fill="currentColor" />
+                  <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
+                  <circle cx="15" cy="18" r="3" fill="currentColor" />
+                </svg></button>
             </div>
           </div>
         </div>{{/each}}
@@ -381,7 +403,7 @@
       </div>
       <!-- BEGIN: Control Parameter Modal -->
       <div data-tw-backdrop='' aria-hidden="true" tabindex='-1' id='parameter-control-modal'
-         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+        class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
           class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
           <div class='p-5 text-center'>
@@ -453,25 +475,25 @@
 </div>
 <script>
   function parseJwt(token) {
-  if (!token) return null;
+    if (!token) return null;
 
-  try {
-    const base64Url = token.split('.')[1]; // payload
-    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    try {
+      const base64Url = token.split('.')[1]; // payload
+      const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
 
-    const jsonPayload = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
-        .join('')
-    );
+      const jsonPayload = decodeURIComponent(
+        atob(base64)
+          .split('')
+          .map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
+          .join('')
+      );
 
-    return JSON.parse(jsonPayload);
-  } catch (e) {
-    console.error('Token decode xatoligi:', e);
-    return null;
+      return JSON.parse(jsonPayload);
+    } catch (e) {
+      console.error('Token decode xatoligi:', e);
+      return null;
+    }
   }
-}
 </script>
 <script>
   function createFactory() {
@@ -483,133 +505,183 @@
       modal.innerHTML = data;
       const modalTitle = document.getElementById('factory-create-modal-title');
       modalTitle.textContent = `Янги лойиҳа қўшиш`;
-       setTimeout(() => {
-                initializeMap('map-create');
-            }, 300);
+      setTimeout(() => {
+        initializeMap('map-create');
+      }, 300);
 
-            document.querySelector('#factory-create-modal-form').addEventListener('submit', function save_create_factory(e) {
-    e.preventDefault()
-      const input = document.getElementById('regular-form-element');
-    const form = e.target;
-    const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
-            const latitude = document.getElementById('latitude').value;
-            const longitude = document.getElementById('longitude').value;
+      const imageInput = document.getElementById('imageInput');
+      const imageUploadContainer = document.getElementById('imageUploadContainer');
+      const locationBtn = document.getElementById('create-location-btn')
+      imageUploadContainer.addEventListener('click', function () {
+        console.log('click')
+        imageInput.click();
+      });
+      if (imageInput && imageInput.files) {
+        console.log(imageInput.files.length)
+        for (let i = 0; i < imageInput.files.length; i++) {
+          console.log(imageInput, i)
+          formData.append('images', imageInput.files[i]);
+        }
+      }
+      imageUploadContainer.addEventListener('drop', function (e) {
+        e.preventDefault();
+        imageUploadContainer.classList.remove('dragover');
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+      });
+      function handleFiles(files) {
+        files.forEach(file => {
+          if (file.type.startsWith('image/')) {
+            if (file.size <= 5 * 1024 * 1024) { // 5MB limit
+              selectedFiles.push(file);
+              displayImagePreview(file);
+            } else {
+              alert('Расм ҳажми 5MB дан ошмаслиги керак: ' + file.name);
+            }
+          } else {
+            alert('Фақат расм файллари рухсат этилган: ' + file.name);
+          }
+        });
+        updateFileInput();
+      }
+      function updateFileInput() {
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => dt.items.add(file));
+        imageInput.files = dt.files;
+      }
 
-            const formData = new FormData(form);
-                formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
+      locationBtn.addEventListener('click', function () {
+        const latitude = document.getElementById('latitude').value;
+        const longitude = document.getElementById('longitude').value;
+        setTimeout(() => {
+          initializeMap('map-create', longitude, latitude);
+        }, 300);
+      })
+      document.querySelector('#factory-create-modal-form').addEventListener('submit', function save_create_factory(e) {
+        e.preventDefault()
+        const input = document.getElementById('regular-form-element');
+        const form = e.target;
+        const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
+        const latitude = document.getElementById('latitude').value;
+        const longitude = document.getElementById('longitude').value;
 
-elements.forEach(el => formData.append('elements[]', el));
-            const saveButton = document.querySelector('.btn-success');
-            const originalText = saveButton.textContent;
-            saveButton.textContent = '⏳ Сақланмоқда...';
-            saveButton.disabled = true;
-    fetch('/factory/create', { method: 'POST', body: formData })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was
+        const formData = new FormData(form);
+        formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
+
+
+
+        elements.forEach(el => formData.append('elements[]', el));
+        const saveButton = document.querySelector('.btn-success');
+        const originalText = saveButton.textContent;
+        saveButton.textContent = '⏳ Сақланмоқда...';
+        saveButton.disabled = true;
+        fetch('/factory/create', { method: 'POST', body: formData })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Network response was
   not ok`);
-        } return response.text();
-      }).then(data => {
-        document.getElementById('factory-create-modal').classList.remove('show');
-        location.reload();
-      }).catch(error => {
-        console.error(`There was a problem
+            } return response.text();
+          }).then(data => {
+            document.getElementById('factory-create-modal').classList.remove('show');
+            location.reload();
+          }).catch(error => {
+            console.error(`There was a problem
   with the fetch operation:`, error);
-      }) .finally(() => {
-                // Loading holatini qaytarish
-                saveButton.textContent = originalText;
-                saveButton.disabled = false;
-            });;
-  })
-    }).catch(error => { 
+          }).finally(() => {
+            // Loading holatini qaytarish
+            saveButton.textContent = originalText;
+            saveButton.disabled = false;
+          });;
+      })
+    }).catch(error => {
       console.log(error);
     });
   }
 
-        function updateCoordinates(lat, lng) {
-            document.getElementById('latitude').value = lat.toFixed(6);
-            document.getElementById('longitude').value = lng.toFixed(6);
-            
-            document.getElementById('display-lat').textContent = lat.toFixed(6);
-            document.getElementById('display-lng').textContent = lng.toFixed(6);
-            document.getElementById('coordinates-display').style.display = 'block';
-        }
+  function updateCoordinates(lat, lng) {
+    document.getElementById('latitude').value = lat.toFixed(6);
+    document.getElementById('longitude').value = lng.toFixed(6);
 
- // Modal tashqarisiga bosilganda yopish
-        window.onclick = function(event) {
-            const modal = document.getElementById('factory-create-modal');
-            if (event.target === modal) {
-                closeModal();
-            }
-        }
+    document.getElementById('display-lat').textContent = lat.toFixed(6);
+    document.getElementById('display-lng').textContent = lng.toFixed(6);
+    document.getElementById('coordinates-display').style.display = 'block';
+  }
 
-        // ESC tugmasi bilan yopish
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                const modal = document.getElementById('factory-create-modal');
-                if (modal.classList.contains('show')) {
-                    closeModal();
-                }
-            }
-        });
+  // Modal tashqarisiga bosilganda yopish
+  window.onclick = function (event) {
+    const modal = document.getElementById('factory-create-modal');
+    if (event.target === modal) {
+      closeModal();
+    }
+  }
 
-        // Sahifa yuklanganda
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
-        });
+  // ESC tugmasi bilan yopish
+  document.addEventListener('keydown', function (event) {
+    if (event.key === 'Escape') {
+      const modal = document.getElementById('factory-create-modal');
+      if (modal.classList.contains('show')) {
+        closeModal();
+      }
+    }
+  });
 
-function initializeMap(container='map', longitude = 69.2401, latitude = 41.2995) { 
+  // Sahifa yuklanganda
+  document.addEventListener('DOMContentLoaded', function () {
+    console.log('🚀 Sahifa yuklandi. MapLibre tayyor.');
+  });
+
+  function initializeMap(container = 'map', longitude = 69.2401, latitude = 41.2995) {
     const map = new maplibregl.Map({
-        container: container,
-        style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
-        center: [longitude, latitude],
-        zoom: 10
+      container: container,
+      style: 'https://api.maptiler.com/maps/019644f4-f546-7d75-81ed-49e8e52c20c7/style.json?key=Ql4Zhf4TMUJJKxx8Xht6',
+      center: [longitude, latitude],
+      zoom: 10
     });
 
     let marker = new maplibregl.Marker({ draggable: true })
-        .setLngLat([longitude, latitude])
-        .addTo(map);
-    
+      .setLngLat([longitude, latitude])
+      .addTo(map);
+
     document.getElementById('latitude').value = latitude;
     document.getElementById('longitude').value = longitude;
 
-    marker.on('drag', function() {
+    marker.on('drag', function () {
+      const lngLat = marker.getLngLat();
+      document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+      document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+    });
+
+    marker.on('dragend', function () {
+      const lngLat = marker.getLngLat();
+      document.getElementById('latitude').value = lngLat.lat.toFixed(6);
+      document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+    });
+
+    map.on('click', function (e) {
+      const lng = e.lngLat.lng;
+      const lat = e.lngLat.lat;
+
+      marker.remove();
+      marker = new maplibregl.Marker({ draggable: true })
+        .setLngLat([lng, lat])
+        .addTo(map);
+
+      document.getElementById('latitude').value = lat.toFixed(6);
+      document.getElementById('longitude').value = lng.toFixed(6);
+
+      marker.on('drag', function () {
         const lngLat = marker.getLngLat();
         document.getElementById('latitude').value = lngLat.lat.toFixed(6);
         document.getElementById('longitude').value = lngLat.lng.toFixed(6);
-    });
+      });
 
-    marker.on('dragend', function() {
+      marker.on('dragend', function () {
         const lngLat = marker.getLngLat();
         document.getElementById('latitude').value = lngLat.lat.toFixed(6);
         document.getElementById('longitude').value = lngLat.lng.toFixed(6);
+      });
     });
-
-    map.on('click', function(e) {
-        const lng = e.lngLat.lng;
-        const lat = e.lngLat.lat;
-
-        marker.remove();
-        marker = new maplibregl.Marker({ draggable: true })
-            .setLngLat([lng, lat])
-            .addTo(map);
-        
-        document.getElementById('latitude').value = lat.toFixed(6);
-        document.getElementById('longitude').value = lng.toFixed(6);
-
-        marker.on('drag', function() {
-            const lngLat = marker.getLngLat();
-            document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-            document.getElementById('longitude').value = lngLat.lng.toFixed(6);
-        });
-
-        marker.on('dragend', function() {
-            const lngLat = marker.getLngLat();
-            document.getElementById('latitude').value = lngLat.lat.toFixed(6);
-            document.getElementById('longitude').value = lngLat.lng.toFixed(6);
-        });
-    });
-}
+  }
 
   function showFactoryEditModal(id) {
     const modal = document.getElementById('factory-edit-modal-result');
@@ -624,45 +696,85 @@ function initializeMap(container='map', longitude = 69.2401, latitude = 41.2995)
       const factoryDataElement = document.getElementById('factory-data');
       const factory = JSON.parse(factoryDataElement.dataset.factory);
       setTimeout(() => {
-        initializeMap('map-edit', JSON.parse(factory.coords)[0],JSON.parse(factory.coords)[1]);
+        initializeMap('map-edit', JSON.parse(factory.coords)[0], JSON.parse(factory.coords)[1]);
       }, 300);
-    document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
-    e.preventDefault()
-    const input = document.getElementById('regular-form-edit-element');
-    const form = e.target;
-    const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
-            const latitude = document.getElementById('latitude').value;
-            const longitude = document.getElementById('longitude').value;
-            console.log(id, 'name')
+      //image upload
+      const imageInput = document.getElementById('imageInputEdit');
+      const imageUploadContainer = document.getElementById('imageUploadContainerEdit');
+      imageUploadContainer.addEventListener('click', function () {
+        console.log('click')
+        imageInput.click();
+      });
+      if (imageInput && imageInput.files) {
+        console.log(imageInput.files.length)
+        for (let i = 0; i < imageInput.files.length; i++) {
+          console.log(imageInput, i)
+          formData.append('images', imageInput.files[i]);
+        }
+      }
+      imageUploadContainer.addEventListener('drop', function (e) {
+        e.preventDefault();
+        imageUploadContainer.classList.remove('dragover');
+        const files = Array.from(e.dataTransfer.files);
+        handleFiles(files);
+      });
+      function handleFiles(files) {
+        files.forEach(file => {
+          if (file.type.startsWith('image/')) {
+            if (file.size <= 5 * 1024 * 1024) { // 5MB limit
+              selectedFiles.push(file);
+              displayImagePreview(file);
+            } else {
+              alert('Расм ҳажми 5MB дан ошмаслиги керак: ' + file.name);
+            }
+          } else {
+            alert('Фақат расм файллари рухсат этилган: ' + file.name);
+          }
+        });
+        updateFileInput();
+      }
+      function updateFileInput() {
+        const dt = new DataTransfer();
+        selectedFiles.forEach(file => dt.items.add(file));
+        imageInput.files = dt.files;
+      }
+      document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
+        e.preventDefault()
+        const input = document.getElementById('regular-form-edit-element');
+        const form = e.target;
+        const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
+        const latitude = document.getElementById('latitude').value;
+        const longitude = document.getElementById('longitude').value;
+        console.log(id, 'name')
 
-            const formData = new FormData(form);
-            formData.append('factory_id', id);
-                formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
+        const formData = new FormData(form);
+        formData.append('factory_id', id);
+        formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
 
-    elements.forEach(el => formData.append('elements[]', el));
-            const saveButton = document.querySelector('.btn-success');
-            const originalText = saveButton.textContent;
-            saveButton.textContent = '⏳ Сақланмоқда...';
-            saveButton.disabled = true;
-    fetch('/factory/update/'+id, { method: 'PUT', body: formData })
-      .then(response => {
-        if (!response.ok) {
-          throw new Error(`Network response was
+        elements.forEach(el => formData.append('elements[]', el));
+        const saveButton = document.querySelector('.btn-success');
+        const originalText = saveButton.textContent;
+        saveButton.textContent = '⏳ Сақланмоқда...';
+        saveButton.disabled = true;
+        fetch('/factory/update/' + id, { method: 'PUT', body: formData })
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Network response was
   not ok`);
-        } return response.text();
-      }).then(data => {
-        document.getElementById('factory-create-modal').classList.remove('show');
-        location.reload();
-      }).catch(error => {
-        console.error(`There was a problem
+            } return response.text();
+          }).then(data => {
+            document.getElementById('factory-create-modal').classList.remove('show');
+            location.reload();
+          }).catch(error => {
+            console.error(`There was a problem
   with the fetch operation:`, error);
-      }) .finally(() => {
-                // Loading holatini qaytarish
-                saveButton.textContent = originalText;
-                saveButton.disabled = false;
-            });;
-  })
-    }).catch(error => { 
+          }).finally(() => {
+            // Loading holatini qaytarish
+            saveButton.textContent = originalText;
+            saveButton.disabled = false;
+          });;
+      })
+    }).catch(error => {
       console.log(error);
     });
   }
@@ -689,18 +801,18 @@ function initializeMap(container='map', longitude = 69.2401, latitude = 41.2995)
 </script>
 
 <script>
-  const token = localStorage.getItem('token'); 
+  const token = localStorage.getItem('token');
   const decodedToken = parseJwt(token);
-if (decodedToken.user.role === 'admin') {
+  if (decodedToken.user.role === 'admin') {
     const editButtons = document.querySelectorAll('#parameter-edit-btn');
     const createButtons = document.querySelector('#create-factory-btn');
     editButtons.forEach(button => {
-        button.style.display = 'none'; 
+      button.style.display = 'none';
     });
-    createButtons.style.display = 'none'; 
-}
+    createButtons.style.display = 'none';
+  }
 
-  
+
 
 </script>
 
@@ -754,47 +866,47 @@ if (decodedToken.user.role === 'admin') {
       .then(data => {
         modalFactory.innerHTML = data;
       });
-    
+
 
   }
-  
-    function save_update_parametr(factoryId) {
-      const form = document.querySelector('#parameter-control-modal-form');
-      const switches = document.querySelectorAll('#parameter-control-modal-form input[type="checkbox"]');
 
-      const activeParams = [];
-      switches.forEach((checkbox) => {
-        const paramId = checkbox.dataset.paramId;
-        const isChecked = checkbox.checked;
+  function save_update_parametr(factoryId) {
+    const form = document.querySelector('#parameter-control-modal-form');
+    const switches = document.querySelectorAll('#parameter-control-modal-form input[type="checkbox"]');
 
-        activeParams.push({
-          id: parseInt(paramId),
-          visible: isChecked
-        });
+    const activeParams = [];
+    switches.forEach((checkbox) => {
+      const paramId = checkbox.dataset.paramId;
+      const isChecked = checkbox.checked;
+
+      activeParams.push({
+        id: parseInt(paramId),
+        visible: isChecked
       });
+    });
 
-      fetch('/factory/param-control/' + factoryId, {
-        method: 'PUT',
-        headers: {
+    fetch('/factory/param-control/' + factoryId, {
+      method: 'PUT',
+      headers: {
         'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ params: activeParams })
-      }).then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.text();
-      }).then(data => {
-        document.getElementById('factory-edit-modal').classList.remove('show');
-        location.reload();
-      }).catch(error => {
-        console.error('There was a problem with the fetch operation:', error);
-      });
-    }
-    
+      },
+      body: JSON.stringify({ params: activeParams })
+    }).then(response => {
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return response.text();
+    }).then(data => {
+      document.getElementById('factory-edit-modal').classList.remove('show');
+      location.reload();
+    }).catch(error => {
+      console.error('There was a problem with the fetch operation:', error);
+    });
+  }
+
 </script>
 <script>
-  
+
   function showParameterModal(factoryId, paramId, paramName, type, factoryParamId, status) {
     const modal = document.getElementById('parameter-modal');
     const modalTitle = document.getElementById('modal-title');
@@ -893,32 +1005,32 @@ if (decodedToken.user.role === 'admin') {
     const paramId = formData.get('param_id');
     const status = formData.get('status');
     const comment = formData.get('comment');
-    if(status.length < 2) {
+    if (status.length < 2) {
       fetch('/factory/param/update/' + factoryParamId, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ status: status })
-    }).then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return response.json();
-    }).then(data => {
-      const img = document.getElementById(`${factoryParamId}`);
-      if (img) {
-        if (+data.data.status === 0) {
-          img.src = '../../../public/image/error.png';
-        } else if (+data.data.status === 1) {
-          img.src = '../../../public/image/ok.png';
-        } else {
-          img.src = `../../../public/image/${data.data.status}.png`;
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ status: status })
+      }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
         }
-      }
-    }).catch(error => {
-      console.error('Error updating parameter:', error);
-    });
+        return response.json();
+      }).then(data => {
+        const img = document.getElementById(`${factoryParamId}`);
+        if (img) {
+          if (+data.data.status === 0) {
+            img.src = '../../../public/image/error.png';
+          } else if (+data.data.status === 1) {
+            img.src = '../../../public/image/ok.png';
+          } else {
+            img.src = `../../../public/image/${data.data.status}.png`;
+          }
+        }
+      }).catch(error => {
+        console.error('Error updating parameter:', error);
+      });
     }
     fetch('/factory/log', {
       method: 'POST',
@@ -946,21 +1058,21 @@ if (decodedToken.user.role === 'admin') {
         if (status.length > 2) {
           if (paramDate) {
             paramDate.textContent = status;
-            paramDate.classList.remove('d-none'); 
-            paramDate.style.display = 'inline'; 
+            paramDate.classList.remove('d-none');
+            paramDate.style.display = 'inline';
           }
         } else {
           if (paramDate) {
             paramDate.textContent = '';
-            paramDate.classList.add('d-none'); 
+            paramDate.classList.add('d-none');
             paramDate.style.display = 'none';
           }
         }
-        if(paramComment && data.data?.izoh){  
+        if (paramComment && data.data?.izoh) {
           paramComment.classList.add('flex');
           paramComment.classList.remove('hidden');
           paramComment.textContent = `Izoh: ${data.data?.izoh}`;
-        }if(paramComment && !data.data?.izoh){
+        } if (paramComment && !data.data?.izoh) {
           paramComment.classList.add('hidden');
           paramComment.classList.remove('flex');
         }

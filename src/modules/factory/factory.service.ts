@@ -26,10 +26,47 @@ export class FactoryService {
       });
       if (!existing)
         throw new HttpException('Factory Not Found', HttpStatus.NOT_FOUND);
-      const updatedFactory = this.factoryRepository.merge(
-        existing,
-        updateFactoryDto,
-      );
+
+      let images = existing.images;
+      if (updateFactoryDto.images) {
+        try {
+          // Parse existing images if they exist
+          const existingImages = existing.images
+            ? JSON.parse(existing.images)
+            : [];
+
+          // If new images are provided as array, use them
+          if (Array.isArray(updateFactoryDto.images)) {
+            images = JSON.stringify(updateFactoryDto.images);
+          }
+          // If string, assume it's already JSON
+          else if (typeof updateFactoryDto.images === 'string') {
+            images = updateFactoryDto.images;
+          }
+        } catch (error) {
+          throw new HttpException(
+            'Invalid images format',
+            HttpStatus.BAD_REQUEST,
+          );
+        }
+        delete updateFactoryDto.images;
+      }
+
+      if (updateFactoryDto.latitude && updateFactoryDto.longitude) {
+        const coords = [updateFactoryDto.longitude, updateFactoryDto.latitude];
+        const location = [...coords].reverse();
+
+        updateFactoryDto.coords = JSON.stringify(coords);
+        updateFactoryDto.location = JSON.stringify(location);
+
+        delete updateFactoryDto.latitude;
+        delete updateFactoryDto.longitude;
+      }
+
+      const updatedFactory = this.factoryRepository.merge(existing, {
+        ...updateFactoryDto,
+        images,
+      });
       return await this.factoryRepository.save(updatedFactory);
     } catch (error) {
       if (error.status === 404) {
@@ -125,13 +162,18 @@ export class FactoryService {
       const coords = [data.longitude, data.latitude];
       const location = [...coords].reverse();
 
+      const images = data.images || [];
+      const imageJsonString = JSON.stringify(images);
+
       delete data.latitude;
       delete data.longitude;
+      delete data.images;
 
       const factory = queryRunner.manager.create(Factory, {
         ...data,
         location: JSON.stringify(location),
         coords: JSON.stringify(coords),
+        images: imageJsonString,
         sort_num: lastData.length > 0 ? lastData[0].sort_num + 1 : 1,
       });
 

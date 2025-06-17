@@ -8,11 +8,30 @@ import {
   Render,
   Req,
   Res,
+  UploadedFiles,
   UseInterceptors,
 } from '@nestjs/common';
 import { FactoryService } from './factory.service';
 import { Request, Response } from 'express';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import {
+  FileFieldsInterceptor,
+  FilesInterceptor,
+} from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
+import { existsSync, mkdirSync } from 'fs';
+
+interface MulterFile {
+  fieldname: string;
+  originalname: string;
+  encoding: string;
+  mimetype: string;
+  size: number;
+  destination: string;
+  filename: string;
+  path: string;
+  buffer: Buffer;
+}
 
 @Controller('factory')
 export class FactoryController {
@@ -96,10 +115,48 @@ export class FactoryController {
   }
 
   @Post('create')
-  @UseInterceptors(FileFieldsInterceptor([]))
-  async createFactory(@Req() req: Request) {
-    console.log(req.body, 'req.body');
-    await this.factoryService.addFactory(req.body);
+  @UseInterceptors(
+    FilesInterceptor('images', 10, {
+      // maksimum 10 ta rasm
+      storage: diskStorage({
+        destination: (req, file, cb) => {
+          const uploadPath = './uploads/factory-images';
+          // Papka mavjud emasligini tekshirish va yaratish
+          if (!existsSync(uploadPath)) {
+            mkdirSync(uploadPath, { recursive: true });
+          }
+          cb(null, uploadPath);
+        },
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const fileExtension = extname(file.originalname);
+          cb(null, `factory-${uniqueSuffix}${fileExtension}`);
+        },
+      }),
+      fileFilter: (req, file, cb) => {
+        // Faqat rasm fayllarini qabul qilish
+        if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+          cb(null, true);
+        } else {
+          cb(new Error('Faqat rasm fayllari ruxsat etilgan!'), false);
+        }
+      },
+      limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+      },
+    }),
+  )
+  async createFactory(
+    @Req() req: Request,
+    @UploadedFiles() images: MulterFile[],
+  ) {
+    const imagePaths = images ? images.map((img) => img.filename) : [];
+
+    await this.factoryService.addFactory({
+      ...req.body,
+      images: imagePaths,
+    });
 
     return { ok: true, status: 'success' };
   }
@@ -142,10 +199,48 @@ export class FactoryController {
   }
 
   @Put('update/:id')
-  @UseInterceptors(FileFieldsInterceptor([]))
-  async update(@Param('id') id: number, @Req() req: Request) {
-    await this.factoryService.update(id, req.body);
-    return;
+  @UseInterceptors(
+    FileFieldsInterceptor([{ name: 'images', maxCount: 10 }], {
+      storage: diskStorage({
+        destination: (req, file, cb) => {
+          const uploadPath = './uploads/factory-images';
+          if (!existsSync(uploadPath)) {
+            mkdirSync(uploadPath, { recursive: true });
+          }
+          cb(null, uploadPath);
+        },
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          const fileExtension = extname(file.originalname);
+          cb(null, `factory-${uniqueSuffix}${fileExtension}`);
+        },
+      }),
+      fileFilter: (req, file, cb) => {
+        if (file.mimetype.match(/\/(jpg|jpeg|png|gif)$/)) {
+          cb(null, true);
+        } else {
+          cb(new Error('Only image files are allowed!'), false);
+        }
+      },
+      limits: {
+        fileSize: 5 * 1024 * 1024, // 5MB limit
+      },
+    }),
+  )
+  async update(
+    @Param('id') id: number,
+    @UploadedFiles() files: { images?: MulterFile[] },
+    @Req() req: Request,
+  ) {
+    const imagePaths = files?.images?.map((img) => img.filename) || [];
+    const updateData = {
+      ...req.body,
+      ...(imagePaths.length > 0 && { images: imagePaths }),
+    };
+
+    await this.factoryService.update(id, updateData);
+    return { ok: true, status: 'success' };
   }
 
   @Post('log')

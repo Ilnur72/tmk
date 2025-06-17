@@ -41,6 +41,9 @@ export class Factory extends BaseEntity {
   @Column()
   coords: string;
 
+  @Column({ nullable: true })
+  images: string;
+
   @Column()
   sort_num: number;
 
