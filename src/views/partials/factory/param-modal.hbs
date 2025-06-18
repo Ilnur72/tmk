@@ -1,39 +1,35 @@
-{{! <div id='parameter-modal1' class='fixed w-1/2 inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-opacity-50'> }}
-{{! <div
-  data-tw-backdrop=''
-  aria-hidden='true'
-  tabindex='-1'
-  id='parameter-control-modal'
-  class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'
->
-  <div
-    class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'
-  >
-    <div class='p-5 text-center'>
+{{! <div id='parameter-modal1'
+  class='fixed w-1/2 inset-0 z-50 flex items-center justify-center overflow-y-auto overflow-x-hidden bg-opacity-50'> }}
+  {{! <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='parameter-control-modal'
+    class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+    <div
+      class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+      <div class='p-5 text-center'>
 
-       <div class='mt-5 text-3xl'>Лойиҳа маълумотларини ўзгартириш</div> 
-      <div class='mt-2 text-slate-500' id='control-parameter-modal-result'> }}
-<form id="parameter-control-modal-form" class='flex flex-col'>
-  {{#each data}}
-    <label class='inline-flex my-2 items-center cursor-pointer'>
-      <input type='checkbox' data-param-id='{{this.id}}' value='' class='sr-only peer' {{#if this.visible}}checked{{/if}} />
-      <div
-        class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600"
-      ></div>
+        <div class='mt-5 text-3xl'>Лойиҳа маълумотларини ўзгартириш</div>
+        <div class='mt-2 text-slate-500' id='control-parameter-modal-result'> }}
+          <form id="parameter-control-modal-form" class='flex flex-col'>
+            {{#each data}}
+            <label class='inline-flex my-2 items-center cursor-pointer'>
+              <input type='checkbox' data-param-id='{{this.id}}' value='' class='sr-only peer' {{#if
+                this.visible}}checked{{/if}} />
+              <div
+                class="relative w-9 h-5 bg-gray-200 peer-focus:outline-none rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600 dark:peer-checked:bg-blue-600">
+              </div>
 
-      <span class='ms-3 text-sm font-medium'>{{this.param.name}}</span>
-    </label>
-  {{/each}}
-</form>
-  <div class='border-t py-4 flex justify-end space-x-3'>
-    <button
-      style='background-color: #00a0c6;'
-      onclick="save_update_parametr({{data.id}})"
-      type="button" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-success text-white dark:border-danger w-24">Сақлаш</button>
-    <button data-tw-merge="" data-tw-dismiss="modal" type="button" class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
-  </div>
-{{! </div>
+              <span class='ms-3 text-sm font-medium'>{{this.param.name}}</span>
+            </label>
+            {{/each}}
+          </form>
+          <div class='border-t py-4 flex justify-end space-x-3'>
+            <button data-tw-merge="" data-tw-dismiss="modal" type="button"
+              class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-slate-500 dark:border-darkmode-100/40 dark:text-slate-300 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
+            <button style='background-color: #00a0c6;' onclick="save_update_parametr({{data.id}})" type="button"
+              class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-success text-white dark:border-danger w-24">Сақлаш</button>
+          </div>
+          {{!
+        </div>
+      </div>
     </div>
-  </div>
-</div> }}
-{{! </div> }}
+  </div> }}
+  {{! </div> }}
