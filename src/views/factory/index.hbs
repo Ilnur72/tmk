@@ -165,14 +165,12 @@
                 {{#if this.images}}
                 <img style="
       width: 100%;
-      height: auto;
-      object-fit: contain;" class='rounded-md' src='../../../uploads/factory-images/{{getFirstImage this.images}}'
+      object-fit: cover;" class='rounded-md' src='../../../uploads/factory-images/{{getFirstImage this.images}}'
                   alt=''>
                 {{else}}
                 <img style="
       width: 100%;
-      height: auto;
-      object-fit: contain;" class='rounded-md' src='../../../public/image/3.jpg' alt=''>
+      object-fit: cover;" class='rounded-md' src='../../../public/image/3.jpg' alt=''>
                 {{/if}}
 
                 <div class="absolute right-2 top-1 z-10 left-auto"><a class='flex items-center text-danger'
