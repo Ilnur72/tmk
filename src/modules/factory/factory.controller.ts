@@ -98,6 +98,16 @@ export class FactoryController {
     };
   }
 
+  @Get('all')
+  async finFiltered(@Query('status') status?: string) {
+    const factories = await this.factoryService.findAll({ status: status });
+    return {
+      factories: factories.data,
+      total: factories.total,
+      counts: factories.counts,
+    };
+  }
+
   @Get('update/:id')
   async updateModal(@Param('id') id: number, @Res() res: Response) {
     const factory = await this.factoryService.findOne(id);

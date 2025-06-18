@@ -241,6 +241,11 @@ export class FactoryService {
           factory_param_id: query.filters.factory_param_id,
         });
       }
+      if (query?.status) {
+        existing.andWhere(`factory.status = :status`, {
+          status: query.status,
+        });
+      }
       const counts = await this.factoryRepository
         .createQueryBuilder('factory')
         .select([

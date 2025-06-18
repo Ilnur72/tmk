@@ -5,27 +5,16 @@
   <!-- END: Top Bar -->
   <div class='grid grid-cols-12 gap-6'>
     <div class='col-span-12 mt-8'>
-      <div class='intro-y flex h-10 items-center justify-between'>
-        <h2 class='mr-5 truncate text-lg font-medium'>Инвестиция лойиҳалари
+      <div class='intro-y lg:flex items-center justify-between'>
+        <h2 class='mr-5 text-lg font-medium'>Инвестиция лойиҳалари
           ҳолати мониторинги</h2>
         <button id="create-factory-btn" data-tw-toggle='modal' data-tw-target='#factory-create-modal'
           onclick="createFactory()" class="bg-primary hover:opacity-70 text-white font-bold py-2 px-4 rounded">
           Create Factory
         </button>
-        {{!-- <a class='ml-auto flex items-center text-primary' href=''>
-          <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-            stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-            data-lucide='refresh-ccw' class='lucide lucide-refresh-ccw stroke-1.5 mr-3 h-4 w-4'>
-            <path d='M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8'></path>
-            <path d='M3 3v5h5'></path>
-            <path d='M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16'></path>
-            <path d='M16 16h5v5'></path>
-          </svg>
-          Reload Data
-        </a> --}}
       </div>
       <div class='mt-5 grid grid-cols-12 gap-6'>
-        <div class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
+        <div onclick="generateFactoryHtml()" class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
           <div
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
@@ -55,7 +44,7 @@
             </div>
           </div>
         </div>
-        <div class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
+        <div onclick="generateFactoryHtml('REGISTRATION')" class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
           <div
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
@@ -86,7 +75,7 @@
             </div>
           </div>
         </div>
-        <div class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
+        <div onclick="generateFactoryHtml('CONSTRUCTION')" class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
           <div
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
@@ -122,7 +111,7 @@
             </div>
           </div>
         </div>
-        <div class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
+        <div onclick="generateFactoryHtml('STARTED')" class='intro-y col-span-12 sm:col-span-6 xl:col-span-3'>
           <div
             class="relative zoom-in before:box before:absolute before:inset-x-3 before:mt-3 before:h-full before:bg-slate-50 before:content-['']">
             <div class='box p-5'>
@@ -153,153 +142,7 @@
 
       </div>
 
-      <div class='mt-5 grid grid-cols-12 gap-6'>
-
-        <!-- BEGIN: Users Layout -->
-        {{#each factories}}<div class='intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3'>
-          <div class='box'>
-            <div class='p-5'>
-              <div
-                class='image-fit h-40 overflow-hidden rounded-md before:absolute before:left-0 before:top-0 before:z-10 before:block before:h-full before:w-full before:bg-gradient-to-t before:from-black before:to-black/10 2xl:h-56'>
-
-                {{#if this.images}}
-                <img style="
-      width: 100%;
-      object-fit: cover;" class='rounded-md' src='../../../uploads/factory-images/{{getFirstImage this.images}}'
-                  alt=''>
-                {{else}}
-                <img style="
-      width: 100%;
-      object-fit: cover;" class='rounded-md' src='../../../public/image/3.jpg' alt=''>
-                {{/if}}
-
-                <div class="absolute right-2 top-1 z-10 left-auto"><a id="factory-edit-btn-visible" class='flex items-center text-danger'
-                    data-tw-toggle='modal' data-tw-target='#factory-edit-modal' href='#'
-                    onclick='showFactoryEditModal({{this.id}})'>
-                    <svg class="w-6 h-6 text-red dark:text-primary" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                      <path fill-rule="evenodd"
-                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                        clip-rule="evenodd" />
-                      <path fill-rule="evenodd"
-                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                        clip-rule="evenodd" />
-                    </svg>
-                    Edit
-                  </a></div>
-                <div class='absolute bottom-0 z-10 px-5 pb-6 text-white'>
-                  <a class='block text-base font-medium' href=''>
-                  </a>
-                  {{this.name}}
-                </div>
-              </div>
-              <div class='mt-5 text-slate-600 dark:text-slate-500'>
-
-                <div class='p-5'>
-                  <div class='preview relative [&amp;.hide]:overflow-hidden [&amp;.hide]:h-0'>
-                    <div class='w-full bg-slate-200 rounded dark:bg-black/20 h-4 my-2'>
-                      <div role='progressbar' aria-valuenow='0' aria-valuemin='0' aria-valuemax='100'
-                        class='bg-primary h-full rounded text-xs text-white flex justify-center items-center w-50'>
-                        {{this.work_persent}}%
-                      </div>
-                    </div>
-
-                  </div>
-
-                </div>
-                {{!-- <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
-                  onclick="showParametrControlModal({{this.id}})"
-                  class="p-1 rounded bg-primary text-white my-1">maydonlarni boshqarish</button> --}}
-
-                {{#each this.factoryParams}}
-                <div class="flex justify-between items-center mt-2">
-                  <div data-tw-toggle="modal" data-tw-target="#factory-history-modal"
-                    onclick="showCommentHistory({{this.id}})"
-                    class='flex items-center cursor-pointer {{#unless this.visible}}hidden{{/unless}}'>
-                    <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                      stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                      data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
-                      <polyline points='9 11 12 14 22 4'></polyline>
-                      <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
-                    </svg>
-                    <div class="{{#if (eq this.param.type 'select')}}flex items-center{{/if}}">
-                      <span class="cursor-pointer" data-param-id="{{this.param.id}}">
-                        {{{this.param.name}}}:&nbsp;
-                      </span>
-
-                      {{#if (eq this.param.type "select")}}
-                      <!-- Select type - show status image -->
-                      <img id="{{this.id}}" class="rounded-full"
-                        src="../../../public/image/{{#if (eq this.status 0)}}error{{else if (eq this.status 1)}}ok{{else}}{{this.status}}{{/if}}.png"
-                        alt="Status indicator" width="20" height="20" />
-                      {{else if (eq this.param.type "date")}}
-                      <span id="factory-param-date-{{this.id}}" class="ml-1" {{#unless (and this.latestLog.value (gt
-                        (length this.latestLog.value) 2))}}style="display: none;" {{/unless}}>
-                        {{#if (and this.latestLog.value (gt (length this.latestLog.value) 2))}}
-                        {{this.latestLog.value}}
-                        {{/if}}
-                      </span>
-                      {{/if}}
-                    </div>
-                  </div>
-                  <button id="parameter-edit-btn"
-                    onclick="showParameterModal({{../this.id}}, {{this.param.id}}, '{{this.param.name}}', '{{this.param.type}}', {{this.id}}, {{this.status}})">
-                    <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true"
-                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                      <path fill-rule="evenodd"
-                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                        clip-rule="evenodd" />
-                      <path fill-rule="evenodd"
-                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                        clip-rule="evenodd" />
-                    </svg></button>
-
-                </div>
-
-                <span data-param-id="{{this.id}}" id="{{this.id}}"
-                  class="pl-2 text-xs {{#if (and latestLog.izoh (ne latestLog.izoh ""))}}{{#if this.visible}}flex{{else}}hidden{{/if}}{{else}}hidden{{/if}}"
-                  {{#unless (and latestLog.izoh (ne latestLog.izoh "" ))}}aria-hidden="true" {{/unless}}>
-                  {{#if latestLog.izoh}}Izoh: {{latestLog.izoh}}{{/if}}
-                </span>
-                <div
-                  class='mt-4 w-full {{#if this.visible}}flex{{/if}}hidden border-t border-slate-200/60 dark:border-darkmode-400'>
-                </div>{{/each}}
-              </div>
-            </div>
-            <div
-              class='flex items-center justify-center border-t border-slate-200/60 p-5 dark:border-darkmode-400 lg:justify-end'>
-              <a class='mr-auto flex items-center text-primary' href='#'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                  stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                  data-lucide='eye' class='lucide lucide-eye stroke-1.5 mr-1 h-4 w-4'>
-                  <path d='M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z'></path>
-                  <circle cx='12' cy='12' r='3'></circle>
-                </svg>
-                Батафсил маълумот
-              </a>
-              {{!-- <a class='mr-3 flex items-center' href='#'>
-                <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                  stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                  data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-1 h-4 w-4'>
-                  <polyline points='9 11 12 14 22 4'></polyline>
-                  <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
-                </svg>
-                Маълумотларни янгилаш
-              </a> --}}
-              <button id="parameter-control-btn" data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
-                onclick="showParametrControlModal({{this.id}})" class="text-primary"> <svg
-                  xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
-                  class="mr-2">
-                  <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
-                  <circle cx="18" cy="6" r="3" fill="currentColor" />
-                  <rect x="3" y="11" width="8" height="2" rx="1" fill="currentColor" />
-                  <circle cx="12" cy="12" r="3" fill="currentColor" />
-                  <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
-                  <circle cx="15" cy="18" r="3" fill="currentColor" />
-                </svg></button>
-            </div>
-          </div>
-        </div>{{/each}}
+      <div id="factory-data-wrapper" class='mt-5 grid grid-cols-12 gap-6'>
 
         <div tabindex="-1" data-modal-backdrop="static" id="parameter-modal" aria-hidden="true"
           class="hidden bg-black/60 transition-[visibility,opacity] overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ">
@@ -493,6 +336,13 @@
   }
 </script>
 <script>
+  function generateFactoryHtml(status='') {
+    fetch(`/factory/all?status=${status}`)
+  .then(response => response.json())
+  .then(data => generateFactory(data.factories))
+  .catch(error => console.error('Error loading factories:', error));
+  }
+  generateFactoryHtml()
   function createFactory() {
     const modal = document.getElementById('factory-create-modal-result');
     modal.innerHTML = null;
@@ -1118,5 +968,139 @@
       button.style.display = 'none';
     });
     createButtons.style.display = 'none';
+  }
+</script>
+
+<script>
+  function getFirstImage(images) {
+    try {
+      const parsed = JSON.parse(images);
+      return Array.isArray(parsed) ? parsed[0] : null;
+    } catch {
+      return null;
+    }
+  }
+
+  function generateFactory(factories) {
+    const wrapper = document.querySelector('#factory-data-wrapper');
+    wrapper.innerHTML = ''; // Clear existing content
+    
+    factories.forEach((item) => {
+      const firstImage = item.images ? getFirstImage(item.images) : null;
+      
+      wrapper.innerHTML += `
+        <div class='intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3'>
+          <div class='box'>
+            <div class='p-5'>
+              <div class='image-fit h-40 overflow-hidden rounded-md before:absolute before:left-0 before:top-0 before:z-10 before:block before:h-full before:w-full before:bg-gradient-to-t before:from-black before:to-black/10 2xl:h-56'>
+                ${firstImage ? `
+                  <img style="width: 100%; height: 100%; object-fit: cover;" class='rounded-md' 
+                    src='/uploads/factory-images/${firstImage}' alt='${item.name}'>
+                ` : `
+                  <img style="width: 100%; height: 100%; object-fit: cover;" class='rounded-md' 
+                    src='/public/image/3.jpg' alt='Default factory image'>
+                `}
+
+                <div class="absolute right-2 top-1 z-10 left-auto">
+                  <a id="factory-edit-btn-visible" class='flex items-center text-danger'
+                    data-tw-toggle='modal' data-tw-target='#factory-edit-modal' href='#'
+                    onclick='showFactoryEditModal(${item.id})'>
+                    <svg class="w-6 h-6 text-red dark:text-primary" aria-hidden="true"
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                      <path fill-rule="evenodd"
+                        d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                        clip-rule="evenodd" />
+                      <path fill-rule="evenodd"
+                        d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                        clip-rule="evenodd" />
+                    </svg>
+                    Edit
+                  </a>
+                </div>
+                <div class='absolute bottom-0 z-10 px-5 pb-6 text-white'>
+                  ${item.name}
+                </div>
+              </div>
+              <div class='mt-5 text-slate-600 dark:text-slate-500'>
+                <div class='p-5'>
+                  <div class='preview relative [&.hide]:overflow-hidden [&.hide]:h-0'>
+                    <div class='w-full bg-slate-200 rounded dark:bg-black/20 h-4 my-2'>
+                      <div role='progressbar' aria-valuenow='${item.work_persent}' aria-valuemin='0' aria-valuemax='100'
+                        class='bg-primary h-full rounded text-xs text-white flex justify-center items-center' 
+                        style='width: ${item.work_persent}%'>
+                        ${item.work_persent}%
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                ${item.factoryParams ? item.factoryParams.map(param => `
+                  <div class="flex justify-between items-center mt-2">
+                    <div data-tw-toggle="modal" data-tw-target="#factory-history-modal"
+                      onclick="showCommentHistory(${param.id})"
+                      class='flex items-center cursor-pointer ${param.visible ? '' : 'hidden'}'>
+                      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
+                        stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
+                        data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
+                        <polyline points='9 11 12 14 22 4'></polyline>
+                        <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
+                      </svg>
+                      <div class="${param.param.type === 'select' ? 'flex items-center' : ''}">
+                        <span class="cursor-pointer" data-param-id="${param.param.id}">
+                          ${param.param.name}:&nbsp;
+                        </span>
+                        ${param.param.type === "select" ? `
+                          <img id="${param.id}" class="rounded-full"
+                            src="/public/image/${param.status === 0 ? 'error' : param.status === 1 ? 'ok' : param.status}.png"
+                            alt="Status indicator" width="20" height="20" />
+                        ` : param.param.type === "date" ? `
+                          <span id="factory-param-date-${param.id}" class="ml-1" 
+                            ${param.latestLog?.value?.length > 2 ? '' : 'style="display: none;"'}>
+                            ${param.latestLog?.value?.length > 2 ? param.latestLog.value : ''}
+                          </span>
+                        ` : ''}
+                      </div>
+                    </div>
+                    <button id="parameter-edit-btn"
+                      onclick="showParameterModal(${item.id}, ${param.param.id}, '${param.param.name}', '${param.param.type}', ${param.id}, ${param.status})">
+                      <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true"
+                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path fill-rule="evenodd"
+                          d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                          clip-rule="evenodd" />
+                        <path fill-rule="evenodd"
+                          d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                          clip-rule="evenodd" />
+                      </svg>
+                    </button>
+                  </div>
+                  ${param.latestLog?.izoh ? `
+                    <span data-param-id="${param.id}" id="${param.id}"
+                      class="pl-2 text-xs ${param.visible ? 'flex' : 'hidden'}">
+                      Izoh: ${param.latestLog.izoh}
+                    </span>
+                  ` : ''}
+                  <div class='mt-4 w-full ${param.visible ? 'flex' : 'hidden'} border-t border-slate-200/60 dark:border-darkmode-400'></div>
+                `).join('') : ''}
+              </div>
+            </div>
+            <div class='flex items-center justify-center border-t border-slate-200/60 p-5 dark:border-darkmode-400 lg:justify-end'>
+              <button id="parameter-control-btn" data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
+                onclick="showParametrControlModal(${item.id})" class="text-primary flex gap-1 items-center">
+                Параметрларини Бошкариш 
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" class="mr-2">
+                  <rect x="3" y="5" width="14" height="2" rx="1" fill="currentColor" />
+                  <circle cx="18" cy="6" r="3" fill="currentColor" />
+                  <rect x="3" y="11" width="8" height="2" rx="1" fill="currentColor" />
+                  <circle cx="12" cy="12" r="3" fill="currentColor" />
+                  <rect x="3" y="17" width="10" height="2" rx="1" fill="currentColor" />
+                  <circle cx="15" cy="18" r="3" fill="currentColor" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    });
   }
 </script>
