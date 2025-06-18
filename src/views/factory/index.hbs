@@ -173,7 +173,7 @@
       object-fit: cover;" class='rounded-md' src='../../../public/image/3.jpg' alt=''>
                 {{/if}}
 
-                <div class="absolute right-2 top-1 z-10 left-auto"><a class='flex items-center text-danger'
+                <div class="absolute right-2 top-1 z-10 left-auto"><a id="factory-edit-btn-visible" class='flex items-center text-danger'
                     data-tw-toggle='modal' data-tw-target='#factory-edit-modal' href='#'
                     onclick='showFactoryEditModal({{this.id}})'>
                     <svg class="w-6 h-6 text-red dark:text-primary" aria-hidden="true"
@@ -286,7 +286,7 @@
                 </svg>
                 Маълумотларни янгилаш
               </a> --}}
-              <button data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
+              <button id="parameter-control-btn" data-tw-toggle='modal' data-tw-target='#parameter-control-modal'
                 onclick="showParametrControlModal({{this.id}})" class="text-primary"> <svg
                   xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
                   class="mr-2">
@@ -485,7 +485,6 @@
           .map(c => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
           .join('')
       );
-
       return JSON.parse(jsonPayload);
     } catch (e) {
       console.error('Token decode xatoligi:', e);
@@ -808,22 +807,6 @@
 </script>
 
 <script>
-  const token = localStorage.getItem('token');
-  const decodedToken = parseJwt(token);
-  if (decodedToken.user.role === 'admin') {
-    const editButtons = document.querySelectorAll('#parameter-edit-btn');
-    const createButtons = document.querySelector('#create-factory-btn');
-    editButtons.forEach(button => {
-      button.style.display = 'none';
-    });
-    createButtons.style.display = 'none';
-  }
-
-
-
-</script>
-
-<script>
   function formatDate(dateString) {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, '0');
@@ -851,7 +834,6 @@
         const elements = document.querySelectorAll('.param-date');
         elements.forEach(el => {
           const originalDate = el.getAttribute('data-raw')
-          console.log(formatDate(originalDate), 'originalDate');
           if (originalDate) {
             el.textContent = formatDate(originalDate);
           }
@@ -1116,5 +1098,25 @@
     setTimeout(() => {
       notification.remove();
     }, 3000);
+  }
+</script>
+<script>
+
+  const decodedToken = parseJwt(localStorage.getItem('token'));
+  if (decodedToken.user.role === 'admin') {
+    const editButtons = document.querySelectorAll('#parameter-edit-btn');
+    const factoryEditBtnVisible = document.querySelectorAll('#factory-edit-btn-visible');
+    const createButtons = document.querySelector('#create-factory-btn');
+    const parametercontrolBtn = document.querySelectorAll('#parameter-control-btn');
+    editButtons.forEach(button => {
+      button.style.display = 'none';
+    });
+    parametercontrolBtn.forEach(button => {
+      button.style.display = 'none';
+    });
+    factoryEditBtnVisible.forEach(button => {
+      button.style.display = 'none';
+    });
+    createButtons.style.display = 'none';
   }
 </script>
