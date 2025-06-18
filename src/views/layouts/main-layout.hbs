@@ -653,7 +653,8 @@
                 if (item.coords && typeof item.coords === 'string') {
                   item.coords = JSON.parse(item.coords.replace(/'/g, '"')); // stringni massivga aylantirish
                 }
-              });              
+              });             
+              console.log(data) 
               locations = data
                 initializeMarkers(); // Call a function to initialize markers after data is loaded
             })
@@ -671,7 +672,7 @@
       <p style="margin: 5px 0; font-size: 1.4em;">Онлайн видео кузатув</p>
       <p style="margin: 5px 0; font-size: 1.4em;">Ходимлар ҳақида махлумот</p>
       <p style="margin: 5px 0; font-size: 1.4em;">Техникалар ҳақида махлумот</p>
-      <img src="../../../public/image/karier.jpg" style="width: 100%; border-radius: 5px;" />
+      <img src="${loc.images ? `../../../uploads/factory-images/${JSON.parse(loc.images)[0]}` : '../../../public/image/1.jpg'}" style="width: 100%; border-radius: 5px;" />
     </div>
   `;
 
