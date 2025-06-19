@@ -49,21 +49,30 @@
     />
 
     <style>
-      #map { width: 100%; height: 100vh; } #marker { background-image:
+      #map { width: 100%; height: 95vh; margin: 0; padding: 0; left: 0;} #marker { background-image:
       url('https://maplibre.org/maplibre-gl-js/docs/assets/washington-monument.jpg');
       background-size: cover; width: 50px; height: 50px; border-radius: 50%;
       cursor: pointer; }.rounded-rect { background: white; border-radius: 10px;
       box-shadow: 0 0 50px -25px black; }.flex-center { position: absolute;
       display: flex; padding-left: 10px; margin-top: 10px; }.flex-center.left {
       left: 0px; }.flex-center.right { right: 0px; }.sidebar-content { position:
-      absolute; width: 95%; height: 95%; color: gray; }.sidebar-toggle {
+      absolute; width: 88%; height: 90%; color: gray; }.sidebar-toggle {
       position: absolute; width: 1.3em; height: 1.3em; overflow: visible;
       display: flex; justify-content: center; align-items: center;
       }.sidebar-toggle.left { right: -1.5em; }.sidebar-toggle.right { left:
       -1.5em; }.sidebar-toggle:hover { color: #0aa1cf; cursor: pointer;
       }.sidebar { transition: transform 1s; z-index: 1; width: 300px; height:
-      100%; }.left.collapsed { transform: translateX(-295px); }.right.collapsed
-      { transform: translateX(295px); }
+      100%; }.left.collapsed { transform: translateX(-276px); }.right.collapsed
+      { transform: translateX(295px); } .maplibregl-ctrl-top-right {
+    bottom: 130px;
+    top: auto;
+    right: 7px;
+}.maplibregl-ctrl-bottom-right {
+  bottom: 80px;
+  right: 7px;
+}.maplibregl-canvas {
+  width: 100vh; height: 100vh;
+}
     </style>
   </head>
   <!-- END: Head -->
@@ -231,7 +240,7 @@
           </div>
         </div>
       </div>
-      <div
+      {{!-- <div
         class='fixed bottom-0 right-0 z-50 mb-5 mr-5 flex h-14 w-14 cursor-pointer items-center justify-center rounded-full bg-theme-1 text-white shadow-lg'
         data-tw-toggle='modal'
         data-tw-target='#theme-switcher'
@@ -241,16 +250,16 @@
           data-lucide='settings'
           class='stroke-1.5 w-5 h-5 animate-spin'
         ></i>
-      </div>
+      </div> --}}
     </div>
     <div
-      class="rubick px-5 sm:px-8 py-5 before:content-[''] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 dark:before:from-darkmode-800 dark:before:to-darkmode-800 before:fixed before:inset-0 before:z-[-1]"
+      class="rubick px-5 sm:px-8  before:content-[''] before:bg-gradient-to-b before:from-theme-1 before:to-theme-2 dark:before:from-darkmode-800 dark:before:to-darkmode-800 before:fixed before:inset-0 before:z-[-1]"
     >
       <!-- BEGIN: Mobile Menu -->
       <div
         class="mobile-menu group top-0 inset-x-0 fixed bg-theme-1/90 z-[60] border-b border-white/[0.08] dark:bg-darkmode-800/90 md:hidden before:content-[''] before:w-full before:h-screen before:z-10 before:fixed before:inset-x-0 before:bg-black/90 before:transition-opacity before:duration-200 before:ease-in-out before:invisible before:opacity-0 [&.mobile-menu--active]:before:visible [&.mobile-menu--active]:before:opacity-100"
       >
-        <div class='flex h-[70px] items-center px-3 sm:px-8'>
+        <div class='flex h-[45px] items-center px-3 sm:px-8'>
           <a class='mr-auto flex' href=''>
             <img
               class='w-16'
@@ -367,7 +376,7 @@
               </a>
             </li>
             <li>
-              <a class='menu' href='/employers/'>
+              <a class='menu' href='/techniques/'>
                 <div class='menu__icon'>
                   <i
                     data-tw-merge=''
@@ -400,7 +409,7 @@
         </div>
       </div>
       <!-- END: Mobile Menu -->
-      <div class='mt-[4.7rem] flex md:mt-0'>
+      <div class='mt-[3.3rem] flex md:mt-0'>
         <!-- BEGIN: Side Menu -->
         <nav
           class='side-nav hidden w-[80px] overflow-x-hidden pb-16 pr-5 md:block xl:w-[230px]'
@@ -592,7 +601,6 @@
                     'https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
                 ],
                 tileSize: 256,
-                attribution: 'Tiles © Esri, Maxar, Earthstar Geographics, and the GIS User Community'
             }
         },
         layers: [
@@ -610,10 +618,11 @@
         container: 'map',
         style: vectorStyle,
         center: [69.2401, 41.2995], // Tashkent
-        zoom: 6
+        zoom: 6,
+        attributionControl: false
     });
 
-    map.addControl(new maplibregl.NavigationControl(), 'top-right');
+    map.addControl(new maplibregl.NavigationControl());
 
     class LayerToggleControl {
         onAdd(map) {
@@ -632,7 +641,7 @@
             };
 
             const container = document.createElement('div');
-            container.className = 'maplibregl-ctrl maplibregl-ctrl-group';
+            container.className = 'maplibregl-ctrl maplibregl-ctrl-group bottom-20';
             container.appendChild(this._btn);
             return container;
         }
@@ -643,7 +652,7 @@
         }
     }
 
-    map.addControl(new LayerToggleControl(), 'top-right');
+    map.addControl(new LayerToggleControl(), 'bottom-right');
 
 
 
@@ -770,6 +779,10 @@
 
     // Function to fly to a marker with zoom 19
     function flyToMarker(coords) {
+        if (window.innerWidth <= 768) { // 768px - odatdagi tablet breakpoint
+          toggleSidebar('left');
+        }
+
         map.flyTo({
             center: coords,
             zoom: 15,
