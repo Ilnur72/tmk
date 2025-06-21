@@ -32,10 +32,10 @@ export class Factory extends BaseEntity {
   @Column({ nullable: true })
   cats: string;
 
-  @Column()
+  @Column({ nullable: true })
   manager: string;
 
-  @Column()
+  @Column({ nullable: true })
   work_persent: string;
 
   @Column()
@@ -44,7 +44,7 @@ export class Factory extends BaseEntity {
   @Column({ nullable: true })
   images: string;
 
-  @Column()
+  @Column({ nullable: true })
   sort_num: number;
 
   @OneToMany(() => FactoryParams, (fp) => fp.factory)
