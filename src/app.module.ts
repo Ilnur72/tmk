@@ -14,6 +14,7 @@ import { SeedModule } from './db/seeds/seed.module';
 import { FactoryLog } from './modules/factory/entities/factory-log.entity';
 import { FactoryParams } from './modules/factory/entities/facory-param.entity';
 import { Param } from './modules/factory/entities/param.entity';
+import { SettingModule } from './modules/setting/setting.module';
 @Module({
   imports: [
     CoreModule,
@@ -25,6 +26,7 @@ import { Param } from './modules/factory/entities/param.entity';
     TypeOrmModule.forFeature([Factory, FactoryLog, FactoryParams, Param]),
     EmployeeModule,
     TechniquesModule,
+    SettingModule,
     AuthModule,
     SeedModule,
   ],

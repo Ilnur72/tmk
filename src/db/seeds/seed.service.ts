@@ -12,6 +12,7 @@ import factoryParamsData from '../data/factory_params.json';
 import factoryLogsData from '../data/factory_log.json';
 import carsData from '../data/cars.json';
 import paramsData from '../data/params.json';
+import realData from '../data/realdata.json';
 import { FactoryLog } from '../../modules/factory/entities/factory-log.entity';
 @Injectable()
 export class SeedService {
@@ -34,13 +35,13 @@ export class SeedService {
     await this.seedAdmin();
     await this.seedFactory();
     await this.seedParams();
-    await this.seedFactoryParams();
-    await this.seedFactoryLog();
+    // await this.seedFactoryParams();
+    // await this.seedFactoryLog();
     await this.seedCars();
   }
 
   private async seedFactory() {
-    const result = this.factoryRepository.create(factoryData);
+    const result = this.factoryRepository.create(realData);
     await this.factoryRepository.save(result);
   }
 

@@ -5,11 +5,14 @@ import { join } from 'path';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { registerHelpers } from './shared/utils/handlebars-helpers';
 import hbs from 'hbs';
+import { NotFoundFilter } from './shared/filters/not-found.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
+
   const configService = app.get(ConfigService);
   const port = configService.get<number>('port');
+
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
   });
@@ -18,45 +21,10 @@ async function bootstrap() {
   hbs.registerPartials(join(__dirname, '..', 'src', 'views', 'partials'));
   app.setViewEngine('hbs');
   app.set('view options', { layout: 'layouts/main-layout' });
-  hbs.registerHelper('eq', function (a, b) {
-    return a == b;
-  });
-  hbs.registerHelper('ne', function (a, b) {
-    return a !== b;
-  });
-  hbs.registerHelper('and', function (...args) {
-    // Oxirgi argument options obyekti
-    const options = args.pop();
-    // Barcha argumentlarni tekshirish
-    const allTruthy = args.every((arg) => !!arg);
-
-    // Agar block helper bo'lsa ({{#and}})
-    if (options && typeof options.fn === 'function') {
-      return allTruthy ? options.fn(this) : options.inverse(this);
-    }
-    // Oddiy helper bo'lsa ({{and a b}})
-    return allTruthy;
-  });
-  hbs.registerHelper('arrayToString', function (array) {
-    if (!Array.isArray(array)) return array;
-    return array.join(', ');
-  });
-  hbs.registerHelper('getFirstImage', function (jsonString) {
-    try {
-      const images = JSON.parse(jsonString);
-      return images[0] || 'default.jpg';
-    } catch {
-      return 'default.jpg';
-    }
-  });
-  hbs.registerHelper('length', function (str) {
-    return str ? str.length : 0;
-  });
-
-  hbs.registerHelper('gt', function (a, b) {
-    return a > b;
-  });
   registerHelpers();
+
+  app.useGlobalFilters(new NotFoundFilter());
+
   await app.listen(port);
   console.log(`Server is running on port ${port}`);
 }

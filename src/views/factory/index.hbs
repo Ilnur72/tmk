@@ -423,7 +423,9 @@
                       class="pl-2 text-xs ${param.visible ? 'flex' : 'hidden'}">
                       Izoh: ${param.latestLog.izoh}
                     </span>
-                  ` : ''}
+                  ` : `<span data-param-id="${param.id}" id="${param.id}"
+                      class="pl-2 text-xs ${param.visible ? 'flex' : 'hidden'}">
+                    </span>`}
                   <div class='mt-4 w-full ${param.visible ? 'flex' : 'hidden'} border-t border-slate-200/60 dark:border-darkmode-400'></div>
                 `).join('') : ''}
               </div>
@@ -564,7 +566,7 @@
             } return response.text();
           }).then(data => {
             document.getElementById('factory-create-modal').classList.remove('show');
-            location.reload();
+            generateFactoryHtml()
           }).catch(error => {
             console.error(`There was a problem
   with the fetch operation:`, error);
@@ -754,7 +756,7 @@
             } return response.text();
           }).then(data => {
             document.getElementById('factory-create-modal').classList.remove('show');
-            location.reload();
+            generateFactoryHtml()
           }).catch(error => {
             console.error(`There was a problem
   with the fetch operation:`, error);
@@ -781,7 +783,7 @@
         } return response.text();
       }).then(data => {
         document.getElementById('factory-edit-modal').classList.remove('show');
-        location.reload();
+        generateFactoryHtml()
       }).catch(error => {
         console.error(`There was a problem
   with the fetch operation:`, error);
@@ -871,7 +873,7 @@
       return response.text();
     }).then(data => {
       document.getElementById('factory-edit-modal').classList.remove('show');
-      location.reload();
+      generateFactoryHtml()
     }).catch(error => {
       console.error('There was a problem with the fetch operation:', error);
     });

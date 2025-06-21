@@ -8,7 +8,7 @@
 
         <div class='mt-5 text-3xl'>Лойиҳа маълумотларини ўзгартириш</div>
         <div class='mt-2 text-slate-500' id='control-parameter-modal-result'> }}
-          <form id="parameter-control-modal-form" class='flex flex-col'>
+          <form id="parameter-control-modal-form" class='flex flex-col max-h-[65vh] overflow-y-auto'>
             {{#each data}}
             <label class='inline-flex my-2 items-center cursor-pointer'>
               <input type='checkbox' data-param-id='{{this.id}}' value='' class='sr-only peer' {{#if
@@ -23,8 +23,8 @@
           </form>
           <div class='border-t py-4 flex justify-end space-x-3'>
             <button data-tw-merge="" data-tw-dismiss="modal" type="button"
-              class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-gray-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-gray-500 dark:border-darkmode-100/40 dark:text-gray-500 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
-            <button style='background-color: #00a0c6;' onclick="save_update_parametr({{data.id}})" type="button"
+              class="transition  duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-gray-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-secondary text-gray-500 dark:border-darkmode-100/40 dark:text-gray-500 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
+            <button style='background-color: #00a0c6;' onclick="save_update_parametr({{data.id}})"  data-tw-dismiss="modal" type="button"
               class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-success text-white dark:border-danger w-24">Сақлаш</button>
           </div>
           {{!

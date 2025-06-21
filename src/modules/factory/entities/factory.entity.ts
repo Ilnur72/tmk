@@ -36,7 +36,7 @@ export class Factory extends BaseEntity {
   manager: string;
 
   @Column({ nullable: true })
-  work_persent: string;
+  work_persent: number;
 
   @Column()
   coords: string;

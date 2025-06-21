@@ -1,0 +1,325 @@
+<style>.toast { position: fixed; top: 20px; right: 20px; padding:
+      15px 20px; background-color: #ff3e1d; color: white; border-radius: 4px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); z-index: 9999; transform:
+      translateX(150%); transition: transform 0.3s ease; } .toast.show {
+      transform: translateX(0); }</style>
+<div
+  class="md:max-w-auto min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 before:block before:h-px before:w-full before:content-[''] dark:bg-darkmode-700 md:px-[22px]">
+  <div class='flex items-center justify-between py-6'>
+    <h2 class='text-2xl font-bold'>
+      Параметрлар рўйхати
+    </h2>
+    <button data-tw-target='#setting-param-create-modal' data-tw-toggle='modal'
+      class='bg-primary hover:opacity-70 text-white font-semibold px-5 py-2 rounded'>
+      + Параметр қўшиш
+    </button>
+  </div>
+  <div id='toast' class='toast'></div>
+  <!-- Parametrlar ro'yxati -->
+  <div class='bg-white rounded-lg shadow p-6'>
+    <table class='min-w-full'>
+      <thead>
+        <tr class='border-b'>
+          <th class='py-2 text-left'>
+            #
+          </th>
+          <th class='py-2 text-left'>
+            Номи
+          </th>
+          <th class='py-2 text-left'>
+            Тури
+          </th>
+          <th class='py-2 text-left'>
+            Амалиёт
+          </th>
+        </tr>
+      </thead>
+      <tbody id='parameter-list'>
+        {{#each parameters}}
+        <tr data-param-id={{this.id}} class='border-b hover:bg-slate-50'>
+          <td class='py-2'>
+            {{@index}}
+          </td>
+          <td class='py-2'>
+            {{this.name}}
+          </td>
+          <td class='py-2'>
+            {{this.type}}
+          </td>
+          <td class='py-2'>
+            <button data-tw-target='#edit-param-modal' data-tw-toggle='modal' class='text-red-600 hover:underline'
+              onclick="editParameter('{{this.id}}')">
+              <svg class='w-6 h-6 text-primary dark:text-primary' aria-hidden='true' xmlns='http://www.w3.org/2000/svg'
+                width='24' height='24' fill='currentColor' viewBox='0 0 24 24'>
+                <path fill-rule='evenodd'
+                  d='M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z'
+                  clip-rule='evenodd'></path>
+                <path fill-rule='evenodd'
+                  d='M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z'
+                  clip-rule='evenodd'></path>
+              </svg>
+            </button>
+            <button class='text-red-600 hover:underline ml-2' {{!-- onclick='deleteParameter(' {{this.id}}')' --}}
+              onclick="openDeleteConfirmModal('{{this.id}}')">
+              <i data-lucide='trash-2'></i>
+            </button>
+          </td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan='4' class='py-4 text-center text-slate-400'>
+            Параметрлар
+            топилмади
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <!-- BEGIN: Parameter create Modal -->
+  <div data-tw-backdrop='' aria-hidden='false' tabindex='-1' id='setting-param-create-modal'
+    class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+    <div
+      class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+      <div class='p-5 text-center'>
+        <div id='factory-history-modal-title' class='mt-5 text-3xl'></div>
+        <div class='mt-2 text-slate-500' id='factory-history-modal-result'>
+          <div class='flex items-center justify-between mb-4'>
+            <h2 class='text-xl font-semibold'>
+              Янги параметр қўшиш
+            </h2>
+            <button class='text-gray-400 hover:text-gray-600 text-2xl'>
+              &times;
+            </button>
+          </div>
+          <form id='parameter-create-form'>
+            <div class='mb-4'>
+              <label for='param-name' class='block text-gray-700 mb-1'>
+                Параметр
+                номи
+              </label>
+              <input id='param-name' name='name' type='text' required
+                class='w-full border rounded px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary'
+                placeholder='Параметр номи' />
+            </div>
+            <div class='mb-4'>
+              <label for='param-type' class='block text-gray-700 mb-1'>
+                Параметр
+                тури
+              </label>
+              <select id='param-type' name='type' required
+                class='w-full border rounded px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary'>
+                <option value='select'>
+                  Select
+                </option>
+                <option value='date'>
+                  Date
+                </option>
+              </select>
+            </div>
+            <div class='flex justify-end space-x-2'>
+              <button data-tw-dismiss='modal' type='button'
+                class='px-4 py-2 rounded border text-gray-600 hover:bg-gray-100'>
+                Бекор қилиш
+              </button>
+              <button data-tw-dismiss='modal' type='submit'
+                class='px-4 py-2 rounded bg-primary text-white hover:opacity-70'>
+                Сақлаш
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- BEGIN: Parameter edit Modal -->
+  <div data-tw-backdrop='' aria-hidden="true" tabindex='-1' id='edit-param-modal'
+    class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
+    <div
+      class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-16 group-[.show]:mt-16 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[460px]'>
+      <div class='p-5 text-center'>
+
+        <div class='mt-2 text-slate-500' id='control-parameter-modal-result'>
+          <div class="flex items-center justify-between mb-4">
+            <h2 class="text-xl font-semibold">Параметрни таҳрирлаш</h2>
+            <button onclick="closeEditParamModal()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+          </div>
+          <form id="edit-param-form">
+            <input type="hidden" id="edit-param-id" name="id" />
+            <div class="mb-4">
+              <label for="edit-param-name" class="block text-gray-700 mb-1">Параметр номи</label>
+              <input id="edit-param-name" name="name" type="text" required
+                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary"
+                placeholder="Параметр номи" />
+            </div>
+            <div class="mb-4">
+              <label for="edit-param-type" class="block text-gray-700 mb-1">Параметр тури</label>
+              <select id="edit-param-type" name="type" required
+                class="w-full border rounded px-3 py-2 focus:outline-none focus:ring-primary focus:border-primary">
+                <option value="select">Select</option>
+                <option value="date">Date</option>
+                <option value="text">Text</option>
+              </select>
+            </div>
+            <div class="flex justify-end space-x-2">
+              <button data-tw-dismiss='modal' type="button"
+                class="px-4 py-2 rounded border text-gray-600 hover:bg-gray-100">Бекор қилиш</button>
+              <button type="submit" class="px-4 py-2 rounded bg-primary text-white hover:opacity-70">Сақлаш</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Delete confirmation modal -->
+  <div id='delete-confirm-modal'
+    class='fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden'>
+    <div class='bg-white rounded-lg shadow-lg w-full max-w-sm p-6'>
+      <h2 class='text-xl font-semibold mb-4 text-center'>
+        Ўчиришни тасдиқлайсизми?
+      </h2>
+      <div class='flex justify-end space-x-2'>
+        <button onclick='closeDeleteConfirmModal()' class='px-4 py-2 rounded border text-gray-600 hover:bg-gray-100'>
+          Бекор қилиш
+        </button>
+        <button id='delete-confirm-btn' class='px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700'>
+          Ўчириш
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message; toast.classList.add('show'); setTimeout(() => {
+        toast.classList.remove('show');
+      }, 5000);
+    }
+    function deleteParameter(id) {
+      fetch('/setting/param/' + id, { method: 'DELETE' }).then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const paramRow = document.querySelector(`[data-param-id="${id}"]`);
+        if (paramRow) {
+          paramRow.remove();
+        }
+      }).catch((err) => console.log(err))
+    }
+    let paramIdToDelete = null;
+
+    function openDeleteConfirmModal(id) {
+      paramIdToDelete = id;
+      document.getElementById('delete-confirm-modal').classList.remove('hidden');
+    }
+    function closeDeleteConfirmModal() {
+      paramIdToDelete = null;
+      document.getElementById('delete-confirm-modal').classList.add('hidden');
+    }
+
+    document.getElementById('delete-confirm-btn').onclick = function () {
+      if (!paramIdToDelete) return;
+      fetch('/setting/param/' + paramIdToDelete, { method: 'DELETE' })
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          const paramRow = document.querySelector(`[data-param-id="${paramIdToDelete}"]`);
+          if (paramRow) paramRow.remove();
+          closeDeleteConfirmModal();
+        })
+        .catch((err) => {
+          console.log(err);
+          closeDeleteConfirmModal();
+        });
+    };
+
+    document.getElementById('parameter-create-form').addEventListener('submit',
+      function (e) {
+        e.preventDefault();
+        const form = e.target;
+        const name = document.getElementById('param-name').value;
+        const type = document.getElementById('param-type').value;
+        const formData = new FormData(form);
+        fetch('/setting/param/', {
+          method: 'POST',
+          body: formData
+        }).then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        }).then(data => {
+          const tbody = document.getElementById('parameter-list');
+          const newRow = document.createElement('tr');
+          newRow.className = 'border-b hover:bg-slate-50';
+          newRow.setAttribute('data-param-id', data.data.id); // <-- MUHIM!
+          newRow.innerHTML = `
+        <td class='py-2'>${tbody.children.length}</td>
+        <td class='py-2'>${data.data.name}</td>
+        <td class='py-2'>${data.data.type}</td>
+        <td class='py-2'>
+          <button class='text-red-600 hover:underline' onclick="editParameter(${data.data.id})">
+            <svg class='w-6 h-6 text-primary dark:text-primary' aria-hidden='true' xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='currentColor' viewBox='0 0 24 24'>
+              <path fill-rule='evenodd' d='M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z' clip-rule='evenodd'/>
+              <path fill-rule='evenodd' d='M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z' clip-rule='evenodd'/>
+            </svg>
+          </button>
+          <button class='text-red-600 hover:underline ml-2' onclick="openDeleteConfirmModal('${data.data.id}')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-trash2-icon lucide-trash-2"><path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/><line x1="10" x2="10" y1="11" y2="17"/><line x1="14" x2="14" y1="11" y2="17"/></svg>          </button>
+        </td>
+      `;
+          tbody.appendChild(newRow);
+          form.reset();
+
+        }).catch(error => {
+          showToast('Параметр олдиндан мавжуд');
+          console.error('Error creating parameter:', error);
+        });
+      });
+  </script>
+
+  <script>
+    function editParameter(id) {
+      const row = document.querySelector(`[data-param-id="${id}"]`);
+      if (!row) return;
+      const name = row.children[1].textContent.trim();
+      const type = row.children[2].textContent.trim();
+
+      document.getElementById('edit-param-id').value = id;
+      document.getElementById('edit-param-name').value = name;
+      document.getElementById('edit-param-type').value = type;
+    }
+
+    function closeEditParamModal() {
+      document.getElementById('edit-param-modal').classList.add('hidden');
+    }
+
+    document.getElementById('edit-param-form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const id = document.getElementById('edit-param-id').value;
+      const name = document.getElementById('edit-param-name').value;
+      const type = document.getElementById('edit-param-type').value;
+
+      fetch('/setting/param/' + id, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, type })
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Network response was not ok');
+          const row = document.querySelector(`[data-param-id="${id}"]`);
+          if (row) {
+            row.children[1].textContent = name;
+            row.children[2].textContent = type;
+          }
+          closeEditParamModal();
+        })
+        .catch(err => {
+          console.error('Error updating parameter:', err);
+          closeEditParamModal();
+        });
+    });
+  </script>
