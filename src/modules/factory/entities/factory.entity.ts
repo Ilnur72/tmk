@@ -29,7 +29,7 @@ export class Factory extends BaseEntity {
   @Column()
   region: string;
 
-  @Column()
+  @Column({ nullable: true })
   cats: string;
 
   @Column()
