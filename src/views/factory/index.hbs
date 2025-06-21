@@ -496,13 +496,10 @@
       const imageUploadContainer = document.getElementById('imageUploadContainer');
       const locationBtn = document.getElementById('create-location-btn')
       imageUploadContainer.addEventListener('click', function () {
-        console.log('click')
         imageInput.click();
       });
       if (imageInput && imageInput.files) {
-        console.log(imageInput.files.length)
         for (let i = 0; i < imageInput.files.length; i++) {
-          console.log(imageInput, i)
           formData.append('images', imageInput.files[i]);
         }
       }
@@ -685,13 +682,10 @@
       const imageInput = document.getElementById('imageInputEdit');
       const imageUploadContainer = document.getElementById('imageUploadContainerEdit');
       imageUploadContainer.addEventListener('click', function () {
-        console.log('click')
         imageInput.click();
       });
       if (imageInput && imageInput.files) {
-        console.log(imageInput.files.length)
         for (let i = 0; i < imageInput.files.length; i++) {
-          console.log(imageInput, i)
           formData.append('images', imageInput.files[i]);
         }
       }
@@ -738,7 +732,6 @@
         const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
         const latitude = document.getElementById('edit-latitude').value;
         const longitude = document.getElementById('edit-longitude').value;
-        console.log(id, 'name')
 
         const formData = new FormData(form);
         formData.append('factory_id', id);

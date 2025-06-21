@@ -63,8 +63,6 @@ export class SettingService {
       }
       return result;
     } catch (error) {
-      console.log(error);
-
       throw new HttpException(
         error.message || 'Failed to add param',
         error.status || HttpStatus.INTERNAL_SERVER_ERROR,
