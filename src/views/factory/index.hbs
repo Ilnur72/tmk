@@ -143,105 +143,105 @@
       </div>
 
       <div id="factory-data-wrapper" class='mt-5 grid grid-cols-12 gap-6'>
-</div>
-        <div tabindex="-1" data-modal-backdrop="static" id="parameter-modal" aria-hidden="true"
-          class="hidden bg-black/60 transition-[visibility,opacity] overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ">
-          <div class="relative p-4 w-1/2 max-w-2xl max-h-full">
-            <div class="relative rounded-lg bg-white shadow">
-              <!-- Header -->
-              <div class="flex items-center justify-between p-4 pb-3">
-                <h3 class="text-xl font-medium text-gray-900" id="modal-title">
-                  Параметр статусини янгилаш
-                </h3>
-                <button type="button" class="ml-auto inline-flex items-center text-gray-400 hover:text-gray-500"
-                  onclick="closeParameterModal()">
-                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd"
-                      d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                      clip-rule="evenodd"></path>
-                  </svg>
-                </button>
+      </div>
+      <div tabindex="-1" data-modal-backdrop="static" id="parameter-modal" aria-hidden="true"
+        class="hidden bg-black/60 transition-[visibility,opacity] overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full ">
+        <div class="relative p-4 w-1/2 max-w-2xl max-h-full">
+          <div class="relative rounded-lg bg-white shadow">
+            <!-- Header -->
+            <div class="flex items-center justify-between p-4 pb-3">
+              <h3 class="text-xl font-medium text-gray-900" id="modal-title">
+                Параметр статусини янгилаш
+              </h3>
+              <button type="button" class="ml-auto inline-flex items-center text-gray-400 hover:text-gray-500"
+                onclick="closeParameterModal()">
+                <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+            </div>
+
+            <form id="parameter-form" class="px-4">
+              <input type="hidden" id="param-id" name="param_id">
+              <input type="hidden" id="factory-id" name="factory_id">
+              <input type="hidden" id="factory-param-id" name="factory_param_id">
+
+              <div class="space-y-5 pb-5">
+                <div>
+                  <label for="param-status" class="mb-2 block text-base font-normal text-gray-900">Статус</label>
+                  <select id="param-status" name="status"
+                    class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500">
+                    <option value="1">Мавжуд</option>
+                    <option value="0">Мавжуд эмас</option>
+                  </select>
+                </div>
+                <div>
+                  <label for="param-comment" class="mb-2 block text-base font-normal text-gray-900">Изоҳ</label>
+                  <textarea id="param-comment" name="comment" rows="4"
+                    class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-400 focus:border-blue-500 focus:ring-blue-500"
+                    placeholder="Изоҳ киритинг..."></textarea>
+                </div>
               </div>
 
-              <form id="parameter-form" class="px-4">
-                <input type="hidden" id="param-id" name="param_id">
-                <input type="hidden" id="factory-id" name="factory_id">
-                <input type="hidden" id="factory-param-id" name="factory_param_id">
-
-                <div class="space-y-5 pb-5">
-                  <div>
-                    <label for="param-status" class="mb-2 block text-base font-normal text-gray-900">Статус</label>
-                    <select id="param-status" name="status"
-                      class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-900 focus:border-blue-500 focus:ring-blue-500">
-                      <option value="1">Мавжуд</option>
-                      <option value="0">Мавжуд эмас</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label for="param-comment" class="mb-2 block text-base font-normal text-gray-900">Изоҳ</label>
-                    <textarea id="param-comment" name="comment" rows="4"
-                      class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base text-gray-400 focus:border-blue-500 focus:ring-blue-500"
-                      placeholder="Изоҳ киритинг..."></textarea>
-                  </div>
-                </div>
-
-                <div class="border-t py-4 flex justify-end space-x-3">
-                  <button type="button" onclick="closeParameterModal()"
-                    class="rounded-md border border-gray-300 bg-white px-6 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100">
-                    Бекор қилиш
-                  </button>
-                  <button style="background-color: #00a0c6;" type="submit"
-                    class="rounded-md  px-6 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none">
-                    Сақлаш
-                  </button>
-                </div>
-              </form>
-            </div>
+              <div class="border-t py-4 flex justify-end space-x-3">
+                <button type="button" onclick="closeParameterModal()"
+                  class="rounded-md border border-gray-300 bg-white px-6 py-2.5 text-sm font-medium text-gray-500 hover:bg-gray-100">
+                  Бекор қилиш
+                </button>
+                <button style="background-color: #00a0c6;" type="submit"
+                  class="rounded-md  px-6 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-700 focus:outline-none">
+                  Сақлаш
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <!-- END: Users Layout -->
-        <!-- BEGIN: Pagination -->
-        <!--        <div class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap">-->
-        <!--            <nav class="w-full sm:mr-auto sm:w-auto">-->
-        <!--                <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-left" class="lucide lucide-chevrons-left stroke-1.5 h-4 w-4"><path d="m11 17-5-5 5-5"></path><path d="m18 17-5-5 5-5"></path></svg></a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left stroke-1.5 h-4 w-4"><path d="m15 18-6-6 6-6"></path></svg></a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">1</a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400">2</a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">3</a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right stroke-1.5 h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg></a>-->
-        <!--                    </li>-->
-        <!--                    <li class="flex-1 sm:flex-initial">-->
-        <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-right" class="lucide lucide-chevrons-right stroke-1.5 h-4 w-4"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg></a>-->
-        <!--                    </li>-->
-        <!--                </ul>-->
-        <!--            </nav>-->
-        <!--            <select class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0">-->
-        <!--                <option>10</option>-->
-        <!--                <option>25</option>-->
-        <!--                <option>35</option>-->
-        <!--                <option>50</option>-->
-        <!--            </select>-->
-        <!--        </div>-->
-        <!-- END: Pagination -->
-      
+      </div>
+      <!-- END: Users Layout -->
+      <!-- BEGIN: Pagination -->
+      <!--        <div class="intro-y col-span-12 flex flex-wrap items-center sm:flex-row sm:flex-nowrap">-->
+      <!--            <nav class="w-full sm:mr-auto sm:w-auto">-->
+      <!--                <ul class="flex w-full mr-0 sm:mr-auto sm:w-auto">-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-left" class="lucide lucide-chevrons-left stroke-1.5 h-4 w-4"><path d="m11 17-5-5 5-5"></path><path d="m18 17-5-5 5-5"></path></svg></a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-left" class="lucide lucide-chevron-left stroke-1.5 h-4 w-4"><path d="m15 18-6-6 6-6"></path></svg></a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">1</a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3 !box dark:bg-darkmode-400">2</a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">3</a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3">...</a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right stroke-1.5 h-4 w-4"><path d="m9 18 6-6-6-6"></path></svg></a>-->
+      <!--                    </li>-->
+      <!--                    <li class="flex-1 sm:flex-initial">-->
+      <!--                        <a class="transition duration-200 border items-center justify-center py-2 rounded-md cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&amp;:hover:not(:disabled)]:bg-opacity-90 [&amp;:hover:not(:disabled)]:border-opacity-90 [&amp;:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed min-w-0 sm:min-w-[40px] shadow-none font-normal flex border-transparent text-slate-800 sm:mr-2 dark:text-slate-300 px-1 sm:px-3"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="chevrons-right" class="lucide lucide-chevrons-right stroke-1.5 h-4 w-4"><path d="m6 17 5-5-5-5"></path><path d="m13 17 5-5-5-5"></path></svg></a>-->
+      <!--                    </li>-->
+      <!--                </ul>-->
+      <!--            </nav>-->
+      <!--            <select class="disabled:bg-slate-100 disabled:cursor-not-allowed disabled:dark:bg-darkmode-800/50 [&amp;[readonly]]:bg-slate-100 [&amp;[readonly]]:cursor-not-allowed [&amp;[readonly]]:dark:bg-darkmode-800/50 transition duration-200 ease-in-out text-sm border-slate-200 shadow-sm rounded-md py-2 px-3 pr-8 focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:border-transparent dark:focus:ring-slate-700 dark:focus:ring-opacity-50 group-[.form-inline]:flex-1 !box mt-3 w-20 sm:mt-0">-->
+      <!--                <option>10</option>-->
+      <!--                <option>25</option>-->
+      <!--                <option>35</option>-->
+      <!--                <option>50</option>-->
+      <!--            </select>-->
+      <!--        </div>-->
+      <!-- END: Pagination -->
+
       <!-- BEGIN: Control Parameter Modal -->
       <div data-tw-backdrop='' aria-hidden="true" tabindex='-1' id='parameter-control-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
@@ -328,10 +328,10 @@
   function generateFactory(factories) {
     const wrapper = document.querySelector('#factory-data-wrapper');
     wrapper.innerHTML = ''; // Clear existing content
-    
+
     factories.forEach((item) => {
       const firstImage = item.images ? getFirstImage(item.images) : null;
-      
+
       wrapper.innerHTML += `
         <div class='intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3'>
           <div class='box'>
@@ -472,11 +472,11 @@
   }
 </script>
 <script>
-  function generateFactoryHtml(status='') {
+  function generateFactoryHtml(status = '') {
     fetch(`/factory/all?status=${status}`)
-  .then(response => response.json())
-  .then(data => generateFactory(data.factories))
-  .catch(error => console.error('Error loading factories:', error));
+      .then(response => response.json())
+      .then(data => generateFactory(data.factories))
+      .catch(error => console.error('Error loading factories:', error));
   }
   generateFactoryHtml()
   function createFactory() {
@@ -730,8 +730,9 @@
           initializeMap('map-edit', 'edit', longitude, latitude);
         }, 300);
       })
-      document.querySelector('#factory-edit-modal-form').addEventListener('submit', function save_create_factory(e) {
-        e.preventDefault()
+      const a = document.querySelector('#factory-edit-modal-form');
+      document.querySelector('#factory-edit-modal-form').addEventListener('submit', function (e) {
+        e.preventDefault();
         const input = document.getElementById('regular-form-edit-element');
         const form = e.target;
         const elements = input.value.split(',').map(el => el.trim()).filter(Boolean);
@@ -1105,4 +1106,3 @@
     createButtons.style.display = 'none';
   }
 </script>
-
