@@ -157,9 +157,9 @@
   JSON.stringify({ email, password }) }); const data = await response.json(); if
   (response.ok) { localStorage.setItem('token', data.data.token);
   window.location.href = '/'; } else { // Show error message in Uzbek let
-  errorMessage = "Номаълум хатолик юз берди"; if (data.message ===
-  "Unauthorized") { errorMessage = "Нотўғри электрон почта ёки пароль"; } else
+  errorMessage = `Номаълум хатолик юз берди`; if (data.message ===
+  `Unauthorized`) { errorMessage = `Нотўғри электрон почта ёки пароль`; } else
   if (data.message) { errorMessage = data.message; } showToast(errorMessage); }
-  } catch (err) { console.error('Xatolik:', err); showToast("Сервер билан
-  боғланишда хатолик юз берди"); } });
+  } catch (err) { console.error('Xatolik:', err); showToast(`Сервер билан
+  боғланишда хатолик юз берди`); } });
 </script>
