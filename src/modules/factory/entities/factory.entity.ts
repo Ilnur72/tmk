@@ -8,6 +8,12 @@ export enum FactoryParamStatus {
   STARTED = 'STARTED',
 }
 
+enum MarkerIcon {
+  'facory' = 'factory',
+  'mine' = 'mine',
+  'mine-cart' = 'mine-cart',
+}
+
 @Entity()
 export class Factory extends BaseEntity {
   @Column()
@@ -43,6 +49,14 @@ export class Factory extends BaseEntity {
 
   @Column({ nullable: true })
   images: string;
+
+  @Column({
+    nullable: true,
+    default: 'factory',
+    enum: MarkerIcon,
+    type: 'text',
+  })
+  marker_icon: MarkerIcon;
 
   @Column({ nullable: true })
   sort_num: number;

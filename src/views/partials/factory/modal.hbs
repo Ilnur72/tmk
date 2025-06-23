@@ -1,193 +1,216 @@
 <style>
-    #map-edit {
-        width: 100%;
-        height: 400px;
-        /* yoki height: 100vh; istasang */
-        margin-top: 20px;
-    }
+  #map-edit {
+    width: 100%;
+    height: 400px;
+    /* yoki height: 100vh; istasang */
+    margin-top: 20px;
+  }
 
-    .image-upload-container {
-        border: 2px dashed #cbd5e1;
-        border-radius: 8px;
-        padding: 20px;
-        text-align: center;
-        transition:
-            border-color 0.3s ease;
-        cursor: pointer;
-    }
+  .image-upload-container {
+    border: 2px dashed #cbd5e1;
+    border-radius: 8px;
+    padding: 20px;
+    text-align: center;
+    transition:
+      border-color 0.3s ease;
+    cursor: pointer;
+  }
 
-    .image-upload-container:hover {
-        border-color: #3b82f6;
-    }
+  .image-upload-container:hover {
+    border-color: #3b82f6;
+  }
 
-    .image-upload-container.dragover {
-        border-color:
-            #3b82f6;
-        background-color: #f8fafc;
-    }
+  .image-upload-container.dragover {
+    border-color:
+      #3b82f6;
+    background-color: #f8fafc;
+  }
 
-    .image-preview {
-        margin-top: 10px;
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
+  .image-preview {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 
-    .image-preview-item {
-        position:
-            relative;
-        display: inline-block;
-    }
+  .image-preview-item {
+    position:
+      relative;
+    display: inline-block;
+  }
 
-    .image-preview img {
-        width: 100px;
-        height:
-            100px;
-        object-fit: cover;
-        border-radius: 6px;
-        border: 1px solid #e2e8f0;
-    }
+  .image-preview img {
+    width: 100px;
+    height:
+      100px;
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+  }
 
-    .remove-image {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background:
-            #ef4444;
-        color: white;
-        border: none;
-        border-radius: 50%;
-        width: 20px;
-        height:
-            20px;
-        cursor: pointer;
-        font-size: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
+  .remove-image {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background:
+      #ef4444;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 20px;
+    height:
+      20px;
+    cursor: pointer;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .remove-image:hover {
-        background: #dc2626;
-    }
+  .remove-image:hover {
+    background: #dc2626;
+  }
 </style>
-<form id="factory-edit-modal-form">
-    <div class="p-5 flex flex-col md:flex-row gap-4">
-        <div class="preview w-full md:w-1/2 relative [&amp;.hide]:overflow-hidden [&amp;.hide]:h-0 flex flex-col gap-3 justify-center">
-            <div id="factory-data" data-factory='{{json factory}}' style="display:none;">
-            </div>
-            <div>
-                {{!-- <label data-tw-merge for="regular-form-1"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-                    номи
-                </label> --}}
-                <input data-tw-merge id="regular-form-edit-input" type="text" placeholder="Лойиҳа номи"
-                    value="{{factory.name}}" name="name"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                {{!-- <label data-tw-merge for="regular-form-element"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Елемент
-                    номи
-                </label> --}}
-                <input data-tw-merge id="regular-form-edit-element" type="text"
-                    placeholder="Елемент номи" value="{{arrayToString factory.elements}}" name="elements"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                {{!-- <label data-tw-merge for="regular-form-region"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Регион
-                </label> --}}
-                <input required="false" data-tw-merge id="regular-form-region" type="text" placeholder="Регион"
-                    value="{{factory.region}}" name="region"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                {{!-- <label data-tw-merge for="regular-form-cats"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Йўналиш
-                </label> --}}
-                <input data-tw-merge id="regular-form-cats" type="text" placeholder="Йўналиш"
-                    value="{{factory.cats}}" name="cats"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed  dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                {{!-- <label data-tw-merge for="regular-form-1"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-                    менеджери
-                </label> --}}
-                <input data-tw-merge id="regular-form-1" type="text" placeholder="Лойиҳа менеджери"
-                    value="{{factory.manager}}" name="manager"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                <label data-tw-merge for="regular-form-1"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-                    жараёни, %
-                </label>
-                <input data-tw-merge id="regular-form-1" type="number" min="0" max="100" placeholder="Лойиҳа жараёни"
-                    value="{{factory.work_persent}}" name="work_persent"
-                    class="disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800  dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10" />
-            </div>
-            <div>
-                <label data-tw-merge for="regular-form-1"
-                    class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
-                    статуси
-                </label>
-                <select id="" name="status"
-                    class="block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base  focus:border-blue-500 focus:ring-blue-500">
-                    <option value="REGISTRATION">Расмийлаштириш жараёнида</option>
-                    <option value="CONSTRUCTION">Қурилиш жараёнида</option>
-                    <option value="STARTED">Ишга тушган</option>
-                </select>
-            </div>
+<form id='factory-edit-modal-form'>
+  <div class='px-5 flex flex-col md:flex-row gap-4'>
+    <div
+      class='preview w-full md:w-1/2 relative [&amp;.hide]:overflow-hidden [&amp;.hide]:h-0 flex flex-col gap-3 justify-center'>
+      <div id='factory-data' data-factory='{{json factory}}' style='display:none;'>
+      </div>
+      <div>
+        {{! <label data-tw-merge for="regular-form-1"
+          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
+          номи
+        </label> }}
+        <input data-tw-merge id='regular-form-edit-input' type='text' placeholder='Лойиҳа номи' value='{{factory.name}}'
+          name='name'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        {{! <label data-tw-merge for="regular-form-element"
+          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Елемент
+          номи
+        </label> }}
+        <input data-tw-merge id='regular-form-edit-element' type='text' placeholder='Елемент номи'
+          value='{{arrayToString factory.elements}}' name='elements'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        {{! <label data-tw-merge for="regular-form-region"
+          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Регион
+        </label> }}
+        <input required='false' data-tw-merge id='regular-form-region' type='text' placeholder='Регион'
+          value='{{factory.region}}' name='region'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        {{! <label data-tw-merge for="regular-form-cats"
+          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Йўналиш
+        </label> }}
+        <input data-tw-merge id='regular-form-cats' type='text' placeholder='Йўналиш' value='{{factory.cats}}'
+          name='cats'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        {{! <label data-tw-merge for="regular-form-1"
+          class="inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right">Лойиҳа
+          менеджери
+        </label> }}
+        <input data-tw-merge id='regular-form-1' type='text' placeholder='Лойиҳа менеджери' value='{{factory.manager}}'
+          name='manager'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        <label data-tw-merge for='regular-form-1'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>Лойиҳа
+          жараёни, %
+        </label>
+        <input data-tw-merge id='regular-form-1' type='number' min='0' max='100' placeholder='Лойиҳа жараёни'
+          value='{{factory.work_persent}}' name='work_persent'
+          class='disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+      </div>
+      <div>
+        <label data-tw-merge for='regular-form-1'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>Лойиҳа
+          статуси
+        </label>
+        <select id='' name='status'
+          class='block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base focus:border-blue-500 focus:ring-blue-500'>
+          <option value='REGISTRATION'>Расмийлаштириш жараёнида</option>
+          <option value='CONSTRUCTION'>Қурилиш жараёнида</option>
+          <option value='STARTED'>Ишга тушган</option>
+        </select>
 
-            <div>
-                <label
-                    class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>
-                    Лойиҳа расмлари
-                </label>
-                <div class='image-upload-container' id='imageUploadContainerEdit'>
-                    <div class='upload-text'>
-                        📷 Расмларни танланг ёки бу ерга судранг
-                        <br />
-                        <small style='color: #6b7280;'>JPG, PNG форматлари, макс 5MB</small>
-                    </div>
-                    <input type='file' id='imageInputEdit' name='images' multiple accept='image/*'
-                        style='display: none;' />
-                </div>
-                <div id='imagePreview' class='image-preview'></div>
-            </div>
+        <div class='mt-4'>
+          <label class='block mb-2 font-semibold'>Маркер турини танланг:</label>
+          <div class='flex justify-center gap-8'>
+            <label class='flex items-center gap-2 cursor-pointer'>
+              <input type='radio' name='marker_icon' value='factory' {{#if (eq factory.marker_icon "factory")}}checked{{/if}} />
+              <img src='../../../../public/image/factory-icon.png' alt='zavod' class='w-8 h-8' />
+            </label>
+            <label class='flex items-center gap-2 cursor-pointer'>
+              <input type='radio' name='marker_icon' value='mine' {{#if (eq factory.marker_icon "mine")}}checked{{/if}} />
+              <img src='../../../../public/image/mining-icon.png' alt='Suv havzasi' class='w-8 h-8' />
+            </label>
+            <label class='flex items-center gap-2 cursor-pointer'>
+              <input type='radio' name='marker_icon' value='mine-cart' {{#if (eq factory.marker_icon "mine-cart")}}checked{{/if}} />
+              <img src='../../../../public/image/mining-cart-icon.png' alt='Zavod' class='w-8 h-8' />
+            </label>
+          </div>
         </div>
+      </div>
 
-        <div class="form-group md:w-1/2">
-            <label>🗺️ Лойиҳа жойлашуви <span style="color: red;">*</span></label>
-            <div class="map-info">
-                <strong>Кўрсатма:</strong> Харитада керакли жойни босинг ёки маркерни судраб кўчиринг
-            </div>
-            <div id="map-edit" class="h-64 md:h-[400px] w-full"></div>
-            <div id="coordinates-display" class="coordinates-display" style="display: none;">
-                <strong>Танланган координаталар:</strong><br>
-                Кенглик: <span id="display-lat">-</span><br>
-                Узунлик: <span id="display-lng">-</span>
-            </div>
-            <div class='pt-5 flex gap-2 '>
-                <input name='latitude' id='edit-latitude'
-                    class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
-                <input name='longitude' id='edit-longitude'
-                    class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
-                <button id="edit-location-btn" class="transition duration-200 btn-success border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-danger w-24" type="button">Qidirish</button>
-            </div>
+      <div>
+        <label
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>
+          Лойиҳа расмлари
+        </label>
+        <div class='image-upload-container' id='imageUploadContainerEdit'>
+          <div class='upload-text'>
+            📷 Расмларни танланг ёки бу ерга судранг
+            <br />
+            <small style='color: #6b7280;'>JPG, PNG форматлари, макс 5MB</small>
+          </div>
+          <input type='file' id='imageInputEdit' name='images' multiple accept='image/*' style='display: none;' />
         </div>
+        <div id='imagePreview' class='image-preview'></div>
+      </div>
+    </div>
 
+    <div class='form-group md:w-1/2'>
+      <label>🗺️ Лойиҳа жойлашуви <span style='color: red;'>*</span></label>
+      <div class='map-info'>
+        <strong>Кўрсатма:</strong>
+        Харитада керакли жойни босинг ёки маркерни судраб кўчиринг
+      </div>
+      <div id='map-edit' class='h-64 md:h-[400px] w-full'></div>
+      <div id='coordinates-display' class='coordinates-display' style='display: none;'>
+        <strong>Танланган координаталар:</strong><br />
+        Кенглик:
+        <span id='display-lat'>-</span><br />
+        Узунлик:
+        <span id='display-lng'>-</span>
+      </div>
+      <div class='pt-5 flex gap-2'>
+        <input name='latitude' id='edit-latitude'
+          class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+        <input name='longitude' id='edit-longitude'
+          class='p-1 disabled:bg-slate-100 disabled:cursor-not-allowed dark:disabled:bg-darkmode-800/50 dark:disabled:border-transparent [&[readonly]]:bg-slate-100 [&[readonly]]:cursor-not-allowed [&[readonly]]:dark:bg-darkmode-800/50 [&[readonly]]:dark:border-transparent transition duration-200 ease-in-out w-full text-sm border-slate-200 shadow-sm rounded-md placeholder:text-slate-400/90 focus:ring-primary focus:ring-opacity-20 focus:border-primary focus:border-opacity-40 dark:bg-darkmode-800 dark:focus dark:focus:ring-opacity-50 dark:placeholder:text-slate-500/80 group-[.form-inline]:flex-1 group-[.input-group]:rounded-none group-[.input-group]:[&:not(:first-child)]:border-l-transparent group-[.input-group]:first:rounded-l group-[.input-group]:last:rounded-r group-[.input-group]:z-10' />
+        <button id='edit-location-btn'
+          class='transition duration-200 btn-success border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-danger w-24'
+          type='button'>Qidirish</button>
+      </div>
     </div>
-    </div>
-    <div class="px-5 text-end">
-        <button data-tw-merge="" data-tw-dismiss="modal" type="button"
-            class="transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-gray-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-gray-300 text-gray-500 dark:border-darkmode-100/40 dark:text-gray-500 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24">Ёпиш</button>
-        <button data-tw-merge="" type="submit" data-tw-dismiss="modal"
-            class="transition duration-200 btn-success border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-danger w-24">Сақлаш</button>
-    </div>
+
+  </div>
+
+  <div class='px-5 text-end'>
+    <button data-tw-merge='' data-tw-dismiss='modal' type='button'
+      class='transition duration-200 border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-gray-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed border-gray-300 text-gray-500 dark:border-darkmode-100/40 dark:text-gray-500 [&:hover:not(:disabled)]:bg-secondary/20 [&:hover:not(:disabled)]:dark:bg-darkmode-100/10 mr-1 w-24'>Ёпиш</button>
+    <button data-tw-merge='' type='submit' data-tw-dismiss='modal'
+      class='transition duration-200 btn-success border shadow-sm inline-flex items-center justify-center py-2 px-3 rounded-md font-medium cursor-pointer focus:ring-4 focus:ring-primary focus:ring-opacity-20 focus-visible:outline-none dark:focus:ring-slate-700 dark:focus:ring-opacity-50 [&:hover:not(:disabled)]:bg-opacity-90 [&:hover:not(:disabled)]:border-opacity-90 [&:not(button)]:text-center disabled:opacity-70 disabled:cursor-not-allowed bg-primary border-primary text-white dark:border-danger w-24'>Сақлаш</button>
+  </div>
 
 </form>
 
-<script src="https://unpkg.com/maplibre-gl@4.0.0/dist/maplibre-gl.js"></script>
+<script src='https://unpkg.com/maplibre-gl@4.0.0/dist/maplibre-gl.js'></script>

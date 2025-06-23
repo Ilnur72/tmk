@@ -263,7 +263,7 @@
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-create-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-12 group-[.show]:mt-12 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-2 group-[.show]:mt-2 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
           <div class='p-2 text-center'>
 
             <div id="factory-create-modal-title" class=' text-3xl'></div>
@@ -280,7 +280,7 @@
       <div data-tw-backdrop='' aria-hidden='true' tabindex='-1' id='factory-edit-modal'
         class='modal group bg-black/60 transition-[visibility,opacity] w-screen h-screen fixed left-0 top-0 [&amp;:not(.show)]:duration-[0s,0.2s] [&amp;:not(.show)]:delay-[0.2s,0s] [&amp;:not(.show)]:invisible [&amp;:not(.show)]:opacity-0 [&amp;.show]:visible [&amp;.show]:opacity-100 [&amp;.show]:duration-[0s,0.4s]'>
         <div
-          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-4 group-[.show]:mt-4 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
+          class='w-[90%] mx-auto bg-white relative rounded-md shadow-md transition-[margin-top,transform] duration-[0.4s,0.3s] -mt-2 group-[.show]:mt-2 group-[.modal-static]:scale-[1.05] dark:bg-darkmode-600 sm:w-[850px]'>
           <div class='p-2 text-center'>
 
             <div id="factory-edit-modal-title" class=' text-3xl'></div>
@@ -548,8 +548,7 @@
         const formData = new FormData(form);
         formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
 
-
-
+        const markerIcon = this.querySelector('input[name="marker_icon"]:checked').value;
         elements.forEach(el => formData.append('elements[]', el));
         const saveButton = document.querySelector('.btn-success');
         const originalText = saveButton.textContent;
@@ -736,7 +735,7 @@
         const formData = new FormData(form);
         formData.append('factory_id', id);
         formData.delete('elements'); // eski 'elements' ni o‘chirib tashlash
-
+        const markerIcon = this.querySelector('input[name="marker_icon"]:checked').value;
         elements.forEach(el => formData.append('elements[]', el));
         const saveButton = document.querySelector('.btn-success');
         const originalText = saveButton.textContent;
