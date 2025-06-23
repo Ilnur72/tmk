@@ -7,6 +7,7 @@ import { Factory } from '../../modules/factory/entities/factory.entity';
 import { FactoryParams } from '../../modules/factory/entities/facory-param.entity';
 import { Cars } from '../../modules/techniques/entities/technique.entity';
 import { Param } from '../../modules/factory/entities/param.entity';
+import { FactoryService } from '../../modules/factory/factory.service';
 
 @Module({
   imports: [
@@ -19,6 +20,6 @@ import { Param } from '../../modules/factory/entities/param.entity';
       Param,
     ]),
   ],
-  providers: [SeedService],
+  providers: [SeedService, FactoryService],
 })
 export class SeedModule {}

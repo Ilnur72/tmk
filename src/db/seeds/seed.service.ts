@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { hash } from 'bcryptjs';
 import { Employee } from '../../modules/employee/entities/employee.entity';
 import { Factory } from '../../modules/factory/entities/factory.entity';
@@ -14,6 +14,7 @@ import carsData from '../data/cars.json';
 import paramsData from '../data/params.json';
 import realData from '../data/realdata.json';
 import { FactoryLog } from '../../modules/factory/entities/factory-log.entity';
+import { FactoryService } from '../../modules/factory/factory.service';
 @Injectable()
 export class SeedService {
   constructor(
@@ -29,20 +30,47 @@ export class SeedService {
     private readonly paramsRepository: Repository<Param>,
     @InjectRepository(Cars)
     private readonly carsRepository: Repository<Cars>,
+    private readonly factoryService: FactoryService,
+    private readonly dataSource: DataSource,
   ) {}
 
   async seed() {
-    await this.seedAdmin();
+    // await this.seedAdmin();
     await this.seedFactory();
-    await this.seedParams();
+    // await this.seedParams();
     // await this.seedFactoryParams();
     // await this.seedFactoryLog();
-    await this.seedCars();
+    // await this.seedCars();
   }
 
   private async seedFactory() {
-    const result = this.factoryRepository.create(realData);
-    await this.factoryRepository.save(result);
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      const params = await queryRunner.manager.find(Param);
+      for (const data of realData) {
+        const factory = queryRunner.manager.create(Factory, data);
+        const savedFactory = await queryRunner.manager.save(factory);
+
+        const factoryParamsToSave = params.map((param) =>
+          queryRunner.manager.create(FactoryParams, {
+            factory_id: savedFactory.id,
+            params_id: param.id,
+            status: 0,
+            visible: false,
+          }),
+        );
+        await queryRunner.manager.save(factoryParamsToSave);
+      }
+      await queryRunner.commitTransaction(); // <-- faqat bir marta
+      return 'successfully seeded factories';
+    } catch (error) {
+      await queryRunner.rollbackTransaction(); // <-- faqat bir marta
+      console.error(error);
+    } finally {
+      await queryRunner.release();
+    }
   }
 
   private async seedParams() {

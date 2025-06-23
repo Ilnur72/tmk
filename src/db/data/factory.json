@@ -1,206 +1,233 @@
 [
   {
-    "id": 1,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "Ingichka volfram boyitish fabrikasini modernizatsiya qilish",
-    "location": "[39.444597,65.585095]",
-    "elements": ["W"],
-    "region": "Samarqand viloyati, Kattaqo''rg''on tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "30",
-    "coords": "[65.585095, 39.444597]",
-    "sort_num": 1,
-    "status": null
+    "name": "Нурликон литий кони",
+    "location": "[41.150222,69.909544]",
+    "elements": [
+      "Li"
+    ],
+    "region": "Тошкент вилояти, Оҳангарон тумани",
+    "coords": "[69.909544,41.150222]",
+    "work_persent": 0
   },
   {
-    "id": 2,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Angren\" va \"Yangi Angren\" IESlarida texnogen chiqindilari (Angren)",
-    "location": "[41.000961,70.06404]",
-    "elements": ["Fe"],
-    "region": "Toshkent viloyati, Angren shahri",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "11",
-    "coords": "[70.06404, 41.000961]",
-    "sort_num": 2,
-    "status": null
+    "name": "Сариқули вольфрам кони",
+    "location": "[39.455722,65.742989]",
+    "elements": [
+      "W"
+    ],
+    "region": "Самарқанд вилояти, Нуробод тумани",
+    "coords": "[65.742989,39.455722]",
+    "work_persent": 0
   },
   {
-    "id": 3,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Angren\" va \"Yangi Angren\" IESlarida texnogen chiqindilari (Ohangaron)",
-    "location": "[40.552965,69.470585]",
-    "elements": ["Fe"],
-    "region": "Toshkent viloyati, Ohangaron tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "30",
-    "coords": "[69.470585, 40.552965]",
-    "sort_num": 3,
-    "status": null
+    "name": "Сатубой вольфрам кони",
+    "location": "[42.095492,62.218347]",
+    "elements": [
+      "W"
+    ],
+    "region": "Навоий вилояти, Учқудуқ тумани",
+    "coords": "[62.218347,42.095492]",
+    "work_persent": 0
   },
   {
-    "id": 4,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Olmaliq KMK\" AJ \"Qolmaqir\" koni agdarmalari",
-    "location": "[40.503058,69.384508]",
-    "elements": ["Cu"],
-    "region": "Toshkent viloyati, Olmaliq shahri",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "15",
-    "coords": "[69.384508, 40.503058]",
-    "sort_num": 4,
-    "status": null
+    "name": "Тасқазған графит кони",
+    "location": "[40.727986,63.470267]",
+    "elements": [
+      "C"
+    ],
+    "region": "Бухоро вилояти, Пешку тумани",
+    "coords": "[63.470267,40.727986]",
+    "work_persent": 0
   },
   {
-    "id": 5,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Olmaliq KMK\" AJ yuvuvchi sulfat kislotasi texnogen chiqindilari",
-    "location": "[40.474174,69.260813]",
-    "elements": ["Cu"],
-    "region": "Toshkent viloyati, Olmaliq shahri",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[69.260813, 40.474174]",
-    "sort_num": 5,
-    "status": null
+    "name": "Дайкали истиқболли майдони",
+    "location": "[39.470483,64.950053]",
+    "elements": [
+      "Ti"
+    ],
+    "region": "Навоий вилояти, Томди тумани",
+    "coords": "[64.950053,39.470483]",
+    "work_persent": 0
   },
   {
-    "id": 6,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Marjonbuloq\" oltin boyitish fabrikasi texnogen chiqindilari",
-    "location": "[39.574455,67.22108]",
-    "elements": ["Au"],
-    "region": "Jizzax viloyati, G''allaorol tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[67.22108, 39.574455]",
-    "sort_num": 6,
-    "status": null
+    "name": "Султонбобо истиқболли майдони",
+    "location": "[43.178175,60.298253]",
+    "elements": [
+      "Ni",
+      "Co",
+      "Cr",
+      "Mg"
+    ],
+    "region": "Қорақалпоғистон Республикаси, Беруний тумани",
+    "coords": "[60.298253,43.178175]",
+    "work_persent": 0
   },
   {
-    "id": 7,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 1-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[40.062358,65.171755]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Navoiy viloyati, Navoiy shahri",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[65.171755, 40.062358]",
-    "sort_num": 7,
-    "status": null
+    "name": "Маданли, Косчека ванадий кони",
+    "location": "[41.026558,63.722686]",
+    "elements": [
+      "V"
+    ],
+    "region": "Андижон вилояти, Томди тумани",
+    "coords": "[63.722686,41.026558]",
+    "work_persent": 0
   },
   {
-    "id": 8,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 2-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[41.27211,64.315581]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Navoiy viloyati, Zarafshon shahri",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[64.315581, 41.27211]",
-    "sort_num": 8,
-    "status": null
+    "name": "Лолабойлар истиқболли майдони",
+    "location": "[41.124050,71.929433]",
+    "elements": [
+      "Ta",
+      "Nb",
+      "Be"
+    ],
+    "region": "Наманган вилояти, Чортоқ тумани",
+    "coords": "[71.929433,41.124050]",
+    "work_persent": 0
   },
   {
-    "id": 9,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 3-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[42.51327,63.483552]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Navoiy viloyati, Tomdi tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[63.483552, 42.51327]",
-    "sort_num": 9,
-    "status": null
+    "name": "Мискон мис-порфироли кони",
+    "location": "[40.908514,68.893258]",
+    "elements": [
+      "Cu"
+    ],
+    "region": "Тошкент вилояти, Пискент тумани",
+    "coords": "[68.893258,40.908514]",
+    "work_persent": 0
   },
   {
-    "id": 10,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 4-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[40.164249,66.434614]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Samarqand viloyati, Qo''shrabot tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[66.434614, 40.164249]",
-    "sort_num": 10,
-    "status": null
+    "name": "Кремний ишлаб чиқариш ташкил этиш жойи",
+    "location": "[40.972586,69.748542]",
+    "elements": [
+      "Si"
+    ],
+    "region": "Тошкент вилояти, Оҳангарон тумани",
+    "coords": "[69.748542,40.972586]",
+    "work_persent": 0
   },
   {
-    "id": 11,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 5-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[41.155414,64.182424]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Navoiy viloyati, Konimeh tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[64.182424, 41.155414]",
-    "sort_num": 11,
-    "status": null
+    "name": "Ингичка вольфрам бўйича фабрикаси модернизация қилиш",
+    "location": "[39.746103, 65.969163]",
+    "coords": "[65.969163, 39.746103]",
+    "elements": [
+      "W"
+    ],
+    "region": "Самарқанд вилояти, Каттакўргон тумани",
+    "work_persent": 0
   },
   {
-    "id": 12,
-    "is_deleted": false,
-    "created_at": "2025-05-20 09:49:42.10469",
-    "updated_at": null,
-    "deleted_at": null,
-    "name": "\"Navoiy KMK\" AJ 6-son Gidrometallurgiya zavodi texnogen chiqindi maydoni",
-    "location": "[40.505815,65.555072]",
-    "elements": ["Au", "Ag", "Cu"],
-    "region": "Navoiy viloyati, Nurota tumani",
-    "cats": "TEXNOGEN CHIQINDILAR",
-    "manager": "Akramov Zakir (+998 99 123 45 56)",
-    "work_persent": "0",
-    "coords": "[65.555072, 40.505815]",
-    "sort_num": 12,
-    "status": null
+    "name": "\"Ангрен\" ва \"Янги Ангрен\" ИЭСларида техноген чиқиндилари",
+    "location": "[41.002669, 70.111278]",
+    "coords": "[70.111278, 41.002669]",
+    "elements": [
+      "Fe"
+    ],
+    "region": "Тошкент вилояти, Ангрен шаҳри ва Оҳангарон тумани",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Олмалиқ КМК\" АЖ \"Қолмокир\" кони ағдармалари",
+    "location": "[40.50155, 69.634994]",
+    "coords": "[69.634994, 40.50155]",
+    "elements": [
+      "Cu"
+    ],
+    "region": "Олмалиқ шаҳри",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Олмалиқ КМК\" АЖ ковувчи сульфат кислотаси техноген чиқиндилари",
+    "location": "[40.795983, 69.455592]",
+    "coords": "[69.455592, 40.795983]",
+    "elements": [
+      "Cu"
+    ],
+    "region": "Олмалиқ шаҳри",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Маржонбулоқ\" олтин бўйича фабрикаси техноген чиқиндилари",
+    "location": "[39.962376, 67.369111]",
+    "coords": "[67.369111, 39.962376]",
+    "elements": [
+      "Au"
+    ],
+    "region": "Жиззах вилояти, Ғаллаорол тумани",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Навоий КМК\" АЖ 1-сон Гидрометаллургия заводи техноген чиқинди майдони",
+    "location": "[40.10655, 65.288786]",
+    "coords": "[65.288786, 40.10655]",
+    "elements": [
+      "Au",
+      "Ag",
+      "Cu"
+    ],
+    "region": "Навоий вилояти, Навоий шаҳри",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Навоий КМК\" АЖ 2-сон Гидрометаллургия заводи техноген чиқинди майдони",
+    "location": "[41.456417, 64.767725]",
+    "coords": "[64.767725, 41.456417]",
+    "elements": [
+      "Au",
+      "Ag",
+      "Cu"
+    ],
+    "region": "Навоий вилояти, Зарафшон шаҳри",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Навоий КМК\" АЖ 3-сон Гидрометаллургия заводи техноген чиқинди майдони",
+    "location": "[42.08693, 63.813908]",
+    "coords": "[63.813908, 42.08693]",
+    "elements": [
+      "Au",
+      "Ag",
+      "Cu"
+    ],
+    "region": "Навоий вилояти, Томди тумани",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Навоий КМК\" АЖ 4-сон Гидрометаллургия заводи техноген чиқинди майдони",
+    "location": "[40.278469, 66.723461]",
+    "coords": "[66.723461, 40.278469]",
+    "elements": [
+      "Au",
+      "Ag",
+      "Cu"
+    ],
+    "region": "Самарқанд вилояти, Қўшработ тумани",
+    "work_persent": 0
+  },
+  {
+    "name": "\"Навоий КМК\" АЖ 5-сон Гидрометаллургия заводи техноген чиқинди майдони",
+    "location": "[41.259483, 64.309511]",
+    "coords": "[64.309511, 41.259483]",
+    "elements": [
+      "Au",
+      "Ag",
+      "Cu"
+    ],
+    "region": "Навоий вилояти, Конимех тумани",
+    "work_persent": 0
+  },
+  {
+    "name": "Келажак металлар технопарки",
+    "location": "[41.434389, 69.53625]",
+    "coords": "[69.53625, 41.434389]",
+    "elements": [],
+    "region": "Тошкент вилояти, Чирчиқ  шаҳри",
+    "work_persent": 0
+  },
+  {
+    "name": "Келажак металлар технопарки",
+    "location": "[40.92575, 69.629444]",
+    "coords": "[69.629444, 40.92575]",
+    "elements": [],
+    "region": "Тошкент вилояти, Оҳангарон шаҳри",
+    "work_persent": 0
   }
 ]
