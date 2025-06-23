@@ -659,11 +659,10 @@
 
             const popup = new maplibregl.Popup({ offset: 25 }).setHTML(popupContent);
             const el = document.createElement('img');
-            let imageName = 'marker.png';
+            let imageName = `${loc.marker_icon}.png` || 'marker.png';
             if (window.location.pathname === '/techniques/') imageName = 'carmarker.png';
-            else imageName = 'marker.png';
-            el.src = `../../../public/image/${loc.marker_icon}.png`
-            {{!-- el.src = `../../../public/image/${imageName}`; // custom icon URL --}}
+            {{!-- el.src = `../../../public/image/${loc.marker_icon}.png` --}}
+            el.src = `../../../public/image/${imageName}`; // custom icon URL
             el.style.width = '56px';
             el.style.height = '56px';
             el.style.cursor = 'pointer';
