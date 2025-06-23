@@ -645,8 +645,8 @@
           let list_data = '';
           locations.forEach((loc, index) => {
             const popupContent = `
-    <div style="width: 600px;background: white; padding: 10px; border-radius: 5px;">
-      <h2 style="margin: 0; color: #2c3e50;">${loc.name}</h2>
+    <div style="background: white; padding: 10px; border-radius: 5px;" class="w-96 max-md:w-[300px]">
+      <h2 style="margin: 0; color: #2c3e50;" class="font-bold text-lg">${loc.name}</h2>
       <p style="margin: 5px 0; font-size: 1.4em;">Лойиҳа ва объект бўйича маълумот</p>
       <p style="margin: 5px 0; font-size: 1.4em;">Қурилиш жараёни маълумотлари</p>
       <p style="margin: 5px 0; font-size: 1.4em;">Ишлаб чиқариш жараёни маълумотлари</p>
@@ -687,12 +687,12 @@
             //list_data += '<span onclick="flyToMarker(['+loc.coords+'])">'+ loc.sort_num + '. ' +  loc.name + '</span><br>';
             // Добавляем к переменной
             list_data += '<div class="intro-x">\n' +
-              '                                            <div class="box zoom-in mb-1 flex items-center px-1 py-1" onclick="flyToMarker([' + loc.coords + '])">\n' +
+              '                                            <div class="box zoom-in mb-1 flex items-center px-1 py-1" onclick="flyToMarker([' + loc.coords + '], true)">\n' +
               '                                                <div class="image-fit h-10 w-10 flex-none overflow-hidden rounded-full">\n' +
               '                                                    <img src="../../../public/image/marker2.png">\n' +
               '                                                </div>\n' +
               '                                                <div class="ml-4 mr-auto">\n' +
-              '                                                    <div class="font-small">' + loc.id + '. ' + ((href === '/') ? loc.name : loc.carnum + ' ' + loc.model + ' ' + loc.type) + '</div>\n' +
+              '                                                    <div class="font-small">' + (index+1) + '. ' + ((href === '/') ? loc.name : loc.carnum + ' ' + loc.model + ' ' + loc.type) + '</div>\n' +
               '                                                </div>\n' +
               '                                            </div>\n' +
               '                                        </div>';
@@ -709,8 +709,8 @@
       });
 
       // Function to fly to a marker with zoom 19
-      function flyToMarker(coords) {
-        if (window.innerWidth <= 768) { // 768px - odatdagi tablet breakpoint
+      function flyToMarker(coords, sidebarId = false) {
+        if (window.innerWidth <= 768 && sidebarId) { // 768px - odatdagi tablet breakpoint
           toggleSidebar('left');
         }
 
