@@ -29,12 +29,12 @@ export class EmployeeController {
     return { message: result };
   }
 
-  // @Get('/online')
-  // @Render('employee/employers')
-  // findAllEmployers() {
-  //   const result = this.employeeService.findAll();
-  //   return { message: result };
-  // }
+  @Get('/online')
+  @Render('employee/employers')
+  findAllEmployers(@Query() query: any) {
+    const result = this.employeeService.findAll(query);
+    return { message: result };
+  }
 
   @Get(':id')
   findOne(@Param('id') id: number) {

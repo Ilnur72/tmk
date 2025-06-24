@@ -15,6 +15,7 @@ import { FactoryLog } from './modules/factory/entities/factory-log.entity';
 import { FactoryParams } from './modules/factory/entities/facory-param.entity';
 import { Param } from './modules/factory/entities/param.entity';
 import { SettingModule } from './modules/setting/setting.module';
+import { ProductionModule } from './modules/production/production.module';
 @Module({
   imports: [
     CoreModule,
@@ -29,6 +30,7 @@ import { SettingModule } from './modules/setting/setting.module';
     SettingModule,
     AuthModule,
     SeedModule,
+    ProductionModule,
   ],
   providers: [FactoryService],
   controllers: [AppController],

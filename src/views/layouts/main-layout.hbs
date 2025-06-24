@@ -660,11 +660,12 @@
             const popup = new maplibregl.Popup({ offset: 25 }).setHTML(popupContent);
             const el = document.createElement('img');
             let imageName = `${loc.marker_icon}.png` || 'marker.png';
+            {{!-- imageName = 'factory2.png'; --}}
             if (window.location.pathname === '/techniques/') imageName = 'carmarker.png';
             {{!-- el.src = `../../../public/image/${loc.marker_icon}.png` --}}
             el.src = `../../../public/image/${imageName}`; // custom icon URL
-            el.style.width = '56px';
-            el.style.height = '56px';
+            el.style.width = '64px';
+            el.style.height = '64px';
             el.style.cursor = 'pointer';
             // Create the marker and add to map
             const marker = new maplibregl.Marker({ element: el })

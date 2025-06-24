@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ProjectsService {
+export class ProductionService {
   // constructor() {}
 
-  getProjects() {
+  getProduction() {
     return [
       {
         id: 1,
