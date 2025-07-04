@@ -1,0 +1,32 @@
+<div class="md:max-w-auto min-h-screen min-w-0 max-w-full flex-1 rounded-[30px] bg-slate-100 px-4 pb-10 pt-4 before:block before:h-px before:w-full before:content-[''] dark:bg-darkmode-700 md:px-[22px]">
+    <button onclick="window.history.back()" class="mb-4 px-4 py-2 rounded bg-primary text-white hover:bg-primary/80 transition">
+    ← Орқага қайтиш
+  </button> 
+  <h2 class="text-2xl font-bold mb-6">Барча филиаллар ҳақида маълумот</h2>
+  <div class="bg-white rounded-lg shadow p-6">
+    <table class="min-w-full">
+      <thead>
+        <tr class="border-b">
+          <th class="py-2 text-left">#</th>
+          <th class="py-2 text-left">Филиал номи</th>
+          <th class="py-2 text-left">Ходимлар сони</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each branches}}
+        <tr class="border-b hover:bg-slate-50">
+          <td class="py-2">{{@index}}</td>
+          <td class="py-2">{{this.tashkilot}}</td>
+          <td class="py-2">{{this.count}}</td>
+        </tr>
+        {{else}}
+        <tr>
+          <td colspan="3" class="py-4 text-center text-slate-400">
+            Филиаллар топилмади
+          </td>
+        </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+</div>

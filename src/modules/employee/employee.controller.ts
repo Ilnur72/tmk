@@ -12,6 +12,7 @@ import {
 import { EmployeeService } from './employee.service';
 import { CreateEmployeeDto } from './dto/create-employee.dto';
 import { UpdateEmployeeDto } from './dto/update-employee.dto';
+import axios from 'axios';
 
 @Controller('employers')
 export class EmployeeController {
@@ -27,6 +28,15 @@ export class EmployeeController {
   findAll(@Query() query: any) {
     const result = this.employeeService.findAll(query);
     return { message: result };
+  }
+
+  @Get('branches')
+  @Render('employee/branches')
+  async findAllBranch(@Query() query: any) {
+    const result = await axios.get(
+      'http://84.54.118.39:8444/1c/tashkilot-statistika/',
+    );
+    return { branches: result.data };
   }
 
   @Get('/online')
