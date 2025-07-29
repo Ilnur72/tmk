@@ -314,7 +314,6 @@
 
   </div>
 </div>
-
 <script>
   function getFirstImage(images) {
     try {
@@ -328,10 +327,8 @@
   function generateFactory(factories) {
     const wrapper = document.querySelector('#factory-data-wrapper');
     wrapper.innerHTML = ''; // Clear existing content
-
     factories.forEach((item) => {
       const firstImage = item.images ? getFirstImage(item.images) : null;
-
       wrapper.innerHTML += `
         <div class='intro-y col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3'>
           <div class='box'>
@@ -365,7 +362,8 @@
                   ${item.name}
                 </div>
               </div>
-              <div class='mt-5 text-slate-600 dark:text-slate-500'>
+              <div  class='mt-5 text-slate-600 dark:text-slate-500'>
+              
                 <div class='p-5'>
                   <div class='preview relative [&.hide]:overflow-hidden [&.hide]:h-0'>
                     <div class='w-full bg-slate-200 rounded dark:bg-black/20 h-4 my-2'>
@@ -378,56 +376,62 @@
                   </div>
                 </div>
                 
+                <div id="factory-params-${item.id}" class="sortable-params" >
                 ${item.factoryParams ? item.factoryParams.map(param => `
-                  <div class="flex justify-between items-center mt-2">
-                    <div data-tw-toggle="modal" data-tw-target="#factory-history-modal"
-                      onclick="showCommentHistory(${param.id})"
-                      class='flex items-center cursor-pointer ${param.visible ? '' : 'hidden'}'>
-                      <svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none'
-                        stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'
-                        data-lucide='check-square' class='lucide lucide-check-square stroke-1.5 mr-2 h-4 w-4'>
-                        <polyline points='9 11 12 14 22 4'></polyline>
-                        <path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path>
-                      </svg>
-                      <div class="${param.param.type === 'select' ? 'flex items-center' : ''}">
-                        <span class="cursor-pointer" data-param-id="${param.param.id}">
-                          ${param.param.name}:&nbsp;
-                        </span>
-                        ${param.param.type === "select" ? `
-                          <img id="${param.id}" class="rounded-full"
-                            src="/public/image/${param.status === 0 ? 'error' : param.status === 1 ? 'ok' : param.status}.png"
-                            alt="Status indicator" width="20" height="20" />
-                        ` : param.param.type === "date" ? `
-                          <span id="factory-param-date-${param.id}" class="ml-1" 
-                            ${param.latestLog?.value?.length > 2 ? '' : 'style="display: none;"'}>
-                            ${param.latestLog?.value?.length > 2 ? param.latestLog.value : ''}
+                  <div class="factory-param-item flex justify-between mb-2 pb-2 border-b border-slate-200/60 dark:border-darkmode-400" data-id="${param.id}">
+                    <div class="flex justify-between items-center gap-1 mt-2">
+                        <button class="drag-handle">
+                         <svg width="20" height="20" fill="none" viewBox="0 0 24 24">
+        <circle cx="7" cy="7" r="2" fill="#888"/>
+        <circle cx="7" cy="17" r="2" fill="#888"/>
+        <circle cx="17" cy="7" r="2" fill="#888"/>
+        <circle cx="17" cy="17" r="2" fill="#888"/>
+      </svg>
+                        </button>
+                      <div class="flex flex-col" data-tw-toggle="modal" data-tw-target="#factory-history-modal"
+                        onclick="showCommentHistory(${param.id})"
+                        class='flex items-center cursor-pointer ${param.visible ? '' : 'hidden'}'>
+                        <div class="${param.param.type === 'select' ? 'flex items-center' : ''}">
+                          <span class="cursor-pointer" data-param-id="${param.param.id}">
+                            ${param.param.name}:&nbsp;
                           </span>
-                        ` : ''}
-                      </div>
-                    </div>
-                    <button id="parameter-edit-btn"
-                      onclick="showParameterModal(${item.id}, ${param.param.id}, '${param.param.name}', '${param.param.type}', ${param.id}, ${param.status})">
-                      <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true"
-                        xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
-                        <path fill-rule="evenodd"
-                          d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
-                          clip-rule="evenodd" />
-                        <path fill-rule="evenodd"
-                          d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
-                          clip-rule="evenodd" />
-                      </svg>
-                    </button>
-                  </div>
-                  ${param.latestLog?.izoh ? `
-                    <span data-param-id="${param.id}" id="${param.id}"
-                      class="pl-2 text-xs ${param.visible ? 'flex' : 'hidden'}">
-                      Izoh: ${param.latestLog.izoh}
-                    </span>
-                  ` : `<span data-param-id="${param.id}" id="${param.id}"
+                          ${param.param.type === "select" ? `
+                            <img id="${param.id}" class="rounded-full"
+                              src="/public/image/${param.status === 0 ? 'error' : param.status === 1 ? 'ok' : param.status}.png"
+                              alt="Status indicator" width="20" height="20" />
+                          ` : param.param.type === "date" ? `
+                            <span id="factory-param-date-${param.id}" class="ml-1" 
+                              ${param.latestLog?.value?.length > 2 ? '' : 'style="display: none;"'}>
+                              ${param.latestLog?.value?.length > 2 ? param.latestLog.value : ''}
+                            </span>
+                          ` : ''}
+                        </div>
+                        ${param.latestLog?.izoh ? `
+                      <span data-param-id="${param.id}" id="${param.id}"
+                        class=" text-xs ${param.visible ? 'flex' : 'hidden'}">
+                        Izoh: ${param.latestLog.izoh}
+                      </span>
+                    ` : `<span data-param-id="${param.id}" id="${param.id}"
                       class="pl-2 text-xs ${param.visible ? 'flex' : 'hidden'}">
                     </span>`}
-                  <div class='mt-4 w-full ${param.visible ? 'flex' : 'hidden'} border-t border-slate-200/60 dark:border-darkmode-400'></div>
+                      </div>
+                    </div>
+                      <button id="parameter-edit-btn"
+                        onclick="showParameterModal(${item.id}, ${param.param.id}, '${param.param.name}', '${param.param.type}', ${param.id}, ${param.status})">
+                        <svg class="w-6 h-6 text-primary dark:text-primary" aria-hidden="true"
+                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                          <path fill-rule="evenodd"
+                            d="M11.32 6.176H5c-1.105 0-2 .949-2 2.118v10.588C3 20.052 3.895 21 5 21h11c1.105 0 2-.948 2-2.118v-7.75l-3.914 4.144A2.46 2.46 0 0 1 12.81 16l-2.681.568c-1.75.37-3.292-1.263-2.942-3.115l.536-2.839c.097-.512.335-.983.684-1.352l2.914-3.086Z"
+                            clip-rule="evenodd" />
+                          <path fill-rule="evenodd"
+                            d="M19.846 4.318a2.148 2.148 0 0 0-.437-.692 2.014 2.014 0 0 0-.654-.463 1.92 1.92 0 0 0-1.544 0 2.014 2.014 0 0 0-.654.463l-.546.578 2.852 3.02.546-.579a2.14 2.14 0 0 0 .437-.692 2.244 2.244 0 0 0 0-1.635ZM17.45 8.721 14.597 5.7 9.82 10.76a.54.54 0 0 0-.137.27l-.536 2.84c-.07.37.239.696.588.622l2.682-.567a.492.492 0 0 0 .255-.145l4.778-5.06Z"
+                            clip-rule="evenodd" />
+                        </svg>
+                      </button>
+                    
+                  </div>
                 `).join('') : ''}
+                </div>
               </div>
             </div>
             <div class='flex items-center justify-center border-t border-slate-200/60 p-5 dark:border-darkmode-400 lg:justify-end'>
@@ -447,8 +451,36 @@
           </div>
         </div>
       `;
+    document.addEventListener('DOMContentLoaded', () => {
+  initSortable(item.id);
+});
+
     });
   }
+
+  function initSortable(factoryId) {
+    const container = document.getElementById(`factory-params-${factoryId}`);
+    if (!container) return;
+
+    new Sortable(container, {
+      animation: 150,
+      handle: ".drag-handle", 
+      ghostClass: "bg-slate-100",
+      onEnd: function (evt) {
+        const sortedIds = [...container.querySelectorAll('.factory-param-item')].map(el => el.dataset.id);
+        fetch(`/factory/${factoryId}/update-param-order`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            factoryId,
+            order: sortedIds.map(Number),
+          })
+        })
+      }
+    });
+  }
+
+
 </script>
 <script>
   function parseJwt(token) {

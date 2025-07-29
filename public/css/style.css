@@ -43,3 +43,18 @@ h1.text-3xl {
 .hidden {
   visibility: hidden;
 }
+
+.param-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px;
+  background: #fff;
+  border: 1px solid #eee;
+  margin-bottom: 4px;
+  border-radius: 6px;
+  cursor: grab;
+}
+.param-row.dragging {
+  opacity: 0.5;
+}

@@ -26,6 +26,9 @@ export class FactoryParams extends BaseEntity {
   @Column({ type: 'boolean', default: false })
   visible: boolean;
 
+  @Column({ nullable: true })
+  sort: number;
+
   @ManyToOne(() => Factory, (factory) => factory.factoryParams, {
     onDelete: 'CASCADE',
   })

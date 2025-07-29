@@ -101,6 +101,14 @@ export class FactoryService {
       );
     }
   }
+
+  async updateParamOrder(factoryId: number, order: number[]) {
+    for (let i = 0; i < order.length; i++) {
+      await this.factoryParamRepository.update(order[i], { sort: i });
+    }
+    return { success: true };
+  }
+
   async updateFactoryParam(
     params: { id: number; [key: string]: any }[],
   ): Promise<FactoryParams[]> {
@@ -230,7 +238,7 @@ export class FactoryService {
           `latestLog.id = (${latestLogSubQuery.getQuery()})`,
         )
         .orderBy('factory.id', 'DESC')
-        .addOrderBy('factoryParams.id', 'DESC')
+        .addOrderBy('factoryParams.sort', 'ASC')
         .setParameters(latestLogSubQuery.getParameters())
         .where('factory.is_deleted = :is_deleted', {
           is_deleted: query?.filters?.is_deleted ?? false,

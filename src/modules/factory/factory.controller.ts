@@ -1,4 +1,5 @@
 import {
+  Body,
   Controller,
   Get,
   Param,
@@ -197,6 +198,14 @@ export class FactoryController {
     const result = await this.factoryService.updateParam(id, req.body);
 
     return { ok: true, data: result };
+  }
+
+  @Post(':id/update-param-order')
+  async updateParamOrder(
+    @Param('id') id: number,
+    @Body() body: { order: number[] },
+  ) {
+    return this.factoryService.updateParamOrder(+id, body.order);
   }
 
   @Put('param-control/:id')
