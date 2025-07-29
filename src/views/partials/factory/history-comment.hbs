@@ -5,6 +5,18 @@
         <div class="text-start">
           <p class='param-date' data-raw='{{this.date_update}}'></p>
           <h2 class='ms-3 text-sm font-medium'>Izoh: {{this.izoh}}</h2> 
+          {{#if this.files.length}}
+            <div class='mt-2'>
+              <h3 class='text-sm font-medium'>Файллар:</h3>
+              <ul class='list-disc pl-5'>
+                {{#each this.files}}
+                  <li>
+                    <a href="/uploads/factory-param-files/{{this}}" download="{{this}}" target='_blank' class='text-blue-600 hover:underline'>{{this}}</a>
+                  </li>
+                {{/each}}
+              </ul>
+            </div>
+          {{/if}}
           <hr />
           <h1></h1>
         </div>

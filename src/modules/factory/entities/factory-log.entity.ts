@@ -19,6 +19,9 @@ export class FactoryLog extends BaseEntity {
   @Column({ type: 'varchar' })
   value: string;
 
+  @Column('text', { array: true, nullable: true })
+  files: string[];
+
   @Column({ nullable: true })
   izoh: string;
 

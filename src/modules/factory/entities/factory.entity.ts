@@ -7,6 +7,11 @@ export enum FactoryParamStatus {
   CONSTRUCTION = 'CONSTRUCTION',
   STARTED = 'STARTED',
 }
+export enum FactoryImportance {
+  HIGH = 'HIGH',
+  AVERAGE = 'AVERAGE',
+  LOW = 'LOW',
+}
 
 enum MarkerIcon {
   'facory' = 'factory',
@@ -31,6 +36,13 @@ export class Factory extends BaseEntity {
     enum: FactoryParamStatus,
   })
   status: FactoryParamStatus;
+
+  @Column({
+    nullable: true,
+    default: FactoryImportance.AVERAGE,
+    enum: FactoryImportance,
+  })
+  importance: FactoryImportance;
 
   @Column()
   region: string;

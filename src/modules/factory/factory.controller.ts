@@ -263,7 +263,25 @@ export class FactoryController {
   }
 
   @Post('log')
-  async updateFactoryLog(@Req() req: Request) {
+  @UseInterceptors(
+    FilesInterceptor('files', 10, {
+      storage: diskStorage({
+        destination: './uploads/factory-param-files',
+        filename: (req, file, cb) => {
+          const uniqueSuffix =
+            Date.now() + '-' + Math.round(Math.random() * 1e9);
+          cb(null, uniqueSuffix + '-' + file.originalname);
+        },
+      }),
+      limits: { fileSize: 10 * 1024 * 1024 },
+    }),
+  )
+  async updateFactoryLog(
+    @UploadedFiles() files: MulterFile[],
+    @Req() req: Request,
+  ) {
+    const filePaths = files ? files.map((img) => img.filename) : [];
+    req.body.files = filePaths;
     const data = await this.factoryService.addFactoryLog(req.body);
     return { ok: true, data };
   }

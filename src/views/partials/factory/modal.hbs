@@ -6,6 +6,15 @@
     margin-top: 20px;
   }
 
+  @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&display=swap");
+
+  :root {
+    --delayed: #dc3545;
+    --done: #198754;
+    --in-progress: #0d6efd;
+    --draft: #6c757d;
+  }
+
   .image-upload-container {
     border: 2px dashed #cbd5e1;
     border-radius: 8px;
@@ -132,6 +141,18 @@
       <div>
         <label data-tw-merge for='regular-form-1'
           class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>Лойиҳа
+          ахамияти
+        </label>
+        <select id='' name='importance'
+          class='block w-full rounded-md border border-gray-300 bg-white p-2.5 text-base focus:border-blue-500 focus:ring-blue-500 hover:opacity-90'>
+          <option value='HIGH' style="color:#dc2626;">● Юкори</option>
+          <option value='AVERAGE' style="color:#eab308;">● Ўртача</option>
+          <option value='LOW' style="color:#22c55e;">● Пас</option>
+        </select>
+      </div>
+      <div>
+        <label data-tw-merge for='regular-form-1'
+          class='inline-block mb-2 group-[.form-inline]:mb-2 group-[.form-inline]:sm:mb-0 group-[.form-inline]:sm:mr-5 group-[.form-inline]:sm:text-right'>Лойиҳа
           статуси
         </label>
         <select id='' name='status'
@@ -140,28 +161,6 @@
           <option value='CONSTRUCTION'>Қурилиш жараёнида</option>
           <option value='STARTED'>Ишга тушган</option>
         </select>
-
-        <div class='mt-4'>
-          <label class='block mb-2 font-semibold'>Маркер турини танланг:</label>
-          <div class='flex justify-center gap-8'>
-            <label class='flex items-center gap-2 cursor-pointer'>
-              <input type='radio' name='marker_icon' value='factory' {{#if (eq factory.marker_icon "factory")}}checked{{/if}} />
-              <img src='../../../../public/image/factory.png' alt='zavod' class='w-10 h-10' />
-            </label>
-            <label class='flex items-center gap-2 cursor-pointer'>
-              <input type='radio' name='marker_icon' value='mine' {{#if (eq factory.marker_icon "mine")}}checked{{/if}} />
-              <img src='../../../../public/image/mine.png' alt='Suv havzasi' class='w-10 h-10' />
-            </label>
-            <label class='flex items-center gap-2 cursor-pointer'>
-              <input type='radio' name='marker_icon' value='mine-cart' {{#if (eq factory.marker_icon "mine-cart")}}checked{{/if}} />
-              <img src='../../../../public/image/mine-cart.png' alt='Zavod' class='w-10 h-10' />
-            </label>
-            <label class='flex items-center gap-2 cursor-pointer'>
-              <input type='radio' name='marker_icon' value='tmk-marker' {{#if (eq factory.marker_icon "tmk-marker")}}checked{{/if}} />
-              <img src='../../../../public/image/tmk-marker.png' alt='Tmk' class='w-10 h-10' />
-            </label>
-          </div>
-        </div>
       </div>
 
       <div>
@@ -179,9 +178,35 @@
         </div>
         <div id='imagePreview' class='image-preview'></div>
       </div>
+
     </div>
 
     <div class='form-group md:w-1/2'>
+      <div class=''>
+        <label class='block mb-2 font-semibold'>Маркер турини танланг:</label>
+        <div class='flex justify-center gap-8'>
+          <label class='flex items-center gap-2 cursor-pointer'>
+            <input type='radio' name='marker_icon' value='factory' {{#if (eq factory.marker_icon "factory"
+              )}}checked{{/if}} />
+            <img src='../../../../public/image/factory.png' alt='zavod' class='w-10 h-10' />
+          </label>
+          <label class='flex items-center gap-2 cursor-pointer'>
+            <input type='radio' name='marker_icon' value='mine' {{#if (eq factory.marker_icon "mine"
+              )}}checked{{/if}} />
+            <img src='../../../../public/image/mine.png' alt='Suv havzasi' class='w-10 h-10' />
+          </label>
+          <label class='flex items-center gap-2 cursor-pointer'>
+            <input type='radio' name='marker_icon' value='mine-cart' {{#if (eq factory.marker_icon "mine-cart"
+              )}}checked{{/if}} />
+            <img src='../../../../public/image/mine-cart.png' alt='Zavod' class='w-10 h-10' />
+          </label>
+          <label class='flex items-center gap-2 cursor-pointer'>
+            <input type='radio' name='marker_icon' value='tmk-marker' {{#if (eq factory.marker_icon "tmk-marker"
+              )}}checked{{/if}} />
+            <img src='../../../../public/image/tmk-marker.png' alt='Tmk' class='w-10 h-10' />
+          </label>
+        </div>
+      </div>
       <label>🗺️ Лойиҳа жойлашуви <span style='color: red;'>*</span></label>
       <div class='map-info'>
         <strong>Кўрсатма:</strong>
@@ -216,5 +241,4 @@
   </div>
 
 </form>
-
 <script src='https://unpkg.com/maplibre-gl@4.0.0/dist/maplibre-gl.js'></script>
